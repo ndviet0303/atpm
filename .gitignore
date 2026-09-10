@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python & Virtual Environments
+.venv/
+*/.venv/
+__pycache__/
+*.pyc
+
+# Phars & Downloaded Binaries
+*.phar
+study/phpstan.phar

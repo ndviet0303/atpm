@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-09-10T02:44:00Z",
+  "scope": {
+    "target_directory": "study/source/librarian/",
+    "excluded_directories": ["study/source/librarian/vendors/"],
+    "total_target_files": 66,
+    "unparseable_files": [],
+    "parse_rate_percent": 100.0
+  },
+  "tools": [
+    {
+      "name": "Semgrep OSS",
+      "version": "1.176.1",
+      "command": "study/.venv/bin/semgrep scan --config p/php --config p/sql-injection --config p/xss --config study/rules/custom_php_rules.yaml --exclude vendors study/source/librarian/ --json --output study/results/semgrep_raw.json",
+      "exit_code": 2,
+      "exit_code_meaning": "Findings detected with blocking severity rules",
+      "total_findings": 270,
+      "raw_output_file": "study/results/semgrep_raw.json",
+      "rules_breakdown": {
+        "study.rules.php-legacy-mysql-extension (CWE-477)": 147,
+        "study.rules.php-direct-mysql-query-taint (CWE-89)": 54,
+        "php.lang.security.injection.echoed-request.echoed-request (CWE-79)": 42,
+        "php.lang.security.injection.tainted-sql-string.tainted-sql-string (CWE-89)": 26,
+        "study.rules.php-hardcoded-db-credentials (CWE-798)": 1
+      }
+    },
+    {
+      "name": "PHPStan",
+      "version": "2.1.8",
+      "command": "php -d memory_limit=1G study/phpstan.phar analyse -c study/phpstan.neon --error-format=json",
+      "exit_code": 1,
+      "exit_code_meaning": "Analysis finished with file-level errors (missing includes detected)",
+      "total_file_errors": 17,
+      "raw_output_file": "study/results/phpstan_raw.json",
+      "notable_observations": [
+        "Identified missing include: navbar_archive.php in archive.php",
+        "Identified missing include: navbar_dasboard.php in unstudents.php",
+        "Identified missing include: confirm_request.php in unstudents.php",
+        "Identified trailing whitespace at EOF in multiple files",
+        "Type checker did not detect procedural SQL Injection or XSS vulnerabilities"
+      ]
+    }
+  ]
+}

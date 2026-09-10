@@ -1,0 +1,44 @@
+rules:
+  - id: php-legacy-mysql-extension
+    languages: [php]
+    message: "Su dung phan mo rong mysql_* da bi loai bo tu PHP 7.0 (CWE-477: Use of Deprecated Function)."
+    severity: WARNING
+    metadata:
+      cwe: ["CWE-477: Use of Deprecated Function"]
+      category: security
+    pattern-either:
+      - pattern: mysql_connect(...)
+      - pattern: mysql_select_db(...)
+      - pattern: mysql_query(...)
+      - pattern: mysql_fetch_array(...)
+      - pattern: mysql_error(...)
+
+  - id: php-mysql-error-information-disclosure
+    languages: [php]
+    message: "In loi co so du lieu truc tiep ra output qua mysql_error() tiet lo thong tin cau truc CSDL (CWE-209)."
+    severity: WARNING
+    metadata:
+      cwe: ["CWE-209: Generation of Error Message Containing Sensitive Information"]
+      category: security
+    pattern-either:
+      - pattern: die(mysql_error())
+      - pattern: die(mysql_error(...))
+      - pattern: echo mysql_error(...)
+
+  - id: php-direct-mysql-query-taint
+    languages: [php]
+    message: "Truy van CSDL truc tiep bang mysql_query() chua bien ghep chuoi co nguy co SQL Injection (CWE-89)."
+    severity: ERROR
+    metadata:
+      cwe: ["CWE-89: Improper Neutralization of Special Elements used in an SQL Command"]
+      category: security
+    pattern: mysql_query(...)
+
+  - id: php-hardcoded-db-credentials
+    languages: [php]
+    message: "Thong tin xac thuc ket noi CSDL bi hardcode truc tiep trong ma nguon (CWE-798)."
+    severity: ERROR
+    metadata:
+      cwe: ["CWE-798: Use of Hard-coded Credentials"]
+      category: security
+    pattern: mysql_connect('...', '...', '...')

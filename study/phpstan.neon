@@ -1,0 +1,9 @@
+parameters:
+    level: 0
+    paths:
+        - source/librarian
+    excludePaths:
+        - source/librarian/vendors
+    bootstrapFiles:
+        - mysql_stub.php
+    treatPhpDocTypesAsCertain: false
