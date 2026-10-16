@@ -1,0 +1,8 @@
+c authorization_v0
+c 1 grant
+c 2 authenticated
+c 3 role_permitted
+p cnf 3 3
+1 0
+1 0
+-2 -3 0

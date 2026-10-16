@@ -1,0 +1,140 @@
+{
+  "scope": "10 generated cases only; six narrow educational rules",
+  "rule_sha256": "66adcdf43ec0500ba6a6a34f7b50cff6d84da451579ecaadda72a6d3d0ad3fca",
+  "runs": [
+    {
+      "version": "_v0",
+      "command": [
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/.venv/bin/semgrep",
+        "scan",
+        "--metrics",
+        "off",
+        "--jobs",
+        "1",
+        "--no-git-ignore",
+        "--config",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/generated_case_rules.yaml",
+        "--json",
+        "--output",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/generated_v0.json",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/authentication.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/authorization.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/database_query.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/script_output.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/token_crypto.php"
+      ],
+      "exit_code": 0,
+      "semgrep_version": "1.176.1",
+      "errors": [],
+      "findings": 8,
+      "by_rule": {
+        "outputs.bao_cao_thu_vien_20261004.evidence.case-raw-mysql-query": 2,
+        "outputs.bao_cao_thu_vien_20261004.evidence.case-unconditional-authorization": 1,
+        "outputs.bao_cao_thu_vien_20261004.evidence.case-script-concatenation": 1,
+        "outputs.bao_cao_thu_vien_20261004.evidence.case-hardcoded-token-key": 1,
+        "outputs.bao_cao_thu_vien_20261004.evidence.case-static-iv": 1,
+        "outputs.bao_cao_thu_vien_20261004.evidence.case-cbc-without-authentication": 2
+      },
+      "by_file": {
+        "authentication.php": 1,
+        "authorization.php": 1,
+        "database_query.php": 1,
+        "script_output.php": 1,
+        "token_crypto.php": 4
+      },
+      "lint": [
+        {
+          "file": "authentication.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/authentication.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "authorization.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/authorization.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "database_query.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/database_query.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "script_output.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/script_output.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "token_crypto.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v0/token_crypto.php\n",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "version": "_v1",
+      "command": [
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/.venv/bin/semgrep",
+        "scan",
+        "--metrics",
+        "off",
+        "--jobs",
+        "1",
+        "--no-git-ignore",
+        "--config",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/generated_case_rules.yaml",
+        "--json",
+        "--output",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/generated_v1.json",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/authentication.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/authorization.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/database_query.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/script_output.php",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/token_crypto.php"
+      ],
+      "exit_code": 0,
+      "semgrep_version": "1.176.1",
+      "errors": [],
+      "findings": 0,
+      "by_rule": {},
+      "by_file": {},
+      "lint": [
+        {
+          "file": "authentication.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/authentication.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "authorization.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/authorization.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "database_query.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/database_query.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "script_output.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/script_output.php\n",
+          "stderr": ""
+        },
+        {
+          "file": "token_crypto.php",
+          "exit_code": 0,
+          "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/generated_cases/_v1/token_crypto.php\n",
+          "stderr": ""
+        }
+      ]
+    }
+  ],
+  "limits": "Zero selected rule hits is not proof of application security or cryptographic correctness."
+}

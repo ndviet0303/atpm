@@ -1,0 +1,9 @@
+c 1 executed
+c 2 all_bound
+c 3 bound_category_id
+p cnf 3 5
+-2 3 0
+2 -3 0
+1 0
+3 0
+-2 0

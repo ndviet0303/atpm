@@ -1,0 +1,40 @@
+{
+  "baseline_upstream": "https://github.com/vinitshahdeo/Library-Management-System",
+  "baseline_commit": "082d6fb9bdd7846b57033513791ba5b6d2095c11",
+  "scope": "66 direct PHP files in librarian and db/eb_lms.sql; assets/vendor excluded",
+  "group": 13,
+  "members": [
+    {
+      "name": "Nguyễn Duy Minh",
+      "student_id": "23010359"
+    },
+    {
+      "name": "Đặng Nhất Nhất",
+      "student_id": "23010345"
+    },
+    {
+      "name": "Nghiêm Đức Việt",
+      "student_id": "23010636"
+    }
+  ],
+  "primary_guide": "BTL_02_HuongDan_BaoCao.pdf",
+  "class_semester": "Not supplied",
+  "inputs_sha256": {
+    "Template_Report_iot_gateway_auth.docx": "a34dbe4ce43ecdd2458e40115c2def347651a11e6097e92533de976b782cf3a6",
+    "Template_Software_Security_iot_gateway_spec.xlsx": "5ad6750b84485f8315c55d536f651e5100187fe76a60b70434e4e57359c52657",
+    "BTL_02_HuongDan_BaoCao.pdf": "fc123d0bd751fe528d9ff66631397b42bc1ebfe53bdc47bb7234dd19d32628e9",
+    "report_guide.pdf": "b07136783c9531172a5cf7aa733b97e14f450fab2fbe6473de7d2fe7e3d48ab5"
+  },
+  "original_source_modified": false,
+  "generated_cases_patched_into_baseline": false,
+  "revision": "Individual SQL and SAT/SMT cases added on 2026-10-05",
+  "case_counts": {
+    "overview_cases": 22,
+    "sql_source_cases": 54,
+    "sat_cases": 178,
+    "smt_cases": 562,
+    "total_cases": 816,
+    "sql_field_occurrences": 92
+  },
+  "application_database_http_executed": false
+}

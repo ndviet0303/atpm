@@ -1,0 +1,143 @@
+{
+  "checked_at": "2026-10-04T17:53:11.818085+00:00",
+  "objective": "clean lại báo cáo và đầy đủ hơn, viết chi tiết nhé",
+  "previous_goal_turn_classification": "progress: closing-case pagination corrected; final DOCX/PDF rendered and visually verified; submission package rebuilt",
+  "requirements": [
+    {
+      "id": "R01",
+      "requirement": "Ưu tiên hướng dẫn BTL môn An toàn phần mềm; đủ 7 phần; 10–20 trang chính",
+      "status": "proven",
+      "coverage": "Bìa và mục lục; phần 2–7; 17 trang chính",
+      "evidence": "PDF trang 1–19; evidence/final_quality_check.json"
+    },
+    {
+      "id": "R02",
+      "requirement": "Bìa đúng Nhóm 13, tên và MSSV; không tự điền thông tin chưa có",
+      "status": "proven",
+      "coverage": "Bìa và mục 7.2",
+      "evidence": "PDF trang 1,18; provenance.json"
+    },
+    {
+      "id": "R03",
+      "requirement": "Tiếng Việt, định dạng nhất quán, sơ đồ và mục lục đúng trang",
+      "status": "proven",
+      "coverage": "Phần 3 có hình kiến trúc; toàn bộ 172 trang đã xem; mục lục tự động có cache đối chiếu PDF",
+      "evidence": "DOCX; PDF; evidence/final_quality_check.json"
+    },
+    {
+      "id": "R04",
+      "requirement": "Đọc mã nguồn thư viện hiện tại và xác định phạm vi",
+      "status": "proven",
+      "coverage": "66 PHP giữ nguyên SHA-256, schema, LICENSE; 2.978 dòng; chỉ phân hệ librarian",
+      "evidence": "source_v0; evidence/source_inventory.json; evidence/static_summary.json"
+    },
+    {
+      "id": "R05",
+      "requirement": "Phân tích xác thực đăng nhập, phân quyền và đường đi dữ liệu",
+      "status": "proven",
+      "coverage": "Phần 4.4–4.5 và 5.2; mã trước/sau authentication và authorization",
+      "evidence": "PDF trang 7,11; generated_cases/_v0,_v1; SATChiTiet"
+    },
+    {
+      "id": "R06",
+      "requirement": "Tách từng truy vấn SQL và từng đầu vào",
+      "status": "proven",
+      "coverage": "54 SQL trong 37 tệp; 92 field; đối chiếu mọi trường trong các sheet chi tiết với inventory",
+      "evidence": "Phụ lục G; SQLTruyVan; SQLDauVao; evidence/sql_inventory.json"
+    },
+    {
+      "id": "R07",
+      "requirement": "Phân tích script encoding và encryption/token đúng bản chất",
+      "status": "proven",
+      "coverage": "Phần 4.6,5.3,5.4; phân biệt Base64, encoding script, hash mật khẩu và AEAD",
+      "evidence": "PDF trang 8,12,13; generated_cases/_v0,_v1/script_output.php và token_crypto.php"
+    },
+    {
+      "id": "R08",
+      "requirement": "Token có thuộc tính mật mã, độ dài và secret key",
+      "status": "proven",
+      "coverage": "Key32/nonce12/tag16 byte; TTL1800 giây; constants trong mã khớp mô hình; nguồn khóa và giới hạn quản trị được nêu",
+      "evidence": "PDF trang 8,13; evidence/formal_results.json; token_crypto.php"
+    },
+    {
+      "id": "R09",
+      "requirement": "Sinh mã cho các chức năng và từng SQL; có trước/sau",
+      "status": "proven",
+      "coverage": "5 cặp chức năng,54 cặp SQL và helper:119 PHP; chỉ lint/SAST, chưa tích hợp vào baseline",
+      "evidence": "generated_cases; HamSinhMa; evidence/generated_static_results.json; evidence/sql_static_results.json"
+    },
+    {
+      "id": "R10",
+      "requirement": "Từng case DPLL/SAT có công thức, kỳ vọng, kết quả và phản ví dụ/trace",
+      "status": "proven",
+      "coverage": "178 case; mọi hàng SATChiTiet khớp biến,CNF,predicate,expected,actual,witness,trace và đường bằng chứng",
+      "evidence": "Phụ lục G,H; SATChiTiet; evidence/formal; evidence/sql_formal"
+    },
+    {
+      "id": "R11",
+      "requirement": "Từng case SMT/Z3 có miền, guard, input, kỳ vọng và kết quả",
+      "status": "proven",
+      "coverage": "562 case; mọi hàng SMTChiTiet khớp policy,predicate,input,expected,actual,model và bằng chứng",
+      "evidence": "Phụ lục G,H; SMTChiTiet; evidence/formal_results.json; evidence/sql_case_results.json"
+    },
+    {
+      "id": "R12",
+      "requirement": "Chạy công cụ thật trong phạm vi static testing",
+      "status": "proven",
+      "coverage": "Raw Semgrep 322/322,exit0,errors0; lint/SAST và kết quả solver đã lưu; không chạy ứng dụng,CSDL hay HTTP",
+      "evidence": "evidence/sast_manifest.json; semgrep_run1/2.json; expanded_validation.json; portability_check.json"
+    },
+    {
+      "id": "R13",
+      "requirement": "Kết quả có bằng chứng, CWE, nguyên nhân và mức ưu tiên; không dùng số hit/case làm số lỗi",
+      "status": "proven",
+      "coverage": "Phần 5 phân tích11 nhóm; SQL hằng/HTTP/DB tách riêng; 816 hồ sơ gồm22 tổng hợp",
+      "evidence": "PDF trang 10–16; TestCase; evidence/case_register.json"
+    },
+    {
+      "id": "R14",
+      "requirement": "Thảo luận giới hạn, tài liệu tham khảo và công bố hỗ trợ AI",
+      "status": "proven",
+      "coverage": "Phần 6,7.2,7.4; mô hình guard thủ công; chưa chứng minh AES/entropy/replay; baseline chưa vá",
+      "evidence": "PDF trang 17–19; README.md"
+    },
+    {
+      "id": "R15",
+      "requirement": "Có thể tra cứu và tái lập, nộp đủ PDF/Word/Excel/mã/kết quả",
+      "status": "proven",
+      "coverage": "README có lệnh tái lập; bản sao độc lập đã khớp; source,models,raw output và manifest trong ZIP theo tên/MSSV",
+      "evidence": "README.md; evidence/expanded_validation.json; evidence/portability_check.json; checksums.json"
+    }
+  ],
+  "detail_rows_compared": {
+    "TestCase": 816,
+    "SQLTruyVan": 54,
+    "SQLDauVao": 92,
+    "SATChiTiet": 178,
+    "SMTChiTiet": 562
+  },
+  "detail_cells_compared": 18840,
+  "case_counts": {
+    "overview_cases": 22,
+    "sql_source_cases": 54,
+    "sat_cases": 178,
+    "smt_cases": 562,
+    "total_cases": 816,
+    "sql_field_occurrences": 92
+  },
+  "raw_semgrep_runs_verified": 2,
+  "source_hashes_verified": 66,
+  "report_artifact_hashes": {
+    "Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf": "60405ed125158272a76f632ee0546f06fcbf81056e3ac0980a42c7b4fab0fb52",
+    "Nhom_13_Bao_cao_Static_Testing_Thu_vien.docx": "a093ffbdbf55e4c8ee88d9e61c4a233a15ea3feaa53475f634c42096602d1e89",
+    "Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx": "b34d20bb83a8cab371ae6b97cf88b177d8565d07bf115ad3f7be0bb7b1c597be"
+  },
+  "application_database_http_executed": false,
+  "required_work_remaining": [],
+  "explicit_constraints": [
+    "Mã lớp và học kỳ chưa được cung cấp; giữ thông báo rõ trên bìa.",
+    "Phân công cá nhân chưa được cung cấp; không tự gán đóng góp.",
+    "RBAC,TTL và một số cận nghiệp vụ là chính sách đề xuất; chưa phải SRS upstream.",
+    "Mô hình guard thủ công; kết quả SMT không là chứng minh mật mã hoặc toàn bộ hành vi PHP."
+  ]
+}

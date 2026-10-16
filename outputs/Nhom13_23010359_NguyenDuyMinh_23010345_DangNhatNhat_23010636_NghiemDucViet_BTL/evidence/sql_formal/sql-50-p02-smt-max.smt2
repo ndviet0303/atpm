@@ -1,0 +1,16 @@
+; benchmark generated from python API
+(set-info :status unknown)
+(declare-fun sql_50_p02_text () String)
+(declare-fun sql_50_p02_format_ok () Bool)
+(declare-fun sql_50_p02_type_ok () Bool)
+(declare-fun sql_50_p02_present () Bool)
+(declare-fun sql_50_p02_accepted () Bool)
+(assert
+ (let (($x142 (and sql_50_p02_present sql_50_p02_type_ok sql_50_p02_format_ok (>= (str.len sql_50_p02_text) 0) (<= (str.len sql_50_p02_text) 100))))
+ (= sql_50_p02_accepted $x142)))
+(assert
+ sql_50_p02_accepted)
+(assert
+ (let ((?x40 (str.len sql_50_p02_text)))
+(= ?x40 101)))
+(check-sat)

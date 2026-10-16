@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-10-04T10:40:58.974500+00:00",
+  "method": "Standalone temporary copy using source_v0 fallback; original evidence not overwritten",
+  "source": "source_v0/librarian",
+  "records": [
+    {
+      "script": "evidence/collect_static.py",
+      "exit_code": 0,
+      "seconds": 4.174
+    },
+    {
+      "script": "evidence/run_sast.py",
+      "exit_code": 0,
+      "seconds": 6.743
+    },
+    {
+      "script": "evidence/run_generated_static.py",
+      "exit_code": 0,
+      "seconds": 3.909
+    },
+    {
+      "script": "models/run_models.py",
+      "exit_code": 0,
+      "seconds": 0.125
+    },
+    {
+      "script": "evidence/auth_model.py",
+      "exit_code": 0,
+      "seconds": 0.024
+    },
+    {
+      "tool": "PHPStan",
+      "exit_code": 1,
+      "messages": 17,
+      "files": 16,
+      "seconds": 1.311
+    }
+  ],
+  "results": {
+    "php_lint": 66,
+    "php_lines": 2978,
+    "semgrep_hits_per_run": [
+      322,
+      322
+    ],
+    "semgrep_repeatable": true,
+    "generated_hits": [
+      8,
+      0
+    ],
+    "formal": {
+      "boolean_cases": 16,
+      "boolean_crosschecks_passed": 16,
+      "smt_cases": 10,
+      "smt_expected_passed": 10
+    },
+    "phpstan_messages": 17
+  },
+  "application_database_http_executed": false,
+  "dependency_setup": "Existing verified local tool runtimes supplied through SEMGREP_BIN, SSL_CERT_FILE and Z3_DEPS; no installation or network downloads"
+}

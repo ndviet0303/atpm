@@ -19,6 +19,8 @@ Dự án thực nghiệm học phần **An toàn phần mềm**: Áp dụng phư
 atpm/
 ├── README.md                      # Giới thiệu tổng quan dự án
 ├── .gitignore                     # Bỏ qua môi trường ảo và tệp nhị phân
+├── run.sh                         # Tái lập lần quét hợp lệ (322 cảnh báo) + PHPStan
+├── outputs/Nhom13_..._BTL/        # Gói nộp: báo cáo PDF/Word, Excel, bằng chứng, mã sinh, mô hình
 ├── openspec/                      # Quản lý vòng đời đặc tả nghiên cứu (OpenSpec)
 │   └── changes/archive/           # Artifacts nghiên cứu đã hoàn thành và lưu trữ
 └── study/                         # Toàn bộ hồ sơ nghiên cứu và sản phẩm thực nghiệm
@@ -38,6 +40,8 @@ atpm/
 
 ## 3. Tóm tắt Kết quả Nghiên cứu
 
+> **Lưu ý về số liệu (270 và 322).** Mục này và các tệp trong `study/` ghi lại lần quét lịch sử ngày 10/09/2026: 270 cảnh báo, nhưng Semgrep trả mã thoát 2 vì rule CWE-209 trong `study/rules/custom_php_rules.yaml` lỗi parse (pattern `echo mysql_error(...)` thiếu dấu `;`), nên rule đó không chạy và thiếu đúng 52 hit. Báo cáo nộp dùng lần quét hợp lệ ngày 04/10/2026: snapshot 24 rule registry + 4 rule tùy biến đã sửa, **322 cảnh báo**, mã thoát 0, trường `errors` rỗng, hai lần quét trùng 322/322 chữ ký. Khi thẩm định lại, checklist tăng từ 25 lên 27 tiêu chí và số handler thiếu kiểm tra phiên từ 8 lên 12. Gói nộp đầy đủ nằm ở `outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/`; lệnh và `check_id` trong `evidence/sast_manifest.json` mang tên thư mục làm việc `outputs/bao_cao_thu_vien_20261004/` (bản trùng, không commit), số đếm không đổi.
+
 - **Quy mô phân hệ:** 66 tệp PHP, 2,978 dòng vật lý, **2,551 dòng mã thực tế (SLOC)**.
 - **Cảnh báo thô (Raw Alerts):** 270 cảnh báo từ Semgrep OSS 1.176.1 + 17 lỗi tệp từ PHPStan.
 - **Phát hiện xác nhận tĩnh (`confirmed-static`):** **11 nhóm phát hiện kỹ thuật**:
@@ -53,24 +57,12 @@ atpm/
 
 ## 4. Hướng dẫn Tái lập Kết quả (Reproducibility)
 
-Yêu cầu môi trường: Python 3.10+, pip, bash.
+Yêu cầu môi trường: Python 3.10+, bash; thêm PHP và `study/phpstan.phar` nếu muốn chạy cả PHPStan (thiếu thì script bỏ qua bước này).
 
 ```bash
-# 1. Tạo môi trường ảo và cài đặt Semgrep OSS
-python3 -m venv .venv
-source .venv/bin/activate
-pip install semgrep==1.176.1
-
-# 2. Thực hiện quét trên phân hệ thủ thư
-semgrep scan \
-  --config "p/php" \
-  --config "p/sql-injection" \
-  --config "p/xss" \
-  --config study/rules/custom_php_rules.yaml \
-  --exclude 'vendors' \
-  study/source/librarian/ \
-  --json --output results.json
-
-# 3. Kiểm tra số lượng phát hiện (kỳ vọng: 270 cảnh báo)
-python3 -c "import json; res = json.load(open('results.json')); print('Total findings:', len(res['results']))"
+./run.sh
 ```
+
+Kỳ vọng: `Semgrep: 322 cảnh báo, mã thoát 0, 0 lỗi công cụ` và `PHPStan: 17 thông báo`. Script tự tạo `study/.venv` với Semgrep 1.176.1, quét 66 tệp `study/source/librarian/*.php` bằng bộ rule đóng băng trong `evidence/` của gói nộp, ghi kết quả vào `run_output/` và trả mã khác 0 nếu lệch.
+
+Lần quét lịch sử 270 cảnh báo dùng `--config p/php --config p/sql-injection --config p/xss --config study/rules/custom_php_rules.yaml`; chạy lại lệnh đó có thể ra số khác vì registry thay đổi theo thời gian.

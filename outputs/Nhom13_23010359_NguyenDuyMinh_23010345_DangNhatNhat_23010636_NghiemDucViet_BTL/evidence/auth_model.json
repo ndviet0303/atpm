@@ -1,0 +1,72 @@
+{
+  "scope": "Manually derived authorization abstraction; no application execution",
+  "initial_state": "unauthenticated",
+  "states": {
+    "unauthenticated": [
+      "denied",
+      "authenticated",
+      "unauthorized_write"
+    ],
+    "denied": [
+      "denied"
+    ],
+    "authenticated": [
+      "authorized_write"
+    ],
+    "authorized_write": [
+      "authorized_write"
+    ],
+    "unauthorized_write": [
+      "unauthorized_write"
+    ]
+  },
+  "labels": {
+    "unauthenticated": [],
+    "denied": [
+      "denied"
+    ],
+    "authenticated": [
+      "authenticated"
+    ],
+    "authorized_write": [
+      "authenticated",
+      "write"
+    ],
+    "unauthorized_write": [
+      "write",
+      "violation"
+    ]
+  },
+  "reachable": [
+    "authenticated",
+    "authorized_write",
+    "denied",
+    "unauthenticated",
+    "unauthorized_write"
+  ],
+  "results": [
+    {
+      "formula": "AG(write -> authenticated)",
+      "initial_satisfies": false,
+      "counterexample": [
+        "unauthenticated",
+        "unauthorized_write"
+      ]
+    },
+    {
+      "formula": "EF(denied)",
+      "initial_satisfies": true
+    },
+    {
+      "formula": "EF(authenticated)",
+      "initial_satisfies": true
+    }
+  ],
+  "deadlocks_in_abstraction": [],
+  "source_refs": [
+    "session.php:5-7",
+    "delete_user.php:2-6",
+    "login.php:10-12"
+  ],
+  "limits": "Assumes direct endpoint reachability and successful database statements; excludes server rules, SQL failures, actual concurrency and deployment policy."
+}

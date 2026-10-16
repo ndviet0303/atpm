@@ -11,3 +11,10 @@ __pycache__/
 # Phars & Downloaded Binaries
 *.phar
 study/phpstan.phar
+
+# Kết quả ./run.sh
+run_output/
+
+# Bản làm việc trùng và bản nén của gói outputs/Nhom13_..._BTL
+outputs/bao_cao_thu_vien_20261004/
+outputs/*.zip

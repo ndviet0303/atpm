@@ -1,0 +1,23 @@
+[
+  {
+    "url": "https://semgrep.dev/c/p/php",
+    "file": "registry_php.yaml",
+    "bytes": 60552,
+    "sha256": "af4288989b03252843b472f8812d585e37f9a9b01d2a7fb736d1c883696970a2",
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://semgrep.dev/c/p/sql-injection",
+    "file": "registry_sql-injection.yaml",
+    "bytes": 138893,
+    "sha256": "3626e21e7342eb1fae3006984f817d3a7cc7ad4bfcf192babd68623131a23212",
+    "content_type": "application/json"
+  },
+  {
+    "url": "https://semgrep.dev/c/p/xss",
+    "file": "registry_xss.yaml",
+    "bytes": 103741,
+    "sha256": "20e597c3e0c1dcae8e106b61265fcf564e56ecd5f1ee9b6fd902b07898565c3c",
+    "content_type": "application/json"
+  }
+]

@@ -1,0 +1,497 @@
+{
+  "timestamp": "2026-10-04T16:26:52.927712+07:00",
+  "scan_runs": [
+    {
+      "run": 1,
+      "command": [
+        "study/.venv/bin/semgrep",
+        "scan",
+        "--metrics",
+        "off",
+        "--jobs",
+        "1",
+        "--no-git-ignore",
+        "--config",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/frozen_registry_php_rules.json",
+        "--config",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/custom_php_rules_corrected.yaml",
+        "--json",
+        "--output",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/semgrep_run1.json",
+        "study/source/librarian/add_books.php",
+        "study/source/librarian/add_member.php",
+        "study/source/librarian/add_student.php",
+        "study/source/librarian/advance_search.php",
+        "study/source/librarian/archive.php",
+        "study/source/librarian/books.php",
+        "study/source/librarian/books_save.php",
+        "study/source/librarian/borrow.php",
+        "study/source/librarian/borrow_save.php",
+        "study/source/librarian/borrowname.php",
+        "study/source/librarian/damage.php",
+        "study/source/librarian/dashboard.php",
+        "study/source/librarian/dbcon.php",
+        "study/source/librarian/delete_book_modal.php",
+        "study/source/librarian/delete_books.php",
+        "study/source/librarian/delete_member.php",
+        "study/source/librarian/delete_member_modal.php",
+        "study/source/librarian/delete_student.php",
+        "study/source/librarian/delete_student_modal.php",
+        "study/source/librarian/delete_user.php",
+        "study/source/librarian/delete_user_modal.php",
+        "study/source/librarian/dropdown.php",
+        "study/source/librarian/edit_book.php",
+        "study/source/librarian/edit_member.php",
+        "study/source/librarian/edit_student.php",
+        "study/source/librarian/footer.php",
+        "study/source/librarian/footer2.php",
+        "study/source/librarian/header.php",
+        "study/source/librarian/index.php",
+        "study/source/librarian/login.php",
+        "study/source/librarian/logout.php",
+        "study/source/librarian/lost.php",
+        "study/source/librarian/member.php",
+        "study/source/librarian/member_save.php",
+        "study/source/librarian/modal_add_user.php",
+        "study/source/librarian/modal_edit_user.php",
+        "study/source/librarian/modal_return.php",
+        "study/source/librarian/navbar.php",
+        "study/source/librarian/navbar2.php",
+        "study/source/librarian/navbar_books.php",
+        "study/source/librarian/navbar_borrow.php",
+        "study/source/librarian/navbar_dashboard.php",
+        "study/source/librarian/navbar_member.php",
+        "study/source/librarian/navbar_transaction.php",
+        "study/source/librarian/navbar_user.php",
+        "study/source/librarian/new_books.php",
+        "study/source/librarian/old_books.php",
+        "study/source/librarian/return.php",
+        "study/source/librarian/return_save.php",
+        "study/source/librarian/returnname.php",
+        "study/source/librarian/search_form.php",
+        "study/source/librarian/session.php",
+        "study/source/librarian/slider.php",
+        "study/source/librarian/student_save.php",
+        "study/source/librarian/sub_rep.php",
+        "study/source/librarian/tooltip.php",
+        "study/source/librarian/toolttip_edit_delete.php",
+        "study/source/librarian/transaction.php",
+        "study/source/librarian/unreturned_books.php",
+        "study/source/librarian/unstudents.php",
+        "study/source/librarian/update_books.php",
+        "study/source/librarian/update_member.php",
+        "study/source/librarian/update_students.php",
+        "study/source/librarian/users.php",
+        "study/source/librarian/view_borrow.php",
+        "study/source/librarian/view_return.php"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 4.744,
+      "version": "1.176.1",
+      "result_count": 322,
+      "errors": [],
+      "scanned_file_count": 66,
+      "counts_by_rule": {
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-direct-mysql-query-taint": 54,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-legacy-mysql-extension": 147,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php.lang.security.injection.tainted-sql-string.tainted-sql-string": 26,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-mysql-error-information-disclosure": 52,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php.lang.security.injection.echoed-request.echoed-request": 42,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-hardcoded-db-credentials": 1
+      }
+    },
+    {
+      "run": 2,
+      "command": [
+        "study/.venv/bin/semgrep",
+        "scan",
+        "--metrics",
+        "off",
+        "--jobs",
+        "1",
+        "--no-git-ignore",
+        "--config",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/frozen_registry_php_rules.json",
+        "--config",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/custom_php_rules_corrected.yaml",
+        "--json",
+        "--output",
+        "/Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/bao_cao_thu_vien_20261004/evidence/semgrep_run2.json",
+        "study/source/librarian/add_books.php",
+        "study/source/librarian/add_member.php",
+        "study/source/librarian/add_student.php",
+        "study/source/librarian/advance_search.php",
+        "study/source/librarian/archive.php",
+        "study/source/librarian/books.php",
+        "study/source/librarian/books_save.php",
+        "study/source/librarian/borrow.php",
+        "study/source/librarian/borrow_save.php",
+        "study/source/librarian/borrowname.php",
+        "study/source/librarian/damage.php",
+        "study/source/librarian/dashboard.php",
+        "study/source/librarian/dbcon.php",
+        "study/source/librarian/delete_book_modal.php",
+        "study/source/librarian/delete_books.php",
+        "study/source/librarian/delete_member.php",
+        "study/source/librarian/delete_member_modal.php",
+        "study/source/librarian/delete_student.php",
+        "study/source/librarian/delete_student_modal.php",
+        "study/source/librarian/delete_user.php",
+        "study/source/librarian/delete_user_modal.php",
+        "study/source/librarian/dropdown.php",
+        "study/source/librarian/edit_book.php",
+        "study/source/librarian/edit_member.php",
+        "study/source/librarian/edit_student.php",
+        "study/source/librarian/footer.php",
+        "study/source/librarian/footer2.php",
+        "study/source/librarian/header.php",
+        "study/source/librarian/index.php",
+        "study/source/librarian/login.php",
+        "study/source/librarian/logout.php",
+        "study/source/librarian/lost.php",
+        "study/source/librarian/member.php",
+        "study/source/librarian/member_save.php",
+        "study/source/librarian/modal_add_user.php",
+        "study/source/librarian/modal_edit_user.php",
+        "study/source/librarian/modal_return.php",
+        "study/source/librarian/navbar.php",
+        "study/source/librarian/navbar2.php",
+        "study/source/librarian/navbar_books.php",
+        "study/source/librarian/navbar_borrow.php",
+        "study/source/librarian/navbar_dashboard.php",
+        "study/source/librarian/navbar_member.php",
+        "study/source/librarian/navbar_transaction.php",
+        "study/source/librarian/navbar_user.php",
+        "study/source/librarian/new_books.php",
+        "study/source/librarian/old_books.php",
+        "study/source/librarian/return.php",
+        "study/source/librarian/return_save.php",
+        "study/source/librarian/returnname.php",
+        "study/source/librarian/search_form.php",
+        "study/source/librarian/session.php",
+        "study/source/librarian/slider.php",
+        "study/source/librarian/student_save.php",
+        "study/source/librarian/sub_rep.php",
+        "study/source/librarian/tooltip.php",
+        "study/source/librarian/toolttip_edit_delete.php",
+        "study/source/librarian/transaction.php",
+        "study/source/librarian/unreturned_books.php",
+        "study/source/librarian/unstudents.php",
+        "study/source/librarian/update_books.php",
+        "study/source/librarian/update_member.php",
+        "study/source/librarian/update_students.php",
+        "study/source/librarian/users.php",
+        "study/source/librarian/view_borrow.php",
+        "study/source/librarian/view_return.php"
+      ],
+      "exit_code": 0,
+      "duration_seconds": 2.92,
+      "version": "1.176.1",
+      "result_count": 322,
+      "errors": [],
+      "scanned_file_count": 66,
+      "counts_by_rule": {
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-direct-mysql-query-taint": 54,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-legacy-mysql-extension": 147,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php.lang.security.injection.tainted-sql-string.tainted-sql-string": 26,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-mysql-error-information-disclosure": 52,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php.lang.security.injection.echoed-request.echoed-request": 42,
+        "outputs.bao_cao_thu_vien_20261004.evidence.php-hardcoded-db-credentials": 1
+      }
+    }
+  ],
+  "repeatability": {
+    "only_run1": 0,
+    "only_run2": 0,
+    "identical": true,
+    "signature_count": 322
+  },
+  "php_registry_rule_count": 24,
+  "custom_rule_count": 4,
+  "registry_packs": [
+    {
+      "package": "php",
+      "new_php_rules": 24
+    },
+    {
+      "package": "sql-injection",
+      "new_php_rules": 0
+    },
+    {
+      "package": "xss",
+      "new_php_rules": 0
+    }
+  ],
+  "source_unchanged": true,
+  "source_checks": [
+    {
+      "file": "add_books.php",
+      "matches": true
+    },
+    {
+      "file": "add_member.php",
+      "matches": true
+    },
+    {
+      "file": "add_student.php",
+      "matches": true
+    },
+    {
+      "file": "advance_search.php",
+      "matches": true
+    },
+    {
+      "file": "archive.php",
+      "matches": true
+    },
+    {
+      "file": "books.php",
+      "matches": true
+    },
+    {
+      "file": "books_save.php",
+      "matches": true
+    },
+    {
+      "file": "borrow.php",
+      "matches": true
+    },
+    {
+      "file": "borrow_save.php",
+      "matches": true
+    },
+    {
+      "file": "borrowname.php",
+      "matches": true
+    },
+    {
+      "file": "damage.php",
+      "matches": true
+    },
+    {
+      "file": "dashboard.php",
+      "matches": true
+    },
+    {
+      "file": "dbcon.php",
+      "matches": true
+    },
+    {
+      "file": "delete_book_modal.php",
+      "matches": true
+    },
+    {
+      "file": "delete_books.php",
+      "matches": true
+    },
+    {
+      "file": "delete_member.php",
+      "matches": true
+    },
+    {
+      "file": "delete_member_modal.php",
+      "matches": true
+    },
+    {
+      "file": "delete_student.php",
+      "matches": true
+    },
+    {
+      "file": "delete_student_modal.php",
+      "matches": true
+    },
+    {
+      "file": "delete_user.php",
+      "matches": true
+    },
+    {
+      "file": "delete_user_modal.php",
+      "matches": true
+    },
+    {
+      "file": "dropdown.php",
+      "matches": true
+    },
+    {
+      "file": "edit_book.php",
+      "matches": true
+    },
+    {
+      "file": "edit_member.php",
+      "matches": true
+    },
+    {
+      "file": "edit_student.php",
+      "matches": true
+    },
+    {
+      "file": "footer.php",
+      "matches": true
+    },
+    {
+      "file": "footer2.php",
+      "matches": true
+    },
+    {
+      "file": "header.php",
+      "matches": true
+    },
+    {
+      "file": "index.php",
+      "matches": true
+    },
+    {
+      "file": "login.php",
+      "matches": true
+    },
+    {
+      "file": "logout.php",
+      "matches": true
+    },
+    {
+      "file": "lost.php",
+      "matches": true
+    },
+    {
+      "file": "member.php",
+      "matches": true
+    },
+    {
+      "file": "member_save.php",
+      "matches": true
+    },
+    {
+      "file": "modal_add_user.php",
+      "matches": true
+    },
+    {
+      "file": "modal_edit_user.php",
+      "matches": true
+    },
+    {
+      "file": "modal_return.php",
+      "matches": true
+    },
+    {
+      "file": "navbar.php",
+      "matches": true
+    },
+    {
+      "file": "navbar2.php",
+      "matches": true
+    },
+    {
+      "file": "navbar_books.php",
+      "matches": true
+    },
+    {
+      "file": "navbar_borrow.php",
+      "matches": true
+    },
+    {
+      "file": "navbar_dashboard.php",
+      "matches": true
+    },
+    {
+      "file": "navbar_member.php",
+      "matches": true
+    },
+    {
+      "file": "navbar_transaction.php",
+      "matches": true
+    },
+    {
+      "file": "navbar_user.php",
+      "matches": true
+    },
+    {
+      "file": "new_books.php",
+      "matches": true
+    },
+    {
+      "file": "old_books.php",
+      "matches": true
+    },
+    {
+      "file": "return.php",
+      "matches": true
+    },
+    {
+      "file": "return_save.php",
+      "matches": true
+    },
+    {
+      "file": "returnname.php",
+      "matches": true
+    },
+    {
+      "file": "search_form.php",
+      "matches": true
+    },
+    {
+      "file": "session.php",
+      "matches": true
+    },
+    {
+      "file": "slider.php",
+      "matches": true
+    },
+    {
+      "file": "student_save.php",
+      "matches": true
+    },
+    {
+      "file": "sub_rep.php",
+      "matches": true
+    },
+    {
+      "file": "tooltip.php",
+      "matches": true
+    },
+    {
+      "file": "toolttip_edit_delete.php",
+      "matches": true
+    },
+    {
+      "file": "transaction.php",
+      "matches": true
+    },
+    {
+      "file": "unreturned_books.php",
+      "matches": true
+    },
+    {
+      "file": "unstudents.php",
+      "matches": true
+    },
+    {
+      "file": "update_books.php",
+      "matches": true
+    },
+    {
+      "file": "update_member.php",
+      "matches": true
+    },
+    {
+      "file": "update_students.php",
+      "matches": true
+    },
+    {
+      "file": "users.php",
+      "matches": true
+    },
+    {
+      "file": "view_borrow.php",
+      "matches": true
+    },
+    {
+      "file": "view_return.php",
+      "matches": true
+    }
+  ],
+  "rule_file_sha256": {
+    "frozen_registry_php_rules.json": "a1b9b9e96f3377860e7f9e37a729ef140f0e51aa0ac43ab5f80742aa6146335d",
+    "custom_php_rules_corrected.yaml": "8e07a286e0bea1ff8e7960e29e06d52deea8b0379747939fa7de73ac51142764"
+  },
+  "original_rule_change": "Added final semicolon to echo mysql_error(...); in a copied configuration only."
+}

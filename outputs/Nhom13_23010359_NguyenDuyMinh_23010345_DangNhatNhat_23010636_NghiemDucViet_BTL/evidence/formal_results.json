@@ -1,0 +1,962 @@
+{
+  "timestamp": "2026-10-04T09:56:31.223401+00:00",
+  "z3_version": "Z3 5.1.0.0",
+  "model_kind": "Manual abstraction of selected guards and policies; not automatic PHP semantics",
+  "assumptions": [
+    "Prepared parameter binding isolates values from SQL syntax in the declared PDO environment.",
+    "password_verify correctly implements the password-valid predicate.",
+    "Server-side session values and role policy are trusted.",
+    "OpenSSL tag verification, JSON serialization and random_bytes are trusted primitives.",
+    "Models do not prove entropy, cipher security, unique nonces, replay protection or complete application security."
+  ],
+  "boolean_cases": [
+    {
+      "id": "authentication_v0",
+      "purpose": "Cấp đăng nhập khi mật khẩu không hợp lệ",
+      "source": "generated_cases/_v0/authentication.php",
+      "variables": {
+        "1": "grant",
+        "2": "row_exists",
+        "3": "password_valid"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          1,
+          -2
+        ],
+        [
+          1
+        ],
+        [
+          -3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": -3
+        }
+      ],
+      "witness": {
+        "grant": true,
+        "row_exists": true,
+        "password_valid": false
+      }
+    },
+    {
+      "id": "authentication_v1",
+      "purpose": "Cấp đăng nhập khi mật khẩu không hợp lệ",
+      "source": "generated_cases/_v1/authentication.php",
+      "variables": {
+        "1": "grant",
+        "2": "row_exists",
+        "3": "password_valid"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          3
+        ],
+        [
+          1,
+          -2,
+          -3
+        ],
+        [
+          1
+        ],
+        [
+          -3
+        ]
+      ],
+      "dpll": "UNSAT",
+      "z3_sat": "UNSAT",
+      "truth_table": "UNSAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "conflict"
+        }
+      ],
+      "witness": null
+    },
+    {
+      "id": "authentication_valid_control",
+      "purpose": "Đối chứng cho phép trường hợp hợp lệ",
+      "source": "generated_cases/_v1/authentication.php",
+      "variables": {
+        "1": "grant",
+        "2": "row_exists",
+        "3": "password_valid"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          3
+        ],
+        [
+          1,
+          -2,
+          -3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        }
+      ],
+      "witness": {
+        "grant": true,
+        "row_exists": true,
+        "password_valid": true
+      }
+    },
+    {
+      "id": "authorization_v0",
+      "purpose": "Cho phép ghi khi thiếu phiên hoặc thiếu quyền",
+      "source": "generated_cases/_v0/authorization.php",
+      "variables": {
+        "1": "grant",
+        "2": "authenticated",
+        "3": "role_permitted"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          1
+        ],
+        [
+          -2,
+          -3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "pure",
+          "literal": -3
+        }
+      ],
+      "witness": {
+        "grant": true,
+        "authenticated": false,
+        "role_permitted": false
+      }
+    },
+    {
+      "id": "authorization_v1",
+      "purpose": "Cho phép ghi khi thiếu phiên hoặc thiếu quyền",
+      "source": "generated_cases/_v1/authorization.php",
+      "variables": {
+        "1": "grant",
+        "2": "authenticated",
+        "3": "role_permitted"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          3
+        ],
+        [
+          1,
+          -2,
+          -3
+        ],
+        [
+          1
+        ],
+        [
+          -2,
+          -3
+        ]
+      ],
+      "dpll": "UNSAT",
+      "z3_sat": "UNSAT",
+      "truth_table": "UNSAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "conflict"
+        }
+      ],
+      "witness": null
+    },
+    {
+      "id": "authorization_valid_control",
+      "purpose": "Đối chứng cho phép trường hợp hợp lệ",
+      "source": "generated_cases/_v1/authorization.php",
+      "variables": {
+        "1": "grant",
+        "2": "authenticated",
+        "3": "role_permitted"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          3
+        ],
+        [
+          1,
+          -2,
+          -3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        }
+      ],
+      "witness": {
+        "grant": true,
+        "authenticated": true,
+        "role_permitted": true
+      }
+    },
+    {
+      "id": "database_query_v0",
+      "purpose": "Đầu vào không tin cậy đi vào truy vấn chưa bind",
+      "source": "generated_cases/_v0/database_query.php",
+      "variables": {
+        "1": "executed",
+        "2": "untrusted_input",
+        "3": "bound_parameter"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          -3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          -3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": -3
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        }
+      ],
+      "witness": {
+        "executed": true,
+        "untrusted_input": true,
+        "bound_parameter": false
+      }
+    },
+    {
+      "id": "database_query_v1",
+      "purpose": "Đầu vào không tin cậy đi vào truy vấn chưa bind",
+      "source": "generated_cases/_v1/database_query.php",
+      "variables": {
+        "1": "executed",
+        "2": "untrusted_input",
+        "3": "bound_parameter"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          -3
+        ]
+      ],
+      "dpll": "UNSAT",
+      "z3_sat": "UNSAT",
+      "truth_table": "UNSAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "conflict"
+        }
+      ],
+      "witness": null
+    },
+    {
+      "id": "database_query_valid_control",
+      "purpose": "Đối chứng cho phép trường hợp hợp lệ",
+      "source": "generated_cases/_v1/database_query.php",
+      "variables": {
+        "1": "executed",
+        "2": "untrusted_input",
+        "3": "bound_parameter"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        }
+      ],
+      "witness": {
+        "executed": true,
+        "untrusted_input": true,
+        "bound_parameter": true
+      }
+    },
+    {
+      "id": "token_crypto_v0",
+      "purpose": "Chấp nhận token chưa kiểm tra tag hoặc claims",
+      "source": "generated_cases/_v0/token_crypto.php",
+      "variables": {
+        "1": "accepted",
+        "2": "parsed",
+        "3": "tag_valid",
+        "4": "claims_valid"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          1,
+          -2
+        ],
+        [
+          1
+        ],
+        [
+          -3,
+          -4
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "pure",
+          "literal": -4
+        }
+      ],
+      "witness": {
+        "accepted": true,
+        "parsed": true,
+        "tag_valid": false,
+        "claims_valid": false
+      }
+    },
+    {
+      "id": "token_crypto_v1",
+      "purpose": "Chấp nhận token chưa kiểm tra tag hoặc claims",
+      "source": "generated_cases/_v1/token_crypto.php",
+      "variables": {
+        "1": "accepted",
+        "2": "parsed",
+        "3": "tag_valid",
+        "4": "claims_valid"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          3
+        ],
+        [
+          -1,
+          4
+        ],
+        [
+          1,
+          -2,
+          -3,
+          -4
+        ],
+        [
+          1
+        ],
+        [
+          -3,
+          -4
+        ]
+      ],
+      "dpll": "UNSAT",
+      "z3_sat": "UNSAT",
+      "truth_table": "UNSAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "unit",
+          "literal": 4
+        },
+        {
+          "event": "conflict"
+        }
+      ],
+      "witness": null
+    },
+    {
+      "id": "token_crypto_valid_control",
+      "purpose": "Đối chứng cho phép trường hợp hợp lệ",
+      "source": "generated_cases/_v1/token_crypto.php",
+      "variables": {
+        "1": "accepted",
+        "2": "parsed",
+        "3": "tag_valid",
+        "4": "claims_valid"
+      },
+      "clauses": [
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          3
+        ],
+        [
+          -1,
+          4
+        ],
+        [
+          1,
+          -2,
+          -3,
+          -4
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "unit",
+          "literal": 4
+        }
+      ],
+      "witness": {
+        "accepted": true,
+        "parsed": true,
+        "tag_valid": true,
+        "claims_valid": true
+      }
+    },
+    {
+      "id": "script_output_v0",
+      "purpose": "Xuất chuỗi không tin cậy vào script chưa serialize",
+      "source": "generated_cases/_v0/script_output.php",
+      "variables": {
+        "1": "emitted",
+        "2": "untrusted_text",
+        "3": "context_encoded"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          -3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          -3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": -3
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        }
+      ],
+      "witness": {
+        "emitted": true,
+        "untrusted_text": true,
+        "context_encoded": false
+      }
+    },
+    {
+      "id": "script_output_v1",
+      "purpose": "Xuất chuỗi không tin cậy vào script chưa serialize",
+      "source": "generated_cases/_v1/script_output.php",
+      "variables": {
+        "1": "emitted",
+        "2": "untrusted_text",
+        "3": "context_encoded"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          -3
+        ]
+      ],
+      "dpll": "UNSAT",
+      "z3_sat": "UNSAT",
+      "truth_table": "UNSAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "conflict"
+        }
+      ],
+      "witness": null
+    },
+    {
+      "id": "script_output_valid_control",
+      "purpose": "Đối chứng cho phép trường hợp hợp lệ",
+      "source": "generated_cases/_v1/script_output.php",
+      "variables": {
+        "1": "emitted",
+        "2": "untrusted_text",
+        "3": "context_encoded"
+      },
+      "clauses": [
+        [
+          1
+        ],
+        [
+          3
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "dpll": "SAT",
+      "z3_sat": "SAT",
+      "truth_table": "SAT",
+      "dpll_trace": [
+        {
+          "event": "unit",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 3
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        }
+      ],
+      "witness": {
+        "emitted": true,
+        "untrusted_text": true,
+        "context_encoded": true
+      }
+    },
+    {
+      "id": "dpll_branch_control",
+      "purpose": "Đối chứng nhánh và quay lui DPLL",
+      "source": "models/run_models.py",
+      "variables": {
+        "1": "p",
+        "2": "q"
+      },
+      "clauses": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          -2
+        ],
+        [
+          -1,
+          2
+        ],
+        [
+          -1,
+          -2
+        ]
+      ],
+      "dpll": "UNSAT",
+      "z3_sat": "UNSAT",
+      "truth_table": "UNSAT",
+      "dpll_trace": [
+        {
+          "event": "branch",
+          "literal": 1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "conflict"
+        },
+        {
+          "event": "branch",
+          "literal": -1
+        },
+        {
+          "event": "unit",
+          "literal": 2
+        },
+        {
+          "event": "conflict"
+        }
+      ],
+      "witness": null
+    }
+  ],
+  "smt_cases": [
+    {
+      "id": "token_v0_counterexample",
+      "status": "SAT",
+      "expected": "SAT",
+      "witness": {
+        "key_bytes": "16",
+        "nonce_bytes": "16",
+        "tag_bytes": "0",
+        "now": "0",
+        "iat": "0",
+        "exp": "0",
+        "uid": "0",
+        "accepted": "True",
+        "parsed": "True",
+        "tag_ok": "False",
+        "audience_ok": "False"
+      },
+      "source": "generated_cases/_v0/token_crypto.php"
+    },
+    {
+      "id": "token_v1_key_length",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_nonce_length",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_tag_length",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_expired",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_excess_ttl",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_future_iat",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_identity_audience",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_invalid_tag",
+      "status": "UNSAT",
+      "expected": "UNSAT",
+      "witness": null,
+      "source": "generated_cases/_v1/token_crypto.php"
+    },
+    {
+      "id": "token_v1_valid_control",
+      "status": "SAT",
+      "expected": "SAT",
+      "witness": {
+        "key_bytes": "32",
+        "nonce_bytes": "12",
+        "tag_bytes": "16",
+        "now": "1100",
+        "iat": "1000",
+        "exp": "2800",
+        "uid": "1",
+        "accepted": "True",
+        "parsed": "True",
+        "tag_ok": "True",
+        "audience_ok": "True"
+      },
+      "source": "generated_cases/_v1/token_crypto.php"
+    }
+  ],
+  "php_constants_checked": {
+    "TOKEN_KEY_BYTES_V1": 32,
+    "TOKEN_NONCE_BYTES_V1": 12,
+    "TOKEN_TAG_BYTES_V1": 16,
+    "TOKEN_TTL_SECONDS_V1": 1800
+  },
+  "generated_source_sha256": {
+    "generated_cases/_v0/authentication.php": "1bfa39f39025e794d2a31172dccfc43d429122682617a6d81994ce4a78f690bc",
+    "generated_cases/_v0/authorization.php": "ea0a5414816166c70f0a862eafb7e2bdc0dcfb754337f312849fa75dad9e0600",
+    "generated_cases/_v0/database_query.php": "2859b03ff736840e0eed320f70a65b5115ba382ca30cb123b5c34022a045acb9",
+    "generated_cases/_v0/script_output.php": "78aff040fa42739138f556d1be6372efeeb821a9c5dcae4bd0fedd9a3db25d26",
+    "generated_cases/_v0/token_crypto.php": "1b3b2c16124c0efffeb0464955ec0689738b434ade1539a2a19a998d72778e85",
+    "generated_cases/_v1/authentication.php": "87b45576413d1c32e31e4e5fe7b86111e0409a2dcf84317c9f0eaa4734ba622b",
+    "generated_cases/_v1/authorization.php": "b462c9a6c7a3771d090895e309f479451d3df464cae4d9d06aafe7dd9b4733a9",
+    "generated_cases/_v1/database_query.php": "5dfb918d36adc5d5e2e4961a92d47f7c065759cc90d4c8dd00f6cacbcae5345c",
+    "generated_cases/_v1/script_output.php": "9c53e0b4c516c3bf9fda1684f7ad1daa82d1f1b0d64f2f34e947d2bfefa4c0f0",
+    "generated_cases/_v1/token_crypto.php": "0073ddff335d25924b746099a7695c83be9bbe930cb384adc729831de810aa9c"
+  },
+  "summary": {
+    "boolean_cases": 16,
+    "boolean_crosschecks_passed": 16,
+    "smt_cases": 10,
+    "smt_expected_passed": 10
+  }
+}

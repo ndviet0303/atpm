@@ -1,0 +1,19 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 54 files with 6 Code rules:
+  Scanning 54 files with 6 php rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 54 (54 blocking)
+ • Rules run: 6
+ • Targets scanned: 54
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 6 rules on 54 files: 54 findings.

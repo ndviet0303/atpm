@@ -1,0 +1,191 @@
+{
+  "totals": {
+    "errors": 0,
+    "file_errors": 17
+  },
+  "files": {
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/archive.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "Path in include() \"navbar_archive.php\" is not a file or it does not exist.",
+          "line": 3,
+          "ignorable": true,
+          "identifier": "include.fileNotFound"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/books_save.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 26,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/borrow_save.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 32,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/member_save.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 20,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/navbar_books.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 32,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/navbar_borrow.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 32,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/navbar_dashboard.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 32,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/navbar_member.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 32,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/navbar_user.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 32,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/return.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 75,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/return_save.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 10,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/student_save.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 20,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/unstudents.php": {
+      "errors": 2,
+      "messages": [
+        {
+          "message": "Path in include() \"navbar_dasboard.php\" is not a file or it does not exist.",
+          "line": 3,
+          "ignorable": true,
+          "identifier": "include.fileNotFound"
+        },
+        {
+          "message": "Path in include() \"confirm_request.php\" is not a file or it does not exist.",
+          "line": 44,
+          "ignorable": true,
+          "identifier": "include.fileNotFound"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/update_books.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 26,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/update_member.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 19,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    },
+    "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian/update_students.php": {
+      "errors": 1,
+      "messages": [
+        {
+          "message": "File ends with a trailing whitespace. This may cause problems when running the code in the web browser. Remove the closing ?> mark or remove the whitespace.",
+          "line": 20,
+          "ignorable": true,
+          "identifier": "whitespace.fileEnd"
+        }
+      ]
+    }
+  },
+  "errors": []
+}

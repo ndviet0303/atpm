@@ -1,0 +1,3897 @@
+[
+  {
+    "file": "add_books.php",
+    "token_counts": {
+      "T_OPEN_TAG": 8,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 7,
+      "T_WHITESPACE": 17,
+      "T_CLOSE_TAG": 8,
+      "T_INLINE_HTML": 6,
+      "T_VARIABLE": 5,
+      "T_STRING": 2,
+      "T_WHILE": 1,
+      "T_ECHO": 2
+    },
+    "variables": [
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 108,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 32
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 31
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 32
+      }
+    ]
+  },
+  {
+    "file": "add_member.php",
+    "token_counts": {
+      "T_OPEN_TAG": 4,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 4,
+      "T_WHITESPACE": 4,
+      "T_CLOSE_TAG": 4,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_member.php",
+        "exists": true
+      },
+      {
+        "line": 98,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "add_student.php",
+    "token_counts": {
+      "T_OPEN_TAG": 4,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 4,
+      "T_WHITESPACE": 4,
+      "T_CLOSE_TAG": 4,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 93,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "advance_search.php",
+    "token_counts": {
+      "T_OPEN_TAG": 25,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 22,
+      "T_WHITESPACE": 80,
+      "T_CLOSE_TAG": 25,
+      "T_VARIABLE": 44,
+      "T_COMMENT": 3,
+      "T_INLINE_HTML": 21,
+      "T_STRING": 9,
+      "T_ENCAPSED_AND_WHITESPACE": 7,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ECHO": 16
+    },
+    "variables": [
+      "$title",
+      "$_POST",
+      "$author",
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$book_copies",
+      "$borrow_details",
+      "$row11",
+      "$count",
+      "$total",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 88,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 91,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 107,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 59
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 73
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 60
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 58
+      },
+      {
+        "name": "mysql_error",
+        "line": 59
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 60
+      },
+      {
+        "name": "mysql_query",
+        "line": 65
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 66
+      },
+      {
+        "name": "mysql_num_rows",
+        "line": 67
+      },
+      {
+        "name": "mysql_query",
+        "line": 73
+      },
+      {
+        "name": "mysql_error",
+        "line": 73
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 74
+      }
+    ]
+  },
+  {
+    "file": "archive.php",
+    "token_counts": {
+      "T_OPEN_TAG": 16,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 16,
+      "T_WHITESPACE": 40,
+      "T_CLOSE_TAG": 16,
+      "T_INLINE_HTML": 13,
+      "T_VARIABLE": 21,
+      "T_STRING": 6,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_ECHO": 10
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_archive.php",
+        "exists": false
+      },
+      {
+        "line": 68,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 37
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 42
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 38
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 37
+      },
+      {
+        "name": "mysql_error",
+        "line": 37
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 38
+      },
+      {
+        "name": "mysql_query",
+        "line": 42
+      },
+      {
+        "name": "mysql_error",
+        "line": 42
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 43
+      }
+    ]
+  },
+  {
+    "file": "books.php",
+    "token_counts": {
+      "T_OPEN_TAG": 24,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 21,
+      "T_WHITESPACE": 73,
+      "T_CLOSE_TAG": 24,
+      "T_INLINE_HTML": 21,
+      "T_VARIABLE": 38,
+      "T_STRING": 9,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 4,
+      "T_COMMENT": 2,
+      "T_ECHO": 16
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$book_copies",
+      "$borrow_details",
+      "$row11",
+      "$count",
+      "$total",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 84,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 88,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 105,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 55
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 69
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 56
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 55
+      },
+      {
+        "name": "mysql_error",
+        "line": 55
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 56
+      },
+      {
+        "name": "mysql_query",
+        "line": 61
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 62
+      },
+      {
+        "name": "mysql_num_rows",
+        "line": 63
+      },
+      {
+        "name": "mysql_query",
+        "line": 69
+      },
+      {
+        "name": "mysql_error",
+        "line": 69
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 70
+      }
+    ]
+  },
+  {
+    "file": "books_save.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 19,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 12,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 28,
+      "T_COMMENT": 2,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 10,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$_POST",
+      "$book_title",
+      "$category_id",
+      "$author",
+      "$book_copies",
+      "$book_pub",
+      "$publisher_name",
+      "$isbn",
+      "$copyright_year",
+      "$status"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 3
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      },
+      {
+        "variable": "$_POST",
+        "line": 8
+      },
+      {
+        "variable": "$_POST",
+        "line": 9
+      },
+      {
+        "variable": "$_POST",
+        "line": 10
+      },
+      {
+        "variable": "$_POST",
+        "line": 11
+      },
+      {
+        "variable": "$_POST",
+        "line": 14
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 3
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 21
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 20
+      },
+      {
+        "name": "mysql_error",
+        "line": 21
+      },
+      {
+        "name": "header",
+        "line": 24
+      }
+    ]
+  },
+  {
+    "file": "borrow.php",
+    "token_counts": {
+      "T_OPEN_TAG": 19,
+      "T_INCLUDE": 5,
+      "T_CONSTANT_ENCAPSED_STRING": 19,
+      "T_WHITESPACE": 48,
+      "T_CLOSE_TAG": 19,
+      "T_INLINE_HTML": 16,
+      "T_VARIABLE": 25,
+      "T_STRING": 9,
+      "T_LOGICAL_OR": 3,
+      "T_EXIT": 3,
+      "T_WHILE": 2,
+      "T_ECHO": 10,
+      "T_ENCAPSED_AND_WHITESPACE": 2
+    },
+    "variables": [
+      "$result",
+      "$row",
+      "$user_query",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_borrow.php",
+        "exists": true
+      },
+      {
+        "line": 78,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 110,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 22
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 61
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 66
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 23
+      },
+      {
+        "token": "T_WHILE",
+        "line": 62
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 22
+      },
+      {
+        "name": "mysql_error",
+        "line": 22
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 23
+      },
+      {
+        "name": "mysql_query",
+        "line": 61
+      },
+      {
+        "name": "mysql_error",
+        "line": 61
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 62
+      },
+      {
+        "name": "mysql_query",
+        "line": 66
+      },
+      {
+        "name": "mysql_error",
+        "line": 66
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 67
+      }
+    ]
+  },
+  {
+    "file": "borrow_save.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 42,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 9,
+      "T_VARIABLE": 23,
+      "T_IF": 1,
+      "T_IS_EQUAL": 1,
+      "T_STRING": 10,
+      "T_CLOSE_TAG": 2,
+      "T_ELSE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 6,
+      "T_LOGICAL_OR": 3,
+      "T_EXIT": 3,
+      "T_FOR": 1,
+      "T_LNUMBER": 1,
+      "T_INC": 1
+    },
+    "variables": [
+      "$id",
+      "$_POST",
+      "$member_id",
+      "$due_date",
+      "$query",
+      "$row",
+      "$borrow_id",
+      "$N",
+      "$i"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 8
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 17
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 18
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 26
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_FOR",
+        "line": 24
+      }
+    ],
+    "calls": [
+      {
+        "name": "header",
+        "line": 9
+      },
+      {
+        "name": "mysql_query",
+        "line": 17
+      },
+      {
+        "name": "mysql_error",
+        "line": 17
+      },
+      {
+        "name": "mysql_query",
+        "line": 18
+      },
+      {
+        "name": "mysql_error",
+        "line": 18
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 19
+      },
+      {
+        "name": "count",
+        "line": 23
+      },
+      {
+        "name": "mysql_query",
+        "line": 26
+      },
+      {
+        "name": "mysql_error",
+        "line": 26
+      },
+      {
+        "name": "header",
+        "line": 29
+      }
+    ]
+  },
+  {
+    "file": "borrowname.php",
+    "token_counts": {
+      "T_INLINE_HTML": 5,
+      "T_OPEN_TAG": 4,
+      "T_VARIABLE": 6,
+      "T_WHITESPACE": 11,
+      "T_STRING": 3,
+      "T_CONSTANT_ENCAPSED_STRING": 5,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_CLOSE_TAG": 4,
+      "T_ECHO": 2
+    },
+    "variables": [
+      "$result",
+      "$row"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 8
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 9
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 8
+      },
+      {
+        "name": "mysql_error",
+        "line": 8
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 9
+      }
+    ]
+  },
+  {
+    "file": "damage.php",
+    "token_counts": {
+      "T_OPEN_TAG": 23,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 20,
+      "T_WHITESPACE": 52,
+      "T_CLOSE_TAG": 23,
+      "T_INLINE_HTML": 20,
+      "T_VARIABLE": 26,
+      "T_STRING": 6,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_ECHO": 15
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 69,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 73,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 90,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 48
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 53
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 49
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 48
+      },
+      {
+        "name": "mysql_error",
+        "line": 48
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 49
+      },
+      {
+        "name": "mysql_query",
+        "line": 53
+      },
+      {
+        "name": "mysql_error",
+        "line": 53
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 54
+      }
+    ]
+  },
+  {
+    "file": "dashboard.php",
+    "token_counts": {
+      "T_OPEN_TAG": 5,
+      "T_INCLUDE": 5,
+      "T_CONSTANT_ENCAPSED_STRING": 5,
+      "T_WHITESPACE": 5,
+      "T_CLOSE_TAG": 5,
+      "T_INLINE_HTML": 2
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_dashboard.php",
+        "exists": true
+      },
+      {
+        "line": 9,
+        "path": "slider.php",
+        "exists": true
+      },
+      {
+        "line": 16,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "dbcon.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_STRING": 3,
+      "T_CONSTANT_ENCAPSED_STRING": 4,
+      "T_LOGICAL_OR": 1,
+      "T_WHITESPACE": 2,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 2
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_select_db",
+        "line": 2
+      },
+      {
+        "name": "mysql_connect",
+        "line": 2
+      },
+      {
+        "name": "mysql_error",
+        "line": 2
+      }
+    ]
+  },
+  {
+    "file": "delete_book_modal.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_ECHO": 2,
+      "T_WHITESPACE": 4,
+      "T_VARIABLE": 2,
+      "T_CLOSE_TAG": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 1
+    },
+    "variables": [
+      "$id"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "delete_books.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 3,
+      "T_WHITESPACE": 5,
+      "T_VARIABLE": 3,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [
+      "$id",
+      "$_GET"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 3
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 4
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 4
+      },
+      {
+        "name": "mysql_error",
+        "line": 4
+      },
+      {
+        "name": "header",
+        "line": 5
+      }
+    ]
+  },
+  {
+    "file": "delete_member.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 3,
+      "T_WHITESPACE": 6,
+      "T_VARIABLE": 3,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [
+      "$id",
+      "$_GET"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 3
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 4
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 4
+      },
+      {
+        "name": "mysql_error",
+        "line": 4
+      },
+      {
+        "name": "header",
+        "line": 5
+      }
+    ]
+  },
+  {
+    "file": "delete_member_modal.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_ECHO": 2,
+      "T_WHITESPACE": 4,
+      "T_VARIABLE": 2,
+      "T_CLOSE_TAG": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 1
+    },
+    "variables": [
+      "$id"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "delete_student.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 3,
+      "T_WHITESPACE": 6,
+      "T_VARIABLE": 3,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [
+      "$id",
+      "$_GET"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 3
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 4
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 4
+      },
+      {
+        "name": "mysql_error",
+        "line": 4
+      },
+      {
+        "name": "header",
+        "line": 5
+      }
+    ]
+  },
+  {
+    "file": "delete_student_modal.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_ECHO": 2,
+      "T_WHITESPACE": 4,
+      "T_VARIABLE": 2,
+      "T_CLOSE_TAG": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 1
+    },
+    "variables": [
+      "$id"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "delete_user.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 3,
+      "T_WHITESPACE": 6,
+      "T_VARIABLE": 3,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [
+      "$id",
+      "$_GET"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 4
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 6
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 6
+      },
+      {
+        "name": "mysql_error",
+        "line": 6
+      },
+      {
+        "name": "header",
+        "line": 8
+      }
+    ]
+  },
+  {
+    "file": "delete_user_modal.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_ECHO": 2,
+      "T_WHITESPACE": 4,
+      "T_VARIABLE": 2,
+      "T_CLOSE_TAG": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 1
+    },
+    "variables": [
+      "$id"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "dropdown.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "edit_book.php",
+    "token_counts": {
+      "T_OPEN_TAG": 21,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 17,
+      "T_WHITESPACE": 48,
+      "T_CLOSE_TAG": 21,
+      "T_VARIABLE": 25,
+      "T_INLINE_HTML": 17,
+      "T_STRING": 6,
+      "T_ENCAPSED_AND_WHITESPACE": 4,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_ECHO": 13,
+      "T_WHILE": 1
+    },
+    "variables": [
+      "$get_id",
+      "$_GET",
+      "$query",
+      "$row",
+      "$category_id",
+      "$query1",
+      "$row1"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 104,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 4
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 10
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 32
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 33
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 10
+      },
+      {
+        "name": "mysql_error",
+        "line": 10
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 11
+      },
+      {
+        "name": "mysql_query",
+        "line": 32
+      },
+      {
+        "name": "mysql_error",
+        "line": 32
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 33
+      }
+    ]
+  },
+  {
+    "file": "edit_member.php",
+    "token_counts": {
+      "T_OPEN_TAG": 14,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 12,
+      "T_WHITESPACE": 28,
+      "T_CLOSE_TAG": 14,
+      "T_VARIABLE": 14,
+      "T_INLINE_HTML": 10,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_ECHO": 8
+    },
+    "variables": [
+      "$get_id",
+      "$_GET",
+      "$query",
+      "$row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_member.php",
+        "exists": true
+      },
+      {
+        "line": 108,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 4
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 10
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 10
+      },
+      {
+        "name": "mysql_error",
+        "line": 10
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 11
+      }
+    ]
+  },
+  {
+    "file": "edit_student.php",
+    "token_counts": {
+      "T_OPEN_TAG": 13,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 9,
+      "T_WHITESPACE": 29,
+      "T_CLOSE_TAG": 13,
+      "T_VARIABLE": 19,
+      "T_INLINE_HTML": 9,
+      "T_STRING": 9,
+      "T_ENCAPSED_AND_WHITESPACE": 6,
+      "T_LOGICAL_OR": 3,
+      "T_EXIT": 3,
+      "T_ECHO": 5
+    },
+    "variables": [
+      "$get_id",
+      "$_GET",
+      "$query",
+      "$row",
+      "$row1"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_dashboard.php",
+        "exists": true
+      },
+      {
+        "line": 107,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 4
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 10
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 58
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 77
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 10
+      },
+      {
+        "name": "mysql_error",
+        "line": 10
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 11
+      },
+      {
+        "name": "mysql_query",
+        "line": 58
+      },
+      {
+        "name": "mysql_error",
+        "line": 58
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 59
+      },
+      {
+        "name": "mysql_query",
+        "line": 77
+      },
+      {
+        "name": "mysql_error",
+        "line": 77
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 78
+      }
+    ]
+  },
+  {
+    "file": "footer.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "footer2.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "header.php",
+    "token_counts": {
+      "T_INLINE_HTML": 2,
+      "T_OPEN_TAG": 1,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 1,
+      "T_WHITESPACE": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 57,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "index.php",
+    "token_counts": {
+      "T_OPEN_TAG": 5,
+      "T_INCLUDE": 3,
+      "T_CONSTANT_ENCAPSED_STRING": 9,
+      "T_WHITESPACE": 36,
+      "T_CLOSE_TAG": 5,
+      "T_INLINE_HTML": 3,
+      "T_IF": 2,
+      "T_ISSET": 1,
+      "T_VARIABLE": 17,
+      "T_STRING": 6,
+      "T_ENCAPSED_AND_WHITESPACE": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_LNUMBER": 1,
+      "T_ELSE": 1
+    },
+    "variables": [
+      "$_POST",
+      "$username",
+      "$password",
+      "$query",
+      "$result",
+      "$num_row",
+      "$row",
+      "$_SESSION"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "navbar.php",
+        "exists": true
+      },
+      {
+        "line": 58,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 34
+      },
+      {
+        "variable": "$_POST",
+        "line": 36
+      },
+      {
+        "variable": "$_POST",
+        "line": 37
+      },
+      {
+        "variable": "$_SESSION",
+        "line": 44
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 34
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 39
+      },
+      {
+        "token": "T_IF",
+        "line": 42
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "session_start",
+        "line": 35
+      },
+      {
+        "name": "mysql_query",
+        "line": 39
+      },
+      {
+        "name": "mysql_error",
+        "line": 39
+      },
+      {
+        "name": "mysql_num_rows",
+        "line": 40
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 41
+      },
+      {
+        "name": "header",
+        "line": 43
+      }
+    ]
+  },
+  {
+    "file": "login.php",
+    "token_counts": {
+      "T_INLINE_HTML": 2,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 33,
+      "T_IF": 2,
+      "T_ISSET": 1,
+      "T_VARIABLE": 17,
+      "T_CONSTANT_ENCAPSED_STRING": 6,
+      "T_STRING": 6,
+      "T_ENCAPSED_AND_WHITESPACE": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_LNUMBER": 1,
+      "T_ELSE": 1,
+      "T_CLOSE_TAG": 2
+    },
+    "variables": [
+      "$_POST",
+      "$username",
+      "$password",
+      "$query",
+      "$result",
+      "$num_row",
+      "$row",
+      "$_SESSION"
+    ],
+    "includes": [],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 2
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_SESSION",
+        "line": 12
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 2
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 7
+      },
+      {
+        "token": "T_IF",
+        "line": 10
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "session_start",
+        "line": 3
+      },
+      {
+        "name": "mysql_query",
+        "line": 7
+      },
+      {
+        "name": "mysql_error",
+        "line": 7
+      },
+      {
+        "name": "mysql_num_rows",
+        "line": 8
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 9
+      },
+      {
+        "name": "header",
+        "line": 11
+      }
+    ]
+  },
+  {
+    "file": "logout.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_STRING": 3,
+      "T_WHITESPACE": 3,
+      "T_CONSTANT_ENCAPSED_STRING": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": [
+      {
+        "name": "session_start",
+        "line": 2
+      },
+      {
+        "name": "session_destroy",
+        "line": 3
+      },
+      {
+        "name": "header",
+        "line": 4
+      }
+    ]
+  },
+  {
+    "file": "lost.php",
+    "token_counts": {
+      "T_OPEN_TAG": 23,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 20,
+      "T_WHITESPACE": 52,
+      "T_CLOSE_TAG": 23,
+      "T_INLINE_HTML": 20,
+      "T_VARIABLE": 26,
+      "T_STRING": 6,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_ECHO": 15
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 69,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 73,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 90,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 48
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 53
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 49
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 48
+      },
+      {
+        "name": "mysql_error",
+        "line": 48
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 49
+      },
+      {
+        "name": "mysql_query",
+        "line": 53
+      },
+      {
+        "name": "mysql_error",
+        "line": 53
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 54
+      }
+    ]
+  },
+  {
+    "file": "member.php",
+    "token_counts": {
+      "T_OPEN_TAG": 20,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 18,
+      "T_WHITESPACE": 37,
+      "T_CLOSE_TAG": 20,
+      "T_INLINE_HTML": 17,
+      "T_VARIABLE": 18,
+      "T_STRING": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_ECHO": 12
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_member.php",
+        "exists": true
+      },
+      {
+        "line": 44,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 48,
+        "path": "delete_student_modal.php",
+        "exists": true
+      },
+      {
+        "line": 65,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 31
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 32
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 31
+      },
+      {
+        "name": "mysql_error",
+        "line": 31
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 32
+      }
+    ]
+  },
+  {
+    "file": "member_save.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 15,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 10,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 22,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 8,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$_POST",
+      "$firstname",
+      "$lastname",
+      "$gender",
+      "$address",
+      "$contact",
+      "$type",
+      "$year_level"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 3
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      },
+      {
+        "variable": "$_POST",
+        "line": 8
+      },
+      {
+        "variable": "$_POST",
+        "line": 9
+      },
+      {
+        "variable": "$_POST",
+        "line": 10
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 3
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 15
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 15
+      },
+      {
+        "name": "mysql_error",
+        "line": 15
+      },
+      {
+        "name": "header",
+        "line": 18
+      }
+    ]
+  },
+  {
+    "file": "modal_add_user.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1,
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 10,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 13,
+      "T_CONSTANT_ENCAPSED_STRING": 5,
+      "T_STRING": 2,
+      "T_ENCAPSED_AND_WHITESPACE": 5,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [
+      "$_POST",
+      "$username",
+      "$password",
+      "$firstname",
+      "$lastname"
+    ],
+    "includes": [],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 42
+      },
+      {
+        "variable": "$_POST",
+        "line": 43
+      },
+      {
+        "variable": "$_POST",
+        "line": 44
+      },
+      {
+        "variable": "$_POST",
+        "line": 45
+      },
+      {
+        "variable": "$_POST",
+        "line": 46
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 42
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 48
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 48
+      },
+      {
+        "name": "mysql_error",
+        "line": 48
+      }
+    ]
+  },
+  {
+    "file": "modal_edit_user.php",
+    "token_counts": {
+      "T_INLINE_HTML": 8,
+      "T_OPEN_TAG": 8,
+      "T_ECHO": 6,
+      "T_WHITESPACE": 24,
+      "T_VARIABLE": 22,
+      "T_CLOSE_TAG": 8,
+      "T_CONSTANT_ENCAPSED_STRING": 11,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_STRING": 2,
+      "T_ENCAPSED_AND_WHITESPACE": 6,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1
+    },
+    "variables": [
+      "$id",
+      "$row",
+      "$_POST",
+      "$user_id",
+      "$username",
+      "$password",
+      "$firstname",
+      "$lastname"
+    ],
+    "includes": [],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 45
+      },
+      {
+        "variable": "$_POST",
+        "line": 47
+      },
+      {
+        "variable": "$_POST",
+        "line": 48
+      },
+      {
+        "variable": "$_POST",
+        "line": 49
+      },
+      {
+        "variable": "$_POST",
+        "line": 50
+      },
+      {
+        "variable": "$_POST",
+        "line": 51
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 45
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 53
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 53
+      },
+      {
+        "name": "mysql_error",
+        "line": 53
+      }
+    ]
+  },
+  {
+    "file": "modal_return.php",
+    "token_counts": {
+      "T_INLINE_HTML": 4,
+      "T_OPEN_TAG": 3,
+      "T_ECHO": 3,
+      "T_WHITESPACE": 6,
+      "T_VARIABLE": 3,
+      "T_CLOSE_TAG": 3,
+      "T_CONSTANT_ENCAPSED_STRING": 2
+    },
+    "variables": [
+      "$borrow_details_id",
+      "$id",
+      "$book_id"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar2.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar_books.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 3,
+      "T_INCLUDE": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 2,
+      "T_CLOSE_TAG": 2
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 15,
+        "path": "dropdown.php",
+        "exists": true
+      },
+      {
+        "line": 31,
+        "path": "search_form.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar_borrow.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 3,
+      "T_INCLUDE": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 2,
+      "T_CLOSE_TAG": 2
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 15,
+        "path": "dropdown.php",
+        "exists": true
+      },
+      {
+        "line": 31,
+        "path": "search_form.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar_dashboard.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 3,
+      "T_INCLUDE": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 2,
+      "T_CLOSE_TAG": 2
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 15,
+        "path": "dropdown.php",
+        "exists": true
+      },
+      {
+        "line": 31,
+        "path": "search_form.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar_member.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 3,
+      "T_INCLUDE": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 2,
+      "T_CLOSE_TAG": 2
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 15,
+        "path": "dropdown.php",
+        "exists": true
+      },
+      {
+        "line": 31,
+        "path": "search_form.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar_transaction.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "navbar_user.php",
+    "token_counts": {
+      "T_INLINE_HTML": 3,
+      "T_OPEN_TAG": 2,
+      "T_WHITESPACE": 3,
+      "T_INCLUDE": 2,
+      "T_CONSTANT_ENCAPSED_STRING": 2,
+      "T_CLOSE_TAG": 2
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 15,
+        "path": "dropdown.php",
+        "exists": true
+      },
+      {
+        "line": 31,
+        "path": "search_form.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "new_books.php",
+    "token_counts": {
+      "T_OPEN_TAG": 23,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 20,
+      "T_WHITESPACE": 52,
+      "T_CLOSE_TAG": 23,
+      "T_INLINE_HTML": 20,
+      "T_VARIABLE": 26,
+      "T_STRING": 6,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_ECHO": 15
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 69,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 73,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 90,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 48
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 53
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 49
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 48
+      },
+      {
+        "name": "mysql_error",
+        "line": 48
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 49
+      },
+      {
+        "name": "mysql_query",
+        "line": 53
+      },
+      {
+        "name": "mysql_error",
+        "line": 53
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 54
+      }
+    ]
+  },
+  {
+    "file": "old_books.php",
+    "token_counts": {
+      "T_OPEN_TAG": 23,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 20,
+      "T_WHITESPACE": 52,
+      "T_CLOSE_TAG": 23,
+      "T_INLINE_HTML": 20,
+      "T_VARIABLE": 26,
+      "T_STRING": 6,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_ECHO": 15
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 69,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 73,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 90,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 48
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 53
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 49
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 48
+      },
+      {
+        "name": "mysql_error",
+        "line": 48
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 49
+      },
+      {
+        "name": "mysql_query",
+        "line": 53
+      },
+      {
+        "name": "mysql_error",
+        "line": 53
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 54
+      }
+    ]
+  },
+  {
+    "file": "return.php",
+    "token_counts": {
+      "T_OPEN_TAG": 13,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 16,
+      "T_WHITESPACE": 27,
+      "T_CLOSE_TAG": 13,
+      "T_INLINE_HTML": 11,
+      "T_VARIABLE": 17,
+      "T_STRING": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_ECHO": 7
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$book_id",
+      "$borrow_details_id"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_borrow.php",
+        "exists": true
+      },
+      {
+        "line": 75,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 31
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 32
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 26
+      },
+      {
+        "name": "mysql_error",
+        "line": 31
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 32
+      }
+    ]
+  },
+  {
+    "file": "return_save.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 9,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 4,
+      "T_VARIABLE": 6,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$id",
+      "$_GET",
+      "$book_id"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_GET",
+        "line": 4
+      },
+      {
+        "variable": "$_GET",
+        "line": 5
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 7
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 7
+      },
+      {
+        "name": "mysql_error",
+        "line": 7
+      },
+      {
+        "name": "header",
+        "line": 8
+      }
+    ]
+  },
+  {
+    "file": "returnname.php",
+    "token_counts": {
+      "T_INLINE_HTML": 5,
+      "T_OPEN_TAG": 4,
+      "T_VARIABLE": 6,
+      "T_WHITESPACE": 11,
+      "T_STRING": 3,
+      "T_CONSTANT_ENCAPSED_STRING": 5,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_CLOSE_TAG": 4,
+      "T_ECHO": 2
+    },
+    "variables": [
+      "$result",
+      "$row"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 7
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 8
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 7
+      },
+      {
+        "name": "mysql_error",
+        "line": 7
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 8
+      }
+    ]
+  },
+  {
+    "file": "search_form.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "session.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_COMMENT": 2,
+      "T_WHITESPACE": 14,
+      "T_STRING": 3,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 5,
+      "T_BOOLEAN_OR": 1,
+      "T_IS_EQUAL": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1
+    },
+    "variables": [
+      "$_SESSION",
+      "$session_id"
+    ],
+    "includes": [],
+    "request_tokens": [
+      {
+        "variable": "$_SESSION",
+        "line": 5
+      },
+      {
+        "variable": "$_SESSION",
+        "line": 5
+      },
+      {
+        "variable": "$_SESSION",
+        "line": 9
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 5
+      },
+      {
+        "token": "T_BOOLEAN_OR",
+        "line": 5
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "session_start",
+        "line": 3
+      },
+      {
+        "name": "trim",
+        "line": 5
+      },
+      {
+        "name": "header",
+        "line": 6
+      }
+    ]
+  },
+  {
+    "file": "slider.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "student_save.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 15,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 10,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 22,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 8,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$_POST",
+      "$firstname",
+      "$lastname",
+      "$gender",
+      "$address",
+      "$contact",
+      "$type",
+      "$year_level"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 3
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      },
+      {
+        "variable": "$_POST",
+        "line": 8
+      },
+      {
+        "variable": "$_POST",
+        "line": 9
+      },
+      {
+        "variable": "$_POST",
+        "line": 10
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 3
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 15
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 15
+      },
+      {
+        "name": "mysql_error",
+        "line": 15
+      },
+      {
+        "name": "header",
+        "line": 18
+      }
+    ]
+  },
+  {
+    "file": "sub_rep.php",
+    "token_counts": {
+      "T_OPEN_TAG": 23,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 20,
+      "T_WHITESPACE": 52,
+      "T_CLOSE_TAG": 23,
+      "T_INLINE_HTML": 20,
+      "T_VARIABLE": 26,
+      "T_STRING": 6,
+      "T_LOGICAL_OR": 2,
+      "T_EXIT": 2,
+      "T_WHILE": 1,
+      "T_ENCAPSED_AND_WHITESPACE": 2,
+      "T_ECHO": 15
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$cat_id",
+      "$cat_query",
+      "$cat_row"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_books.php",
+        "exists": true
+      },
+      {
+        "line": 69,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 73,
+        "path": "delete_book_modal.php",
+        "exists": true
+      },
+      {
+        "line": 90,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 48
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 53
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 49
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 48
+      },
+      {
+        "name": "mysql_error",
+        "line": 48
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 49
+      },
+      {
+        "name": "mysql_query",
+        "line": 53
+      },
+      {
+        "name": "mysql_error",
+        "line": 53
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 54
+      }
+    ]
+  },
+  {
+    "file": "tooltip.php",
+    "token_counts": {
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "toolttip_edit_delete.php",
+    "token_counts": {
+      "T_INLINE_HTML": 7,
+      "T_OPEN_TAG": 6,
+      "T_ECHO": 6,
+      "T_WHITESPACE": 12,
+      "T_VARIABLE": 6,
+      "T_CLOSE_TAG": 6
+    },
+    "variables": [
+      "$id"
+    ],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "transaction.php",
+    "token_counts": {
+      "T_OPEN_TAG": 4,
+      "T_INCLUDE": 4,
+      "T_CONSTANT_ENCAPSED_STRING": 4,
+      "T_WHITESPACE": 4,
+      "T_CLOSE_TAG": 4,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_transaction.php",
+        "exists": true
+      },
+      {
+        "line": 18,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "unreturned_books.php",
+    "token_counts": [],
+    "variables": [],
+    "includes": [],
+    "request_tokens": [],
+    "decisions": [],
+    "loops": [],
+    "calls": []
+  },
+  {
+    "file": "unstudents.php",
+    "token_counts": {
+      "T_OPEN_TAG": 18,
+      "T_INCLUDE": 6,
+      "T_CONSTANT_ENCAPSED_STRING": 18,
+      "T_WHITESPACE": 33,
+      "T_CLOSE_TAG": 18,
+      "T_INLINE_HTML": 15,
+      "T_VARIABLE": 16,
+      "T_STRING": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_ECHO": 10
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_dasboard.php",
+        "exists": false
+      },
+      {
+        "line": 41,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 44,
+        "path": "confirm_request.php",
+        "exists": false
+      },
+      {
+        "line": 58,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 29
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 30
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 29
+      },
+      {
+        "name": "mysql_error",
+        "line": 29
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 30
+      }
+    ]
+  },
+  {
+    "file": "update_books.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 19,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 13,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 31,
+      "T_COMMENT": 1,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 11,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$_POST",
+      "$id",
+      "$book_title",
+      "$category_id",
+      "$author",
+      "$book_copies",
+      "$book_pub",
+      "$publisher_name",
+      "$isbn",
+      "$copyright_year",
+      "$status"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 3
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      },
+      {
+        "variable": "$_POST",
+        "line": 8
+      },
+      {
+        "variable": "$_POST",
+        "line": 9
+      },
+      {
+        "variable": "$_POST",
+        "line": 10
+      },
+      {
+        "variable": "$_POST",
+        "line": 11
+      },
+      {
+        "variable": "$_POST",
+        "line": 12
+      },
+      {
+        "variable": "$_POST",
+        "line": 15
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 3
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 21
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 20
+      },
+      {
+        "name": "mysql_error",
+        "line": 21
+      },
+      {
+        "name": "header",
+        "line": 24
+      }
+    ]
+  },
+  {
+    "file": "update_member.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 17,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 12,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 28,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 10,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$_POST",
+      "$id",
+      "$firstname",
+      "$lastname",
+      "$gender",
+      "$address",
+      "$contact",
+      "$type",
+      "$year_level",
+      "$status"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 3
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      },
+      {
+        "variable": "$_POST",
+        "line": 8
+      },
+      {
+        "variable": "$_POST",
+        "line": 9
+      },
+      {
+        "variable": "$_POST",
+        "line": 10
+      },
+      {
+        "variable": "$_POST",
+        "line": 11
+      },
+      {
+        "variable": "$_POST",
+        "line": 12
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 3
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 14
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 14
+      },
+      {
+        "name": "mysql_error",
+        "line": 14
+      },
+      {
+        "name": "header",
+        "line": 17
+      }
+    ]
+  },
+  {
+    "file": "update_students.php",
+    "token_counts": {
+      "T_OPEN_TAG": 1,
+      "T_WHITESPACE": 16,
+      "T_INCLUDE": 1,
+      "T_CONSTANT_ENCAPSED_STRING": 11,
+      "T_IF": 1,
+      "T_ISSET": 1,
+      "T_VARIABLE": 25,
+      "T_STRING": 3,
+      "T_ENCAPSED_AND_WHITESPACE": 9,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_CLOSE_TAG": 1,
+      "T_INLINE_HTML": 1
+    },
+    "variables": [
+      "$_POST",
+      "$id",
+      "$firstname",
+      "$lastname",
+      "$gender",
+      "$address",
+      "$contact",
+      "$type",
+      "$year_level"
+    ],
+    "includes": [
+      {
+        "line": 2,
+        "path": "dbcon.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [
+      {
+        "variable": "$_POST",
+        "line": 3
+      },
+      {
+        "variable": "$_POST",
+        "line": 4
+      },
+      {
+        "variable": "$_POST",
+        "line": 5
+      },
+      {
+        "variable": "$_POST",
+        "line": 6
+      },
+      {
+        "variable": "$_POST",
+        "line": 7
+      },
+      {
+        "variable": "$_POST",
+        "line": 8
+      },
+      {
+        "variable": "$_POST",
+        "line": 9
+      },
+      {
+        "variable": "$_POST",
+        "line": 10
+      },
+      {
+        "variable": "$_POST",
+        "line": 11
+      }
+    ],
+    "decisions": [
+      {
+        "token": "T_IF",
+        "line": 3
+      },
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 15
+      }
+    ],
+    "loops": [],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 15
+      },
+      {
+        "name": "mysql_error",
+        "line": 15
+      },
+      {
+        "name": "header",
+        "line": 18
+      }
+    ]
+  },
+  {
+    "file": "users.php",
+    "token_counts": {
+      "T_OPEN_TAG": 19,
+      "T_INCLUDE": 8,
+      "T_CONSTANT_ENCAPSED_STRING": 14,
+      "T_WHITESPACE": 31,
+      "T_CLOSE_TAG": 19,
+      "T_INLINE_HTML": 17,
+      "T_VARIABLE": 14,
+      "T_STRING": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_ECHO": 9
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_user.php",
+        "exists": true
+      },
+      {
+        "line": 16,
+        "path": "modal_add_user.php",
+        "exists": true
+      },
+      {
+        "line": 50,
+        "path": "delete_user_modal.php",
+        "exists": true
+      },
+      {
+        "line": 53,
+        "path": "modal_edit_user.php",
+        "exists": true
+      },
+      {
+        "line": 56,
+        "path": "toolttip_edit_delete.php",
+        "exists": true
+      },
+      {
+        "line": 91,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 39
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 40
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 39
+      },
+      {
+        "name": "mysql_error",
+        "line": 39
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 40
+      }
+    ]
+  },
+  {
+    "file": "view_borrow.php",
+    "token_counts": {
+      "T_OPEN_TAG": 17,
+      "T_INCLUDE": 5,
+      "T_CONSTANT_ENCAPSED_STRING": 18,
+      "T_WHITESPACE": 33,
+      "T_CLOSE_TAG": 17,
+      "T_INLINE_HTML": 14,
+      "T_VARIABLE": 20,
+      "T_STRING": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_ECHO": 10
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$book_id",
+      "$borrow_details_id"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_borrow.php",
+        "exists": true
+      },
+      {
+        "line": 47,
+        "path": "modal_return.php",
+        "exists": true
+      },
+      {
+        "line": 76,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 29
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 30
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 24
+      },
+      {
+        "name": "mysql_error",
+        "line": 29
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 30
+      }
+    ]
+  },
+  {
+    "file": "view_return.php",
+    "token_counts": {
+      "T_OPEN_TAG": 17,
+      "T_INCLUDE": 5,
+      "T_CONSTANT_ENCAPSED_STRING": 18,
+      "T_WHITESPACE": 33,
+      "T_CLOSE_TAG": 17,
+      "T_INLINE_HTML": 14,
+      "T_VARIABLE": 20,
+      "T_STRING": 3,
+      "T_LOGICAL_OR": 1,
+      "T_EXIT": 1,
+      "T_WHILE": 1,
+      "T_ECHO": 10
+    },
+    "variables": [
+      "$user_query",
+      "$row",
+      "$id",
+      "$book_id",
+      "$borrow_details_id"
+    ],
+    "includes": [
+      {
+        "line": 1,
+        "path": "header.php",
+        "exists": true
+      },
+      {
+        "line": 2,
+        "path": "session.php",
+        "exists": true
+      },
+      {
+        "line": 3,
+        "path": "navbar_borrow.php",
+        "exists": true
+      },
+      {
+        "line": 47,
+        "path": "modal_return.php",
+        "exists": true
+      },
+      {
+        "line": 76,
+        "path": "footer.php",
+        "exists": true
+      }
+    ],
+    "request_tokens": [],
+    "decisions": [
+      {
+        "token": "T_LOGICAL_OR",
+        "line": 29
+      }
+    ],
+    "loops": [
+      {
+        "token": "T_WHILE",
+        "line": 30
+      }
+    ],
+    "calls": [
+      {
+        "name": "mysql_query",
+        "line": 24
+      },
+      {
+        "name": "mysql_error",
+        "line": 29
+      },
+      {
+        "name": "mysql_fetch_array",
+        "line": 30
+      }
+    ]
+  }
+]

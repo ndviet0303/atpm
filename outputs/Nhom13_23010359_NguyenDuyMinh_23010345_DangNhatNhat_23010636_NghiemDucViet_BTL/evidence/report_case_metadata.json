@@ -1,0 +1,678 @@
+{
+  "findings": [
+    [
+      "FIND-01",
+      "SQL Injection trong xác thực",
+      "CRITICAL",
+      "CWE-89",
+      "REQ-L01",
+      [
+        [
+          "login.php",
+          4,
+          12
+        ],
+        [
+          "index.php",
+          36,
+          44
+        ]
+      ],
+      "Username và password từ $_POST được đưa trực tiếp vào SELECT; mysql_num_rows($result) > 0 quyết định đặt $_SESSION[id]. Cả login.php và khối đăng nhập thực tế trong index.php có cùng mẫu. Quy tắc tainted-sql-string xác nhận luồng đầu vào đến SQL.",
+      "Nếu endpoint đăng nhập được chạy trên môi trường tương thích và truy vấn chịu ảnh hưởng đầu vào, điều kiện chọn tài khoản có thể bị thay đổi. Đây là nguy cơ vượt xác thực từ cấu trúc mã; chưa có kết quả đăng nhập giả mạo trong runtime.",
+      "Dùng truy vấn tham số để tìm tài khoản theo username, kiểm tra password bằng hàm xác minh hash, rồi đổi ID phiên sau xác thực. Tách việc truy vấn tài khoản khỏi kiểm tra mật khẩu."
+    ],
+    [
+      "FIND-02",
+      "Thiếu kiểm tra phiên ở endpoint ghi dữ liệu",
+      "CRITICAL",
+      "CWE-306",
+      "REQ-L02",
+      [
+        [
+          "delete_user.php",
+          1,
+          8
+        ],
+        [
+          "session.php",
+          3,
+          7
+        ]
+      ],
+      "Tệp delete_user.php đi từ include dbcon.php đến DELETE mà không include session.php, không session_start và không kiểm tra $_SESSION. Rà soát liên kết include xác nhận cùng tình trạng tại 12 endpoint được liệt kê dưới đây. Điều kiện isset(submit) trong một số POST handler chỉ nhận biết nút gửi form.",
+      "Nếu các handler truy cập được trực tiếp, thao tác quản trị không được ràng buộc bởi phiên ở tầng mã. Guard trên users.php hoặc books.php chỉ bảo vệ trang giao diện và không bảo vệ lời gọi trực tiếp tới handler.",
+      "Đặt guard xác thực và kiểm tra quyền trước mọi thao tác ghi. Tập trung cơ chế này để các endpoint mới cũng được bảo vệ. Dừng xử lý khi không hợp lệ."
+    ],
+    [
+      "FIND-03",
+      "SQL Injection trong CRUD và tìm kiếm",
+      "HIGH",
+      "CWE-89",
+      "REQ-L03",
+      [
+        [
+          "books_save.php",
+          4,
+          7
+        ],
+        [
+          "books_save.php",
+          20,
+          21
+        ],
+        [
+          "advance_search.php",
+          58,
+          59
+        ]
+      ],
+      "Các trường sách, ID, tên thành viên và tham số tìm kiếm được ghép vào INSERT, UPDATE, DELETE hoặc LIKE. Không thấy PDO/MySQLi prepared statement hay kiểm tra số nguyên tại các sink đã đọc. Nhận diện SQLi dựa trên nguồn và sink cụ thể; truy vấn hằng không bị gán SQLi chỉ vì dùng mysql_query.",
+      "Đầu vào có thể làm thay đổi câu truy vấn nếu được thực thi trong điều kiện phù hợp. Nhóm này bao gồm thao tác sách, thành viên và mượn–trả; nhóm xác thực được tách riêng vì tác động khác.",
+      "Chuyển sang truy vấn tham số; kiểm tra kiểu, độ dài và miền giá trị trước sử dụng. Tham số LIKE vẫn phải được bind. Kiểm tra ID không thay thế kiểm soát quyền."
+    ],
+    [
+      "FIND-04",
+      "Dữ liệu động chưa được mã hóa khi xuất HTML",
+      "HIGH",
+      "CWE-79",
+      "REQ-L04",
+      [
+        [
+          "books.php",
+          73,
+          76
+        ],
+        [
+          "edit_book.php",
+          23,
+          24
+        ]
+      ],
+      "Tên sách và tác giả từ CSDL được echo vào HTML. edit_book.php xuất book_title vào value và đưa $_GET[id] qua $get_id vào hidden value mà không mã hóa. Truy vết từ handler ghi sách tới trang danh sách chỉ ra đường dữ liệu có khả năng tạo Stored XSS; giá trị ID trong thuộc tính là một đường Reflected XSS cần mã hóa.",
+      "Nguy cơ phụ thuộc dữ liệu được lưu/được phản chiếu, ngữ cảnh HTML và cách trình duyệt xử lý. Có bằng chứng thiếu mã hóa tại sink, chưa thực thi payload JavaScript. Đầu ra dạng số phải được ép kiểu khi cần, và vẫn phải xử lý đúng ngữ cảnh.",
+      "Mã hóa HTML text và attribute bằng htmlspecialchars với xử lý dấu nháy và UTF-8. Với JavaScript dùng serialization thích hợp; với URL xử lý từng thành phần URL. Làm tại điểm xuất."
+    ],
+    [
+      "FIND-05",
+      "Mật khẩu được lưu và hiển thị dạng bản rõ",
+      "HIGH",
+      "CWE-256",
+      "REQ-L05",
+      [
+        [
+          "users.php",
+          43,
+          46
+        ],
+        [
+          "modal_edit_user.php",
+          14,
+          16
+        ]
+      ],
+      "Schema users.password là varchar(100). modal_add_user.php gán password từ POST rồi INSERT trực tiếp; login.php so sánh chuỗi với password trong SQL. users.php echo password trong bảng và modal_edit_user.php đặt mật khẩu vào input type=text.",
+      "Người xem danh sách tài khoản hoặc bản sao CSDL có thể tiếp cận mật khẩu bản rõ. Varchar tự nó không chứng minh mật khẩu bản rõ; kết luận được củng cố bởi toàn bộ luồng lưu, so sánh và hiển thị.",
+      "Dùng hash mật khẩu phù hợp và password_verify. Xóa cột mật khẩu khỏi giao diện, thiết kế luồng đặt lại mật khẩu và kế hoạch di chuyển dữ liệu. Không hiển thị hash như mật khẩu."
+    ],
+    [
+      "FIND-06",
+      "Thao tác GET và thiếu kiểm tra chống CSRF",
+      "HIGH",
+      "CWE-352",
+      "REQ-L06",
+      [
+        [
+          "delete_books.php",
+          2,
+          5
+        ],
+        [
+          "modal_return.php",
+          7,
+          7
+        ]
+      ],
+      "delete_user.php, delete_books.php, delete_member.php, delete_student.php và return_save.php nhận GET để ghi dữ liệu. Form và handler trong phạm vi không có quy trình sinh/kiểm tra anti-CSRF token. Hộp thoại Yes ở giao diện chỉ cung cấp xác nhận phía client.",
+      "Có nguy cơ yêu cầu thay đổi trạng thái ngoài ý muốn. Với handler thiếu phiên, thiếu xác thực là lỗi độc lập mạnh hơn và đã ghi ở FIND-02. Kết luận CSRF không bao hàm việc đã kiểm tra chính sách cookie hay điều kiện gửi cookie của trình duyệt.",
+      "Chuyển thao tác ghi sang phương thức thích hợp, kiểm tra phiên/quyền và token chống CSRF phía server. Bổ sung cấu hình cookie phù hợp; không dựa riêng vào hộp thoại giao diện."
+    ],
+    [
+      "FIND-07",
+      "Lấy sai ID và thiếu tính nguyên tử khi mượn sách",
+      "MEDIUM",
+      "CWE-362",
+      "REQ-L07",
+      [
+        [
+          "borrow_save.php",
+          17,
+          20
+        ],
+        [
+          "borrow_save.php",
+          23,
+          29
+        ]
+      ],
+      "Sau INSERT phiếu mượn, mã SELECT tất cả borrow ORDER BY borrow_id DESC rồi lấy dòng đầu, thay vì ID vừa chèn của chính kết nối. Lần ghi chi tiết tiếp theo có thể dùng phiếu của kết nối khác. Schema quy định borrow và borrowdetails dùng MyISAM, nên thêm BEGIN/COMMIT riêng lẻ cũng chưa bảo đảm rollback.",
+      "Một lịch xen kẽ có thể làm sách của phiếu A gắn vào phiếu B. Nếu thao tác chi tiết lỗi, dữ liệu nhiều bảng có thể dở dang. Đây là phản ví dụ suy ra từ thứ tự câu lệnh, chưa phải thử nghiệm đồng thời với CSDL.",
+      "Lấy ID vừa INSERT từ kết nối hiện tại. Chuyển các bảng liên quan sang engine giao dịch như InnoDB, dùng transaction và xử lý rollback. Xác định khóa/kiểm tra tồn kho theo nghiệp vụ đã phê duyệt."
+    ],
+    [
+      "FIND-08",
+      "Cấu hình kết nối cố định với tài khoản root",
+      "MEDIUM",
+      "CWE-798",
+      "REQ-L08",
+      [
+        [
+          "dbcon.php",
+          1,
+          3
+        ]
+      ],
+      "dbcon.php cố định máy chủ localhost, tên root và mật khẩu rỗng trong mysql_connect. Đây là cấu hình demo có sẵn trong baseline, không phải thông tin xác thực mới được phát hiện trên một hệ thống đang vận hành.",
+      "Nếu cấu hình này được dùng nguyên trạng, ứng dụng phụ thuộc tài khoản quyền cao và bảo vệ mật khẩu không phù hợp. Quyền thật của tài khoản và phương thức kết nối không được kiểm chứng bằng kiểm thử tĩnh.",
+      "Đọc cấu hình từ môi trường hoặc cơ chế quản lý cấu hình được bảo vệ. Tạo tài khoản ứng dụng có quyền tối thiểu, không dùng root và không giữ mật khẩu rỗng khi triển khai."
+    ],
+    [
+      "FIND-09",
+      "API ext mysql đã lỗi thời",
+      "MEDIUM",
+      "CWE-477",
+      "REQ-L09",
+      [
+        [
+          "dbcon.php",
+          2,
+          2
+        ],
+        [
+          "login.php",
+          7,
+          9
+        ]
+      ],
+      "Mã sử dụng mysql_connect, mysql_select_db, mysql_query, mysql_fetch_array, mysql_num_rows và mysql_error. Các tên này thuộc ext/mysql đã bị loại khỏi PHP 7. SAST và token inventory cùng xác nhận việc sử dụng; php -l vẫn thành công vì linter không giải quyết sự tồn tại của hàm.",
+      "Tính tương thích cú pháp trên PHP 8.5 không đồng nghĩa ứng dụng chạy được trên PHP 8.5. Stub rỗng cho PHPStan chỉ che khoảng trống biểu tượng khi phân tích và không khôi phục API cho chương trình.",
+      "Di chuyển toàn bộ tầng CSDL sang MySQLi hoặc PDO_MySQL và prepared statement. Đánh giá hỗ trợ phiên bản môi trường theo kế hoạch triển khai trước khi đổi API."
+    ],
+    [
+      "FIND-10",
+      "Lỗi CSDL được đưa trực tiếp ra output",
+      "LOW",
+      "CWE-209",
+      "REQ-L10",
+      [
+        [
+          "login.php",
+          7,
+          7
+        ],
+        [
+          "return_save.php",
+          7,
+          7
+        ]
+      ],
+      "Có 52 hit của quy tắc die(mysql_error()) hoặc tương đương sau khi sửa cú pháp rule. Đây là cơ chế in lỗi do mã tự tạo, tách biệt với display_errors của PHP. Bộ token cũng ghi nhận 52 lời gọi mysql_error.",
+      "Khi truy vấn thất bại, thông báo có thể lộ bảng/cột, cú pháp SQL hoặc thông tin nội bộ. Chưa kích hoạt lỗi truy vấn, nên không khẳng định nội dung phản hồi cụ thể của máy chủ.",
+      "Ghi chi tiết vào log được bảo vệ; trả thông báo chung và mã tham chiếu lỗi cho người dùng. Thiết kế xử lý lỗi nhất quán và tránh đưa bí mật vào log."
+    ],
+    [
+      "FIND-11",
+      "Include thiếu và tham chiếu cấu trúc không hoàn chỉnh",
+      "LOW",
+      "Lỗi chất lượng",
+      "REQ-L11",
+      [
+        [
+          "archive.php",
+          1,
+          3
+        ],
+        [
+          "unstudents.php",
+          29,
+          34
+        ]
+      ],
+      "PHPStan xác nhận ba include không tồn tại: navbar_archive.php, navbar_dasboard.php và confirm_request.php. unreturned_books.php có 0 byte. unstudents.php truy vấn students, nhưng schema được cung cấp chỉ có tám bảng và không có students. update_students.php chuyển hướng students.php cũng chưa có tệp tương ứng trong phạm vi.",
+      "Các thiếu sót có thể làm chức năng không hoàn chỉnh hoặc phát sinh lỗi khi dùng baseline. Không coi từng lỗi chất lượng là một lỗ hổng bảo mật độc lập, và không ép ánh xạ CWE-398 thành nguyên nhân cụ thể.",
+      "Rà soát tên include/đích chuyển hướng và phần chức năng student dư thừa. Khôi phục hoặc loại bỏ chức năng theo thiết kế được xác nhận; bổ sung schema chỉ khi thực sự cần."
+    ]
+  ],
+  "checklist": [
+    [
+      "AUTH-01",
+      "Chống SQLi khi đăng nhập",
+      "Không đạt",
+      "index.php:36–44; login.php:4–12"
+    ],
+    [
+      "AUTH-02",
+      "Lưu trữ mật khẩu an toàn",
+      "Không đạt",
+      "Luồng POST → INSERT → so sánh SQL; users.php:44"
+    ],
+    [
+      "AUTH-03",
+      "Hạn chế thử mật khẩu trong mã",
+      "Thiếu cơ chế",
+      "Không có đếm lỗi/khóa tạm tại nhánh đăng nhập; tầng ngoài chưa biết"
+    ],
+    [
+      "AUTH-04",
+      "Quản lý phiên",
+      "Một phần",
+      "Có guard và destroy; không thấy regenerate ID sau login"
+    ],
+    [
+      "AUTH-05",
+      "Cờ cookie phiên",
+      "Chưa đủ căn cứ",
+      "Mã không đặt cờ; chưa có php.ini/cấu hình triển khai"
+    ],
+    [
+      "AC-01",
+      "Guard trang quản trị",
+      "Đạt trong phạm vi",
+      "Dashboard, books, users, member có session.php; header được include trước"
+    ],
+    [
+      "AC-02",
+      "Guard endpoint hành động",
+      "Không đạt",
+      "12 endpoint được liệt kê tại FIND-02"
+    ],
+    [
+      "AC-03",
+      "Phân quyền theo vai trò",
+      "Thiếu đặc tả",
+      "Schema users không có role; mô hình vai trò chưa được yêu cầu"
+    ],
+    [
+      "AC-04",
+      "Quyền trên đối tượng và IDOR",
+      "Chưa kết luận IDOR",
+      "Không đủ chính sách sở hữu; thiếu guard/kiểm tra ID đã ghi riêng"
+    ],
+    [
+      "INP-01",
+      "Kiểm tra đầu vào ở server",
+      "Không đạt",
+      "books_save/update_books nhận POST trực tiếp"
+    ],
+    [
+      "INP-02",
+      "Truy vấn tham số",
+      "Không đạt",
+      "Không có prepared statement ở sink đã đọc"
+    ],
+    [
+      "INP-03",
+      "Kiểm tra khóa số",
+      "Không đạt",
+      "GET/POST id ghép thẳng vào SQL"
+    ],
+    [
+      "INP-04",
+      "Xử lý tải tệp",
+      "Không áp dụng",
+      "Không thấy backend $_FILES trong phạm vi"
+    ],
+    [
+      "OUT-01",
+      "Mã hóa HTML text",
+      "Không đạt",
+      "books.php:74,76 và các danh sách khác"
+    ],
+    [
+      "OUT-02",
+      "Mã hóa thuộc tính HTML",
+      "Không đạt",
+      "edit_book.php:23–24"
+    ],
+    [
+      "OUT-03",
+      "Mã hóa JS và URL",
+      "Cần củng cố",
+      "toolttip_edit_delete echo ID vào JS; nguồn và ngữ cảnh cần kiểm soát"
+    ],
+    [
+      "STATE-01",
+      "Phương thức thay đổi dữ liệu",
+      "Không đạt",
+      "5 handler nhận GET để ghi dữ liệu"
+    ],
+    [
+      "STATE-02",
+      "Kiểm tra anti-CSRF",
+      "Không đạt",
+      "Không có quy trình token trong form/handler khảo sát"
+    ],
+    [
+      "STATE-03",
+      "Xác nhận phía server",
+      "Không đạt",
+      "Modal Yes chỉ ở UI; handler thực hiện trực tiếp"
+    ],
+    [
+      "ERR-01",
+      "Che lỗi CSDL ở output",
+      "Không đạt",
+      "52 hit mysql_error được đối chiếu"
+    ],
+    [
+      "ERR-02",
+      "Cấu hình display_errors",
+      "Chưa đủ căn cứ",
+      "Không thấy cấu hình trong mã; chưa có cấu hình máy chủ"
+    ],
+    [
+      "ERR-03",
+      "Thông tin kết nối và mật khẩu",
+      "Không đạt",
+      "dbcon.php:2; users.php:44"
+    ],
+    [
+      "BIZ-01",
+      "Kiểm tra số sách khả dụng",
+      "Thiếu đặc tả",
+      "borrow_save chưa kiểm tra; cần xác nhận chính sách kho"
+    ],
+    [
+      "BIZ-02",
+      "Giới hạn sách mỗi người",
+      "Thiếu đặc tả",
+      "Không có SRS quy định hạn mức"
+    ],
+    [
+      "BIZ-03",
+      "ID và transaction mượn sách",
+      "Không đạt",
+      "ORDER BY ID DESC; borrow/borrowdetails là MyISAM"
+    ],
+    [
+      "BIZ-04",
+      "Thẻ bị khóa và quá hạn",
+      "Thiếu đặc tả",
+      "Cần quy tắc nghiệp vụ trước kết luận"
+    ],
+    [
+      "BIZ-05",
+      "Nhất quán trả/hỏng/mất",
+      "Cần làm rõ",
+      "return_save đổi trạng thái; lost_book không được dùng trong PHP khảo sát"
+    ]
+  ],
+  "cases": [
+    [
+      "TC-01",
+      "REQ-L01",
+      "Đăng nhập phải tách dữ liệu khỏi cú pháp SQL",
+      "index.php, login.php và quy tắc taint đã tải",
+      "Đọc các phép gán POST; theo biến vào SELECT; đối chiếu cảnh báo tainted-sql-string.",
+      "Có truy vấn tham số và xác minh mật khẩu phù hợp.",
+      "Không đạt: chuỗi SQL chứa trực tiếp username/password.",
+      "semgrep_run1.json; index.php:36–44; FIND-01"
+    ],
+    [
+      "TC-02",
+      "REQ-L02",
+      "Mọi endpoint ghi phải có guard",
+      "12 handler và dbcon/session.php trong baseline",
+      "Theo include đệ quy; xác định nhánh kiểm tra phiên trước sink; loại trừ điều kiện submit khỏi guard.",
+      "Mỗi thao tác ghi chỉ đạt được sau xác minh phiên/quyền.",
+      "Không đạt: cả 12 handler không có guard phiên trong mã.",
+      "static_summary.json action_review; FIND-02"
+    ],
+    [
+      "TC-03",
+      "REQ-L03",
+      "Đầu vào CRUD không sửa cú pháp truy vấn",
+      "Handler sách/thành viên và advance_search.php",
+      "Truy vết POST/GET tới mysql_query; kiểm tra binding, validation và ID.",
+      "Dữ liệu được bind; ID được kiểm tra trước truy vấn.",
+      "Không đạt: nhiều sink ghép chuỗi từ request.",
+      "semgrep_run1.json; FIND-03"
+    ],
+    [
+      "TC-04",
+      "REQ-L04",
+      "Mã hóa dữ liệu tại điểm xuất",
+      "books.php, edit_book.php và luồng lưu sách",
+      "Đọc echo và ngữ cảnh HTML/value; theo dữ liệu CSDL và GET vào sink.",
+      "Mỗi ngữ cảnh xuất dùng encoding thích hợp.",
+      "Không đạt: echo nội dung/thuộc tính không có encoding.",
+      "books.php:74,76; edit_book.php:23–24; FIND-04"
+    ],
+    [
+      "TC-05",
+      "REQ-L05",
+      "Bảo vệ vòng đời mật khẩu",
+      "Schema users và các tệp tạo/sửa/hiển thị tài khoản",
+      "Đọc luồng lưu, đối chiếu cách xác thực và mọi điểm xuất mật khẩu.",
+      "Lưu hash, xác minh hash và không hiển thị mật khẩu.",
+      "Không đạt: lưu, so sánh và hiển thị bản rõ.",
+      "users.php:44; modal_edit_user.php:15; FIND-05"
+    ],
+    [
+      "TC-06",
+      "REQ-L06",
+      "Phương thức ghi và chống CSRF",
+      "Form, modal xóa/trả và handler tương ứng",
+      "Đối chiếu action/href với GET/POST; tìm quy trình sinh và kiểm tra token server.",
+      "Phương thức phù hợp; guard và anti-CSRF tại handler.",
+      "Không đạt: 5 handler ghi qua GET; thiếu quy trình token.",
+      "php_tokens.json; FIND-06"
+    ],
+    [
+      "TC-07",
+      "REQ-L07",
+      "Phiếu mượn có đúng ID và tính nguyên tử",
+      "borrow_save.php và schema borrow/borrowdetails",
+      "Đọc INSERT → SELECT → chi tiết; dựng lịch xen kẽ tĩnh; kiểm tra engine và rollback.",
+      "ID của chính kết nối; bảng giao dịch; thao tác nhiều bảng nguyên tử.",
+      "Không đạt: lấy dòng ID lớn nhất và dùng MyISAM.",
+      "borrow_save.php:17–26; eb_lms.sql:75–107; FIND-07"
+    ],
+    [
+      "TC-08",
+      "REQ-L08",
+      "Cấu hình CSDL và quyền tối thiểu",
+      "dbcon.php",
+      "Đọc tham số kết nối và vị trí lấy cấu hình; xác định tài khoản demo.",
+      "Tách cấu hình; tài khoản ứng dụng phù hợp.",
+      "Không đạt ở mã: root và mật khẩu rỗng cố định. Quyền runtime chưa biết.",
+      "dbcon.php:2; FIND-08"
+    ],
+    [
+      "TC-09",
+      "REQ-L09",
+      "API CSDL tương thích",
+      "Source PHP và tài liệu PHP chính thức",
+      "Đếm token mysql_*; đọc mục API bị loại bỏ; phân biệt lint với giải quyết hàm.",
+      "API còn được hỗ trợ trong môi trường mục tiêu.",
+      "Không đạt với PHP 7 trở lên: ext/mysql đã bị loại bỏ.",
+      "php_tokens.json; FIND-09"
+    ],
+    [
+      "TC-10",
+      "REQ-L10",
+      "Che lỗi nội bộ",
+      "Quy tắc lỗi CSDL đã sửa và mã nguồn",
+      "Quét các die/echo mysql_error; đối chiếu sink trực tiếp và luồng lỗi.",
+      "Lỗi chi tiết chỉ vào log được bảo vệ.",
+      "Không đạt: 52 hit lộ lỗi CSDL ở mã.",
+      "semgrep_run1.json; FIND-10"
+    ],
+    [
+      "TC-11",
+      "REQ-L11",
+      "Tính đầy đủ include và schema",
+      "Danh mục tệp, schema và PHPStan level 0",
+      "So sánh từng literal include với tệp; tìm bảng students và tệp rỗng.",
+      "Tham chiếu tồn tại, chức năng có nội dung.",
+      "Không đạt: 3 include thiếu, bảng students thiếu trong schema, 1 tệp rỗng.",
+      "phpstan_fresh.json; source_inventory.json; FIND-11"
+    ],
+    [
+      "TC-12",
+      "NFR-A01",
+      "Bao phủ phạm vi và cú pháp",
+      "Danh sách 66 tệp đã chốt",
+      "Chạy php -l từng tệp; so danh sách scanner với inventory.",
+      "66 tệp được phân tích và output chỉ gồm phạm vi chốt.",
+      "Đạt: lint 66/66; Semgrep ghi 66 tệp.",
+      "php_lint.json; sast_manifest.json"
+    ],
+    [
+      "TC-13",
+      "CON-A03",
+      "Cấu hình scanner hợp lệ",
+      "Snapshot registry và bản sao rule tùy biến",
+      "Chạy Semgrep, đọc cả mã thoát lẫn errors trong JSON.",
+      "Không có lỗi cấu hình hoặc parser tool.",
+      "Đạt ở lần mới: exit 0, errors rỗng. Hồ sơ cũ thất bại vì rule parse.",
+      "semgrep_run1.json; historical_semgrep_audit.json"
+    ],
+    [
+      "TC-14",
+      "NFR-A02",
+      "Kết quả có thể lặp lại",
+      "Hai lần quét cùng nguồn và quy tắc",
+      "So check_id/path/toạ độ bắt đầu/kết thúc cho từng cảnh báo.",
+      "Hai tập chữ ký giống nhau.",
+      "Đạt: 322 chữ ký trùng; chênh lệch 0 và 0.",
+      "sast_manifest.json repeatability"
+    ],
+    [
+      "TC-15",
+      "NFR-A03",
+      "Baseline không đổi",
+      "SHA-256 trước và sau",
+      "Tính hash toàn bộ 66 tệp; so schema và LICENSE với baseline.",
+      "Mọi tệp nguồn giữ nguyên nội dung.",
+      "Đạt: 66/66 hash không đổi; schema/LICENSE khớp.",
+      "source_inventory.json; static_summary.json"
+    ],
+    [
+      "TC-16",
+      "REQ-L02",
+      "Thuộc tính mô hình kiểm soát truy cập",
+      "Mô hình hữu hạn suy ra từ session và handler",
+      "Duyệt trạng thái đạt được; kiểm tra AG(write → authenticated).",
+      "Không có trạng thái ghi thiếu nhãn authenticated.",
+      "Vi phạm trong mô hình: unauthenticated → unauthorized_write.",
+      "auth_model.json; giới hạn mô hình tại mục 2.1"
+    ]
+  ],
+  "additional": [
+    [
+      "TC-17",
+      "REQ-G01",
+      "Login _v0 SAT, _v1 UNSAT; đối chứng SAT",
+      "authentication*.cnf; formal_results.json"
+    ],
+    [
+      "TC-18",
+      "REQ-G02",
+      "Authz _v0 SAT, _v1 UNSAT; đối chứng SAT",
+      "authorization*.cnf; formal_results.json"
+    ],
+    [
+      "TC-19",
+      "REQ-G03",
+      "Query _v0 SAT, _v1 UNSAT; đối chứng SAT",
+      "database_query*.cnf; formal_results.json"
+    ],
+    [
+      "TC-20",
+      "REQ-G04",
+      "Script _v0 SAT, _v1 UNSAT; đối chứng SAT",
+      "script_output*.cnf; formal_results.json"
+    ],
+    [
+      "TC-21",
+      "REQ-G05",
+      "Token Bool _v0 SAT, _v1 UNSAT; đối chứng SAT",
+      "token_crypto*.cnf; formal_results.json"
+    ],
+    [
+      "TC-22",
+      "REQ-G06",
+      "SMT 1 SAT trước, 8 UNSAT sau, 1 SAT đối chứng",
+      "token_v*.smt2; formal_results.json"
+    ]
+  ],
+  "requirements": [
+    [
+      "REQ-L01",
+      "Xác thực",
+      "HIGH",
+      "Dữ liệu đăng nhập phải tách khỏi cú pháp SQL bằng truy vấn tham số."
+    ],
+    [
+      "REQ-L02",
+      "Phân quyền",
+      "HIGH",
+      "Mỗi endpoint ghi dữ liệu phải xác minh phiên và quyền trước thao tác CSDL."
+    ],
+    [
+      "REQ-L03",
+      "Đầu vào",
+      "HIGH",
+      "Truy vấn CRUD và tìm kiếm phải dùng tham số; ID phải được kiểm tra kiểu."
+    ],
+    [
+      "REQ-L04",
+      "Đầu ra",
+      "HIGH",
+      "Dữ liệu động phải được mã hóa đúng ngữ cảnh HTML, thuộc tính, JavaScript và URL."
+    ],
+    [
+      "REQ-L05",
+      "Mật khẩu",
+      "HIGH",
+      "Mật khẩu phải được băm thích hợp và không hiển thị dạng bản rõ."
+    ],
+    [
+      "REQ-L06",
+      "Trạng thái",
+      "HIGH",
+      "Thao tác ghi dữ liệu phải dùng phương thức thích hợp và có kiểm tra chống CSRF."
+    ],
+    [
+      "REQ-L07",
+      "Toàn vẹn",
+      "MEDIUM",
+      "Phiếu mượn và chi tiết phải dùng ID của chính kết nối và được ghi nguyên tử."
+    ],
+    [
+      "REQ-L08",
+      "Cấu hình",
+      "MEDIUM",
+      "Thông tin kết nối phải tách khỏi mã; tài khoản CSDL phải có quyền tối thiểu."
+    ],
+    [
+      "REQ-L09",
+      "Tương thích",
+      "MEDIUM",
+      "Mã phải dùng API CSDL còn được hỗ trợ trong môi trường mục tiêu."
+    ],
+    [
+      "REQ-L10",
+      "Lỗi",
+      "LOW",
+      "Thông báo phía người dùng không được lộ lỗi CSDL nội bộ."
+    ],
+    [
+      "REQ-L11",
+      "Cấu trúc",
+      "LOW",
+      "Các include và tham chiếu schema phải tồn tại; tệp chức năng phải có nội dung."
+    ]
+  ]
+}

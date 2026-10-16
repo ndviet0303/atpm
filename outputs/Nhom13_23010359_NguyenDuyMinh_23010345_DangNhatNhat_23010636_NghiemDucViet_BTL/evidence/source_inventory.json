@@ -1,0 +1,464 @@
+[
+  {
+    "file": "add_books.php",
+    "bytes": 3497,
+    "lines": 109,
+    "blank": 15,
+    "sha256": "743d6c0838e9d6b9ad2f0941a54a269480c8538bf65f1941a740fc4403023a4a"
+  },
+  {
+    "file": "add_member.php",
+    "bytes": 2894,
+    "lines": 98,
+    "blank": 16,
+    "sha256": "33ea82bd44f448406cbde8153cc8569ddde19202d6f8d4907fbcdd4c31459436"
+  },
+  {
+    "file": "add_student.php",
+    "bytes": 2766,
+    "lines": 93,
+    "blank": 16,
+    "sha256": "6b747154ceb0c797742b889fa993fff7ee6276b0497852c72f4af889ec95397f"
+  },
+  {
+    "file": "advance_search.php",
+    "bytes": 4840,
+    "lines": 107,
+    "blank": 13,
+    "sha256": "9f226e0671452a62a492c0e2b3e7e8097f8f55dff9fe2c9e8b82d0fa049647a2"
+  },
+  {
+    "file": "archive.php",
+    "bytes": 2729,
+    "lines": 68,
+    "blank": 9,
+    "sha256": "ea1a16af80c5bee9983c84c6c6c1b89b02ef2bd2eb93feb677ba4dfc979970c7"
+  },
+  {
+    "file": "books.php",
+    "bytes": 4749,
+    "lines": 105,
+    "blank": 14,
+    "sha256": "db1c40249d1228e41671f9faf471cda493302ee58f5e9e5a409e0cca1e4cbaac"
+  },
+  {
+    "file": "books_save.php",
+    "bytes": 784,
+    "lines": 26,
+    "blank": 7,
+    "sha256": "f5cb1841cd372bd1877921b633e701641bfcba4079f52f914e5ca2800ebbb1a4"
+  },
+  {
+    "file": "borrow.php",
+    "bytes": 4221,
+    "lines": 110,
+    "blank": 17,
+    "sha256": "5419e91ef8f0013a086f31ae6c8ee3fa76c134f314ef9adfec7ff898fcf606aa"
+  },
+  {
+    "file": "borrow_save.php",
+    "bytes": 732,
+    "lines": 36,
+    "blank": 15,
+    "sha256": "9b863d372f919849007a0dcb9ee2c68e0446814d216bca9ed7ce61df6d85ce46"
+  },
+  {
+    "file": "borrowname.php",
+    "bytes": 1198,
+    "lines": 27,
+    "blank": 0,
+    "sha256": "0cab07c842f55920f93b5be4eea3ecda66cd2285bd77decde5b48d4568d8b060"
+  },
+  {
+    "file": "damage.php",
+    "bytes": 4250,
+    "lines": 90,
+    "blank": 9,
+    "sha256": "06828eda80ba72cac0ffced9de08d7a6672218ce737cb361ca6206a1ce3e079c"
+  },
+  {
+    "file": "dashboard.php",
+    "bytes": 352,
+    "lines": 16,
+    "blank": 3,
+    "sha256": "1b47d082e08b8540a40abfe72a1a88428a3058e657a9013f0397c6209f1f7dee"
+  },
+  {
+    "file": "dbcon.php",
+    "bytes": 93,
+    "lines": 3,
+    "blank": 0,
+    "sha256": "563f15ea261ae090eed66e6612611c71a4a353719aa03c48bca8cf0c5a5c720e"
+  },
+  {
+    "file": "delete_book_modal.php",
+    "bytes": 524,
+    "lines": 11,
+    "blank": 2,
+    "sha256": "7fe14e5db5c0b31a5f8e29ffe33f08b95e047266a51460086a96378f69c658dc"
+  },
+  {
+    "file": "delete_books.php",
+    "bytes": 169,
+    "lines": 6,
+    "blank": 0,
+    "sha256": "4e3c391fcabfda0a6d6d91750b772162bff116b98cd6799b7e02a3f00d5936b6"
+  },
+  {
+    "file": "delete_member.php",
+    "bytes": 157,
+    "lines": 6,
+    "blank": 0,
+    "sha256": "e9bc8257d347efe2a03434b6c6387bf3411e854962c4143f3289a347b285804f"
+  },
+  {
+    "file": "delete_member_modal.php",
+    "bytes": 529,
+    "lines": 11,
+    "blank": 2,
+    "sha256": "0283758eb341b00683ea06329d00c694692f43c98822fafbf64eb22bc5c8c6bc"
+  },
+  {
+    "file": "delete_student.php",
+    "bytes": 157,
+    "lines": 6,
+    "blank": 0,
+    "sha256": "e9bc8257d347efe2a03434b6c6387bf3411e854962c4143f3289a347b285804f"
+  },
+  {
+    "file": "delete_student_modal.php",
+    "bytes": 529,
+    "lines": 11,
+    "blank": 2,
+    "sha256": "a74831810e376c0b71c5a31226b05c30c44cc1034b640680c619f8579b7c6800"
+  },
+  {
+    "file": "delete_user.php",
+    "bytes": 156,
+    "lines": 9,
+    "blank": 3,
+    "sha256": "4a18bea61ce3359b1da5bd6f87ee2a74e6e5a1620830f8b16565c4bf6c9de598"
+  },
+  {
+    "file": "delete_user_modal.php",
+    "bytes": 555,
+    "lines": 11,
+    "blank": 2,
+    "sha256": "ff48bbfa5add25f303a76906765fa19b3643c79f78e0e683fb28ef8b551cc414"
+  },
+  {
+    "file": "dropdown.php",
+    "bytes": 319,
+    "lines": 8,
+    "blank": 0,
+    "sha256": "d7b37800e36fa88f0c8e9e0d0da4abe4474ba501fe3d520004f57513206fe8f0"
+  },
+  {
+    "file": "edit_book.php",
+    "bytes": 4284,
+    "lines": 104,
+    "blank": 5,
+    "sha256": "ea5d1ede2341a4a2493b1628a73df3aac6e97ecd92e61875a2ee6fc4e0a0eccc"
+  },
+  {
+    "file": "edit_member.php",
+    "bytes": 3692,
+    "lines": 108,
+    "blank": 15,
+    "sha256": "0805160c96e7e20dc349d91e338edcb0dcf9fc79d237cc4b63815d94c37113eb"
+  },
+  {
+    "file": "edit_student.php",
+    "bytes": 3590,
+    "lines": 107,
+    "blank": 17,
+    "sha256": "2fae42959e0f528d8c7b3a5f25735e2a6e9d2759ff310a11bf4a67d78a4b5e19"
+  },
+  {
+    "file": "footer.php",
+    "bytes": 1139,
+    "lines": 33,
+    "blank": 4,
+    "sha256": "3c0820eae47204d5ccb77bef222ebb582518588d549eacd561b7bc135ae9af45"
+  },
+  {
+    "file": "footer2.php",
+    "bytes": 555,
+    "lines": 16,
+    "blank": 2,
+    "sha256": "a53d7ed578ab899bc6b466d908eb8d8ba43e8d4952c96091254fc2df56048ba2"
+  },
+  {
+    "file": "header.php",
+    "bytes": 2073,
+    "lines": 58,
+    "blank": 6,
+    "sha256": "7acd6a67faa0f661b358ab1e2a6159a68da6f4947e7ca2cddaeb27b78ca11af0"
+  },
+  {
+    "file": "index.php",
+    "bytes": 1930,
+    "lines": 58,
+    "blank": 2,
+    "sha256": "d77d002d64c0dbefbf3cd6abe5865967849977f1b4b75c2f6c063a2c50a331a4"
+  },
+  {
+    "file": "login.php",
+    "bytes": 510,
+    "lines": 18,
+    "blank": 0,
+    "sha256": "f2c6b2190d5cc453ced530fda5f39c27d8f09591bcc2656c577a9bc00d38df68"
+  },
+  {
+    "file": "logout.php",
+    "bytes": 77,
+    "lines": 5,
+    "blank": 0,
+    "sha256": "3355c3814a670f7c9492490c0fa786487c5ea20fec7f3dce1e5862cd54b825e6"
+  },
+  {
+    "file": "lost.php",
+    "bytes": 4244,
+    "lines": 90,
+    "blank": 9,
+    "sha256": "87f1e7b24c1a5c249460b67af80c6e593b5842e1563c556d569bc24b4f172df5"
+  },
+  {
+    "file": "member.php",
+    "bytes": 3038,
+    "lines": 65,
+    "blank": 10,
+    "sha256": "ad0d412e73a0a812be47564049e2d022b3b6f9ca25aceaa275a80cc4a20a0801"
+  },
+  {
+    "file": "member_save.php",
+    "bytes": 513,
+    "lines": 20,
+    "blank": 6,
+    "sha256": "155447af3729b0808a3835b15d6681e0ddda93619022c6fb2f24eca393167b2b"
+  },
+  {
+    "file": "modal_add_user.php",
+    "bytes": 1928,
+    "lines": 50,
+    "blank": 2,
+    "sha256": "5f28f1a315a9a260bd9e404ef8c0d2822c11219896ebbe90e14beaf0c19bace5"
+  },
+  {
+    "file": "modal_edit_user.php",
+    "bytes": 2220,
+    "lines": 59,
+    "blank": 5,
+    "sha256": "8d4a95d37819164d44c3c8c64278f79b2a40b22aa25355abff23e29bec18cfef"
+  },
+  {
+    "file": "modal_return.php",
+    "bytes": 565,
+    "lines": 11,
+    "blank": 2,
+    "sha256": "2ef8eed12431db2d11d95f81fe66337a17074f84f57048dd75799d4f41c446ce"
+  },
+  {
+    "file": "navbar.php",
+    "bytes": 722,
+    "lines": 24,
+    "blank": 8,
+    "sha256": "901c25037b6e245733d23fed7ebc3be85766aa653142ec4acdff340e52af64ae"
+  },
+  {
+    "file": "navbar2.php",
+    "bytes": 842,
+    "lines": 28,
+    "blank": 10,
+    "sha256": "5c47c96c112ed894b2d537aae3fb2faac3649be5cf6077904ce47fe5ebfcab8f"
+  },
+  {
+    "file": "navbar_books.php",
+    "bytes": 1341,
+    "lines": 33,
+    "blank": 3,
+    "sha256": "d6e28dac38a8f470c1774f6630b5c43f3a7768fcd5a173245a05b4e37db6099c"
+  },
+  {
+    "file": "navbar_borrow.php",
+    "bytes": 1323,
+    "lines": 33,
+    "blank": 3,
+    "sha256": "623db4f4a2969eac4448f414f21f0f6145b5c4962547bf597a4fa865e22cce74"
+  },
+  {
+    "file": "navbar_dashboard.php",
+    "bytes": 1338,
+    "lines": 33,
+    "blank": 3,
+    "sha256": "16cd88a315660146168afc1e9e21d1acaa9ace53c89c431aba408198d61c8544"
+  },
+  {
+    "file": "navbar_member.php",
+    "bytes": 1338,
+    "lines": 33,
+    "blank": 3,
+    "sha256": "e75715bec4a8c5fb216cad8a15f8e1e58651ee04d822534f51fa0b2f306773b9"
+  },
+  {
+    "file": "navbar_transaction.php",
+    "bytes": 2303,
+    "lines": 45,
+    "blank": 2,
+    "sha256": "a972bbf1a4d7ed006020c842ab2c572a049184339a33e2d16ad16ac6a989ab4c"
+  },
+  {
+    "file": "navbar_user.php",
+    "bytes": 1338,
+    "lines": 33,
+    "blank": 3,
+    "sha256": "ca8a5efd3351f4adcfd517fb09a79a0a332ec93bcae4a00090f3ab8db3cc7aa4"
+  },
+  {
+    "file": "new_books.php",
+    "bytes": 4243,
+    "lines": 90,
+    "blank": 9,
+    "sha256": "2cb7d15a92164cebc9c791a9a1a86e202654b80dc63439830a703a7553574768"
+  },
+  {
+    "file": "old_books.php",
+    "bytes": 4242,
+    "lines": 90,
+    "blank": 9,
+    "sha256": "e216a02cf1dca1a67e7a53aeab9f92afd275d90d8e71ed76c77ad5c4b2e7ff09"
+  },
+  {
+    "file": "return.php",
+    "bytes": 3043,
+    "lines": 75,
+    "blank": 12,
+    "sha256": "90cb80fc5d344ca8159ce37740920684519362ce45bef04afce00e48558908a2"
+  },
+  {
+    "file": "return_save.php",
+    "bytes": 363,
+    "lines": 10,
+    "blank": 3,
+    "sha256": "f4e5e2867c388b4677d481654661c1a65aeb6510efed5e3bc349bcadcb43d8a3"
+  },
+  {
+    "file": "returnname.php",
+    "bytes": 1175,
+    "lines": 26,
+    "blank": 0,
+    "sha256": "52f1d8be01d45fb788740d296721014a21e89d414cc5988521ffbc79e9e5ee5b"
+  },
+  {
+    "file": "search_form.php",
+    "bytes": 1008,
+    "lines": 29,
+    "blank": 1,
+    "sha256": "f93bcab9c9821b87d5f7c625dc3df57ce650668af2a34961a5394500ebe112dc"
+  },
+  {
+    "file": "session.php",
+    "bytes": 253,
+    "lines": 10,
+    "blank": 0,
+    "sha256": "e5130298aaca6273303f05dd2fa8bba0c3a5ac5f387f330ccae4db95427cd1f5"
+  },
+  {
+    "file": "slider.php",
+    "bytes": 1620,
+    "lines": 51,
+    "blank": 19,
+    "sha256": "a1fc3507ffa06ed182a607861a583e6771073ad12ca450bccc74c7b8974a8f93"
+  },
+  {
+    "file": "student_save.php",
+    "bytes": 513,
+    "lines": 20,
+    "blank": 6,
+    "sha256": "155447af3729b0808a3835b15d6681e0ddda93619022c6fb2f24eca393167b2b"
+  },
+  {
+    "file": "sub_rep.php",
+    "bytes": 4277,
+    "lines": 90,
+    "blank": 9,
+    "sha256": "d32eb8d8a9fa66bb9a7cf882d4169d43529e9763c406cfcac773a13947208802"
+  },
+  {
+    "file": "tooltip.php",
+    "bytes": 2470,
+    "lines": 45,
+    "blank": 3,
+    "sha256": "cffe91e41846642d26fc588e00015a4395f0a1fa828fa14b286e38a3973f8a26"
+  },
+  {
+    "file": "toolttip_edit_delete.php",
+    "bytes": 675,
+    "lines": 26,
+    "blank": 2,
+    "sha256": "a5f68323e4b76e594272a901173aac1554cff31528fc27aca0aa4f9be1eff7de"
+  },
+  {
+    "file": "transaction.php",
+    "bytes": 355,
+    "lines": 18,
+    "blank": 5,
+    "sha256": "ec939165e10bed5807b8e63e6a140058f06945f788da2f251fc869f1bd33316e"
+  },
+  {
+    "file": "unreturned_books.php",
+    "bytes": 0,
+    "lines": 0,
+    "blank": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "unstudents.php",
+    "bytes": 3306,
+    "lines": 58,
+    "blank": 6,
+    "sha256": "e898cfb016ff1e1b9f21f09a7cbb798e98274d0ba9900d20c66f8bb42fd534e9"
+  },
+  {
+    "file": "update_books.php",
+    "bytes": 802,
+    "lines": 26,
+    "blank": 6,
+    "sha256": "8331aa101ba2e27737098857b2d0bc90a83e97b52156bd9dc7d4db2dfa415dc5"
+  },
+  {
+    "file": "update_member.php",
+    "bytes": 599,
+    "lines": 19,
+    "blank": 3,
+    "sha256": "b62c798c15bec9fb5ea08dc98bcd9ac7c8ce861a4a284b6abba68aed176eefb1"
+  },
+  {
+    "file": "update_students.php",
+    "bytes": 558,
+    "lines": 20,
+    "blank": 5,
+    "sha256": "0d99decb24629988b1351e726bf5fe4c5e1304102ddd71379e642f0c62801222"
+  },
+  {
+    "file": "users.php",
+    "bytes": 4000,
+    "lines": 92,
+    "blank": 12,
+    "sha256": "ec5c07b38340c21a8b7ad03465c577db7255c4df5329733f0ef0a4121f7052c9"
+  },
+  {
+    "file": "view_borrow.php",
+    "bytes": 3227,
+    "lines": 76,
+    "blank": 12,
+    "sha256": "2321bab71cbbe36028264ab4c789c7ca119445f319b0af7637ae7640b364b2b3"
+  },
+  {
+    "file": "view_return.php",
+    "bytes": 3266,
+    "lines": 76,
+    "blank": 12,
+    "sha256": "4b871ac67c37e24104625246052ef3f7135b12e28e3c4d749a5311d57edd5bf0"
+  }
+]

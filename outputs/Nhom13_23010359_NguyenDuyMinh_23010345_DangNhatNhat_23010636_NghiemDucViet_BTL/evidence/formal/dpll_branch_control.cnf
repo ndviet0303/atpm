@@ -1,0 +1,8 @@
+c dpll_branch_control
+c 1 p
+c 2 q
+p cnf 2 4
+1 2 0
+1 -2 0
+-1 2 0
+-1 -2 0

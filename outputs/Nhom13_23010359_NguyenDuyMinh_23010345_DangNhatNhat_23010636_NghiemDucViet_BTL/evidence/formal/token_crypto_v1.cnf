@@ -1,0 +1,12 @@
+c token_crypto_v1
+c 1 accepted
+c 2 parsed
+c 3 tag_valid
+c 4 claims_valid
+p cnf 4 6
+-1 2 0
+-1 3 0
+-1 4 0
+1 -2 -3 -4 0
+1 0
+-3 -4 0

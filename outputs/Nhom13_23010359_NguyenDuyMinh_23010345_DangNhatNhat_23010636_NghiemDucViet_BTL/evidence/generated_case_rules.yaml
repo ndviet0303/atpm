@@ -1,0 +1,34 @@
+rules:
+  - id: case-raw-mysql-query
+    languages: [php]
+    severity: ERROR
+    message: Generated case executes a raw legacy SQL query; inspect interpolation.
+    pattern: mysql_query(...)
+  - id: case-unconditional-authorization
+    languages: [php]
+    severity: ERROR
+    message: Generated authorization returns true without checking session or role.
+    pattern: |
+      function $F(array $S, string $A): bool { return true; }
+  - id: case-cbc-without-authentication
+    languages: [php]
+    severity: WARNING
+    message: This generated CBC token has no authentication tag.
+    pattern-either:
+      - pattern: openssl_encrypt($P, 'aes-128-cbc', ...)
+      - pattern: openssl_decrypt($C, 'aes-128-cbc', ...)
+  - id: case-static-iv
+    languages: [php]
+    severity: WARNING
+    message: Generated IV is a fixed zero string.
+    pattern: str_repeat("\0", 16)
+  - id: case-hardcoded-token-key
+    languages: [php]
+    severity: WARNING
+    message: Generated token key is fixed in source.
+    pattern: $KEY = 'demo-fixed-key16';
+  - id: case-script-concatenation
+    languages: [php]
+    severity: WARNING
+    message: Generated script places unencoded input inside a JavaScript literal.
+    pattern: "'<script>const title = \"' . $VALUE . '\";</script>'"

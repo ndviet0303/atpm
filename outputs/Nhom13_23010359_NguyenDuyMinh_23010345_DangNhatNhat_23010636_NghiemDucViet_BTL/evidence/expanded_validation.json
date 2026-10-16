@@ -1,0 +1,55 @@
+{
+  "checked_at": "2026-10-04T17:29:24.209159+00:00",
+  "query_token_coordinates_match": 54,
+  "sql_source_files": 37,
+  "field_occurrences": 92,
+  "query_classification": {
+    "CONSTANT_QUERY": 19,
+    "HTTP_INTERPOLATION": 23,
+    "DB_AFTER_UNSAFE_SELECT": 3,
+    "DB_INTEGER_INTERPOLATION": 9
+  },
+  "sql_cnf_crosschecks_passed": 162,
+  "sql_smt_expected_passed": 552,
+  "all_sat_cases": 178,
+  "all_smt_cases": 562,
+  "registered_records": 816,
+  "expected_independent_of_actual": true,
+  "cnf_files": 178,
+  "smt2_files": 740,
+  "generated_php_files": 119,
+  "sql_generated_lint_passed": 109,
+  "sql_generated_raw_query_hits_before_after": [
+    54,
+    0
+  ],
+  "source_hashes_match": 66,
+  "xlsx_sheets": 14,
+  "xlsx_master_rows_match_register": true,
+  "xlsx_detail_ids_match_register": true,
+  "xlsx_filter_tables": 5,
+  "xlsx_error_cells": 0,
+  "xlsx_formula_cached_counts": [
+    54,
+    92,
+    178,
+    562,
+    816
+  ],
+  "unchanged_template_tabs_values_preserved": 4,
+  "word_contains_all_registered_ids": true,
+  "word_contains_all_source_and_prepared_sql": true,
+  "standalone_reproduction": {
+    "sql_models_same": true,
+    "case_register_same": true,
+    "inventory_same": true,
+    "generated_hashes_same": 108,
+    "lint_passed": 109,
+    "raw_query_hits": [
+      54,
+      0
+    ]
+  },
+  "application_database_http_executed": false,
+  "model_scope": "Manual guard models; trusted parse, UTF-8 counting and PDO binding; no symbolic PHP or cryptographic proof."
+}

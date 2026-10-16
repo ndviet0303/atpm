@@ -1,0 +1,9 @@
+c authentication_v0
+c 1 grant
+c 2 row_exists
+c 3 password_valid
+p cnf 3 4
+-1 2 0
+1 -2 0
+1 0
+-3 0

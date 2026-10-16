@@ -1,0 +1,21 @@
+{
+  "version": "1.176.1",
+  "results_count": 270,
+  "errors": [
+    {
+      "code": 2,
+      "level": "error",
+      "type": "Rule parse error",
+      "rule_id": "study.rules.php-mysql-error-information-disclosure",
+      "message": "Rule parse error in rule study.rules.php-mysql-error-information-disclosure:\n Invalid pattern for PHP: Stdlib.Parsing.Parse_error\n----- pattern -----\necho mysql_error(...)\n----- end pattern -----\n"
+    }
+  ],
+  "paths_scanned": 69,
+  "warning_counts": {
+    "study.rules.php-direct-mysql-query-taint": 54,
+    "study.rules.php-legacy-mysql-extension": 147,
+    "php.lang.security.injection.tainted-sql-string.tainted-sql-string": 26,
+    "php.lang.security.injection.echoed-request.echoed-request": 42,
+    "study.rules.php-hardcoded-db-credentials": 1
+  }
+}

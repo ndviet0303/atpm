@@ -1,0 +1,170 @@
+{
+  "timestamp": "2026-10-04T16:24:13.660877+07:00",
+  "source_directory": "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/source/librarian",
+  "php_file_count": 66,
+  "physical_lines": 2978,
+  "blank_lines": 399,
+  "empty_files": [
+    "unreturned_books.php"
+  ],
+  "checklist_ids": [
+    "AUTH-01",
+    "AUTH-02",
+    "AUTH-03",
+    "AUTH-04",
+    "AUTH-05",
+    "AC-01",
+    "AC-02",
+    "AC-03",
+    "AC-04",
+    "INP-01",
+    "INP-02",
+    "INP-03",
+    "INP-04",
+    "OUT-01",
+    "OUT-02",
+    "OUT-03",
+    "STATE-01",
+    "STATE-02",
+    "STATE-03",
+    "ERR-01",
+    "ERR-02",
+    "ERR-03",
+    "BIZ-01",
+    "BIZ-02",
+    "BIZ-03",
+    "BIZ-04",
+    "BIZ-05"
+  ],
+  "checklist_count": 27,
+  "schema_tables": [
+    "book",
+    "borrow",
+    "borrowdetails",
+    "category",
+    "lost_book",
+    "member",
+    "type",
+    "users"
+  ],
+  "schema_engines": {
+    "book": "InnoDB",
+    "borrow": "MyISAM",
+    "borrowdetails": "MyISAM",
+    "category": "MyISAM",
+    "lost_book": "InnoDB",
+    "member": "InnoDB",
+    "type": "MyISAM",
+    "users": "InnoDB"
+  },
+  "schema_sha256": "1d2817e54dfc20d81e169e8080a05f4bc805711e8676359ee69f6d67f20ce8d4",
+  "license_sha256": "2e21d291d98be3562c6c122c35e9e624ef31950db4fdfbd95a5aa5b23ce192c0",
+  "lint_ok": 66,
+  "missing_includes": [
+    {
+      "file": "archive.php",
+      "line": 3,
+      "path": "navbar_archive.php",
+      "exists": false
+    },
+    {
+      "file": "unstudents.php",
+      "line": 3,
+      "path": "navbar_dasboard.php",
+      "exists": false
+    },
+    {
+      "file": "unstudents.php",
+      "line": 44,
+      "path": "confirm_request.php",
+      "exists": false
+    }
+  ],
+  "action_review": [
+    {
+      "file": "delete_user.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "delete_books.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "delete_member.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "delete_student.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "books_save.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "member_save.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "student_save.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "borrow_save.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "return_save.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "update_books.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "update_member.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    },
+    {
+      "file": "update_students.php",
+      "session_include": false,
+      "session_tokens": false,
+      "session_start": false
+    }
+  ],
+  "function_calls": {
+    "mysql_query": 54,
+    "mysql_fetch_array": 39,
+    "mysql_error": 52,
+    "mysql_num_rows": 4,
+    "header": 17,
+    "count": 1,
+    "mysql_select_db": 1,
+    "mysql_connect": 1,
+    "session_start": 4,
+    "session_destroy": 1,
+    "trim": 1
+  }
+}

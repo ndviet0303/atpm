@@ -1,0 +1,10 @@
+c script_output_v0
+c 1 emitted
+c 2 untrusted_text
+c 3 context_encoded
+p cnf 3 5
+1 0
+-3 0
+1 0
+2 0
+-3 0

@@ -1,0 +1,6 @@
+c 1 executed
+c 2 all_bound
+p cnf 2 3
+2 0
+1 0
+-2 0
