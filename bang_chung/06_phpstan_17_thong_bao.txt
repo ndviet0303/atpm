@@ -1,0 +1,8 @@
+# PHPStan level 0: 17 thông báo, 3 include thiếu (FIND-11) | chạy lúc 16/10/2026 08:25
+atpm $ python3 -c "import json,collections; d=json.load(open('run_output/phpstan.json')); m=[(p.rsplit('/',1)[-1],x) for p,f in d['files'].items() for x in f['messages']]; print('Tổng:',len(m),'thông báo trên',len(d['files']),'tệp'); [print(f'{n:4}  {k}') for k,n in collections.Counter(x['identifier'] for _,x in m).most_common()]; [print(p+':'+str(x['line'])+'  '+x['message']) for p,x in m if x['identifier']=='include.fileNotFound']"
+Tổng: 17 thông báo trên 16 tệp
+  14  whitespace.fileEnd
+   3  include.fileNotFound
+archive.php:3  Path in include() "navbar_archive.php" is not a file or it does not exist.
+unstudents.php:3  Path in include() "navbar_dasboard.php" is not a file or it does not exist.
+unstudents.php:44  Path in include() "confirm_request.php" is not a file or it does not exist.

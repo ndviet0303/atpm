@@ -1,0 +1,34 @@
+# Tái lập lần quét hợp lệ (Bảng 25, Bảng 26) | chạy lúc 16/10/2026 08:25
+atpm $ ./run.sh
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 66 files with 28 Code rules:
+  Scanning 66 files with 27 php rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 322 (322 blocking)
+ • Rules run: 27
+ • Targets scanned: 66
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 27 rules on 66 files: 322 findings.
+
+Số hit  Mức      CWE      Rule
+   147  WARNING  CWE-477  php-legacy-mysql-extension
+    54  ERROR    CWE-89   php-direct-mysql-query-taint
+    52  WARNING  CWE-209  php-mysql-error-information-disclosure
+    42  ERROR    CWE-79   echoed-request
+    26  ERROR    CWE-89   tainted-sql-string
+     1  ERROR    CWE-798  php-hardcoded-db-credentials
+   322  123 ERROR, 199 WARNING
+
+Semgrep: 322 cảnh báo, mã thoát 0, 0 lỗi công cụ (kỳ vọng 322, 0, 0)
+PHPStan: 17 thông báo (kỳ vọng 17)
+OK: khớp baseline. Kết quả tại run_output/

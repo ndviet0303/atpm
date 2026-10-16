@@ -1,0 +1,26 @@
+# FIND-02, FIND-06: 12 handler ghi dữ liệu không kiểm tra phiên | chạy lúc 16/10/2026 08:25
+atpm $ cd study/source/librarian
+librarian $ grep -L 'session.php' delete_*.php *_save.php update_*.php | grep -v _modal | wc -l
+      12
+librarian $ grep -n 'include' $(grep -L 'session.php' delete_*.php *_save.php update_*.php | grep -v _modal)
+delete_books.php:2:include('dbcon.php');
+delete_member.php:2:include('dbcon.php');
+delete_student.php:2:include('dbcon.php');
+delete_user.php:2:include('dbcon.php');
+books_save.php:2:include('dbcon.php');
+borrow_save.php:2: 	include('dbcon.php');
+member_save.php:2:include('dbcon.php');
+return_save.php:2:include('dbcon.php');
+student_save.php:2:include('dbcon.php');
+update_books.php:2:include('dbcon.php');
+update_member.php:2:include('dbcon.php');
+update_students.php:2:include('dbcon.php');
+librarian $ cat delete_books.php
+<?php
+include('dbcon.php');
+$id=$_GET['id'];
+mysql_query("update book set status = 'Archive' where book_id='$id'")or die(mysql_error());
+header('location:books.php');
+?>
+librarian $ grep -n 'session.php' books.php
+2:<?php include('session.php'); ?>

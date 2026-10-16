@@ -1,0 +1,11 @@
+# Tính tái lập: run1, run2 và lần chạy lại trùng chữ ký; SHA-256 bộ rule | chạy lúc 16/10/2026 08:25
+atpm $ cd outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/evidence
+evidence $ shasum -a 256 frozen_registry_php_rules.json custom_php_rules_corrected.yaml
+a1b9b9e96f3377860e7f9e37a729ef140f0e51aa0ac43ab5f80742aa6146335d  frozen_registry_php_rules.json
+8e07a286e0bea1ff8e7960e29e06d52deea8b0379747939fa7de73ac51142764  custom_php_rules_corrected.yaml
+evidence $ python3 -c "import json; [print('run', r['run'], '| mã thoát', r['exit_code'], '| errors', r['errors'], '| hit', r['result_count'], '| tệp', r['scanned_file_count']) for r in json.load(open('sast_manifest.json'))['scan_runs']]"
+run 1 | mã thoát 0 | errors [] | hit 322 | tệp 66
+run 2 | mã thoát 0 | errors [] | hit 322 | tệp 66
+evidence $ python3 -c "import json,sys; sig=lambda f:{(r['check_id'].rsplit('.',1)[-1],r['path'],r['start']['offset'],r['end']['offset']) for r in json.load(open(f))['results']}; a,b,c=map(sig,sys.argv[1:]); print('run1:',len(a),'| run2:',len(b),'| chạy lại:',len(c)); print('chỉ có ở run1:',len(a-b),'| chỉ có ở run2:',len(b-a),'| khác giữa run1 và chạy lại:',len(a^c))" semgrep_run1.json semgrep_run2.json ../../../run_output/semgrep.json
+run1: 322 | run2: 322 | chạy lại: 322
+chỉ có ở run1: 0 | chỉ có ở run2: 0 | khác giữa run1 và chạy lại: 0

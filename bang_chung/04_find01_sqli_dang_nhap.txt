@@ -1,0 +1,17 @@
+# FIND-01: SQL Injection ở form đăng nhập (index.php:38) | chạy lúc 16/10/2026 08:25
+atpm $ nl -ba study/source/librarian/index.php | sed -n '34,41p'
+    34									if (isset($_POST['submit'])){
+    35									session_start();
+    36									$username = $_POST['username'];
+    37									$password = $_POST['password'];
+    38									$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    39									$result = mysql_query($query)or die(mysql_error());
+    40									$num_row = mysql_num_rows($result);
+    41										$row=mysql_fetch_array($result);
+atpm $ python3 -c "import json; [print(r['path'].rsplit('/',1)[-1]+':'+str(r['start']['line']), r['extra']['severity'], r['check_id'].rsplit('.',1)[-1]) for r in json.load(open('run_output/semgrep.json'))['results'] if r['path'].endswith('/index.php')]"
+index.php:38 ERROR tainted-sql-string
+index.php:39 ERROR php-direct-mysql-query-taint
+index.php:39 WARNING php-legacy-mysql-extension
+index.php:39 WARNING php-mysql-error-information-disclosure
+index.php:39 WARNING php-legacy-mysql-extension
+index.php:41 WARNING php-legacy-mysql-extension

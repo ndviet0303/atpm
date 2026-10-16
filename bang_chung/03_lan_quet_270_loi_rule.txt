@@ -1,0 +1,11 @@
+# Lần quét lịch sử 270 cảnh báo: mã thoát 2 do rule CWE-209 lỗi parse | chạy lúc 16/10/2026 08:25
+atpm $ grep -m1 '"exit_code"' study/results/scan_meta.json
+      "exit_code": 2,
+atpm $ python3 -c "import json; d=json.load(open('study/results/semgrep_raw.json')); print('Số cảnh báo:', len(d['results'])); [print(e['level'].upper()+':', ' '.join(e['message'].splitlines()[:2])) for e in d['errors']]"
+Số cảnh báo: 270
+ERROR: Rule parse error in rule study.rules.php-mysql-error-information-disclosure:  Invalid pattern for PHP: Stdlib.Parsing.Parse_error
+atpm $ diff study/rules/custom_php_rules.yaml outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/evidence/custom_php_rules_corrected.yaml
+26c26
+<       - pattern: echo mysql_error(...)
+---
+>       - pattern: echo mysql_error(...);
