@@ -1,5 +1,7 @@
 # Rà soát mức độ hoàn thiện báo cáo Nhóm 13
 
+> Ghi chú ngày 16/10/2026: bảng dưới đây, `evidence/final_quality_check.json` và `evidence/completion_audit.json` là kết quả rà soát bản báo cáo ngày 04/10 (PDF 172 trang). Bản Word/PDF hiện tại trong gói (16/10, PDF 99 trang) đã thay bản đó, nên số trang trích dẫn ở đây không còn khớp và `report_artifact_hashes` trong `completion_audit.json` là hash của bản cũ. Excel chỉ đổi hai ô `ThongTin!B9` và `ThongTin!B20`. Hash hiện hành nằm trong `checksums.json`.
+
 Bản kiểm tra này đối chiếu yêu cầu của nhóm với bản PDF, Word, Excel và bằng chứng đã lưu. Có 17 trang nội dung chính, 54 hồ sơ SQL, 178 case SAT và 562 case SMT.
 
 | ID | Yêu cầu | Đối chiếu trong báo cáo | Bằng chứng |

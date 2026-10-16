@@ -35,7 +35,7 @@ Baseline upstream `082d6fb9bdd7846b57033513791ba5b6d2095c11`, dự án [Library 
 
 ## Thành phần
 
-- `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp.
+- `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp (bản 16/10/2026, 99 trang; xem ghi chú đầu `KIEM_TRA_HOAN_THIEN.md`).
 - `.docx` cùng tên: bản chỉnh sửa, mục lục có trường Word; số trang cached đã đối chiếu bản PDF.
 - `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 816 hồ sơ: 22 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Không coi 22 mục tổng hợp là phép chạy mới.
 - `source_v0/`: bản sao đúng 66 PHP khảo sát, schema và LICENSE; không phải gói triển khai đủ tài sản giao diện/vendor.
