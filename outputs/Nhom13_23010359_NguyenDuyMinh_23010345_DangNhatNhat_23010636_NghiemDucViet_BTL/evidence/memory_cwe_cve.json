@@ -1,0 +1,423 @@
+{
+  "verified_on": "2026-10-21",
+  "sources": {
+    "cwe": "https://cwe-api.mitre.org/api/v1/cwe/weakness/{ids}",
+    "cve": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId={id}"
+  },
+  "mapping_rule": "CWE chính là CWE có Usage=Allowed; CWE-690 và CWE-400 bị MITRE đánh dấu Discouraged nên chỉ ghi kèm",
+  "cwe": {
+    "CWE-252": {
+      "name": "Unchecked Return Value",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-690": {
+      "name": "Unchecked Return Value to NULL Pointer Dereference",
+      "status": "Draft",
+      "mapping_usage": "Discouraged"
+    },
+    "CWE-672": {
+      "name": "Operation on a Resource after Expiration or Release",
+      "status": "Draft",
+      "mapping_usage": "Allowed-with-Review"
+    },
+    "CWE-675": {
+      "name": "Multiple Operations on Resource in Single-Operation Context",
+      "status": "Draft",
+      "mapping_usage": "Allowed-with-Review"
+    },
+    "CWE-772": {
+      "name": "Missing Release of Resource after Effective Lifetime",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-226": {
+      "name": "Sensitive Information in Resource Not Removed Before Reuse",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-316": {
+      "name": "Cleartext Storage of Sensitive Information in Memory",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-770": {
+      "name": "Allocation of Resources Without Limits or Throttling",
+      "status": "Incomplete",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-400": {
+      "name": "Uncontrolled Resource Consumption",
+      "status": "Draft",
+      "mapping_usage": "Discouraged"
+    },
+    "CWE-1050": {
+      "name": "Excessive Platform Resource Consumption within a Loop",
+      "status": "Incomplete",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-121": {
+      "name": "Stack-based Buffer Overflow",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-122": {
+      "name": "Heap-based Buffer Overflow",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-125": {
+      "name": "Out-of-bounds Read",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-127": {
+      "name": "Buffer Under-read",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-401": {
+      "name": "Missing Release of Memory after Effective Lifetime",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-415": {
+      "name": "Double Free",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-416": {
+      "name": "Use After Free",
+      "status": "Stable",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-457": {
+      "name": "Use of Uninitialized Variable",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-476": {
+      "name": "NULL Pointer Dereference",
+      "status": "Stable",
+      "mapping_usage": "Allowed"
+    },
+    "CWE-787": {
+      "name": "Out-of-bounds Write",
+      "status": "Draft",
+      "mapping_usage": "Allowed-with-Review"
+    },
+    "CWE-120": {
+      "name": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
+      "status": "Incomplete",
+      "mapping_usage": "Allowed-with-Review"
+    },
+    "CWE-244": {
+      "name": "Improper Clearing of Heap Memory Before Release ('Heap Inspection')",
+      "status": "Draft",
+      "mapping_usage": "Allowed"
+    }
+  },
+  "php_typestate": [
+    {
+      "violation": "E_USE_FALSE",
+      "cwe_primary": "CWE-252",
+      "cwe_secondary": [
+        "CWE-690"
+      ],
+      "label": "Dùng kết quả cấp phát khi chưa loại trừ FALSE",
+      "severity": "medium",
+      "counts": {
+        "baseline": 3,
+        "generated/_v0": 1,
+        "generated/_v1": 0,
+        "sql/_v0": 0,
+        "sql/_v1": 0,
+        "memory/_v0": 1,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_ROW_UNCHECKED",
+      "cwe_primary": "CWE-252",
+      "cwe_secondary": [],
+      "label": "Đọc chỉ mục trên dòng fetch chưa kiểm tra FALSE",
+      "severity": "low",
+      "counts": {
+        "baseline": 13,
+        "generated/_v0": 0,
+        "generated/_v1": 0,
+        "sql/_v0": 0,
+        "sql/_v1": 0,
+        "memory/_v0": 4,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_USE_RELEASED",
+      "cwe_primary": "CWE-672",
+      "cwe_secondary": [],
+      "label": "Dùng resource sau khi đã giải phóng",
+      "severity": "medium",
+      "counts": {
+        "baseline": 0,
+        "generated/_v0": 0,
+        "generated/_v1": 0,
+        "sql/_v0": 0,
+        "sql/_v1": 0,
+        "memory/_v0": 0,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_DOUBLE_RELEASE",
+      "cwe_primary": "CWE-675",
+      "cwe_secondary": [],
+      "label": "Giải phóng một resource hai lần",
+      "severity": "low",
+      "counts": {
+        "baseline": 0,
+        "generated/_v0": 0,
+        "generated/_v1": 0,
+        "sql/_v0": 0,
+        "sql/_v1": 0,
+        "memory/_v0": 0,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_HELD_TO_END",
+      "cwe_primary": "CWE-772",
+      "cwe_secondary": [],
+      "label": "Resource không giải phóng sau vòng đời hiệu dụng, giữ tới hết request",
+      "severity": "low",
+      "counts": {
+        "baseline": 38,
+        "generated/_v0": 0,
+        "generated/_v1": 0,
+        "sql/_v0": 0,
+        "sql/_v1": 0,
+        "memory/_v0": 0,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_SECRET_RESIDUE",
+      "cwe_primary": "CWE-226",
+      "cwe_secondary": [
+        "CWE-316"
+      ],
+      "label": "Bí mật dạng rõ còn trong heap, không xóa trước khi giải phóng",
+      "severity": "low",
+      "counts": {
+        "baseline": 6,
+        "generated/_v0": 2,
+        "generated/_v1": 2,
+        "sql/_v0": 4,
+        "sql/_v1": 4,
+        "memory/_v0": 3,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_UNBOUNDED_ALLOC",
+      "cwe_primary": "CWE-770",
+      "cwe_secondary": [
+        "CWE-400"
+      ],
+      "label": "Bộ đệm kết quả SELECT không có cận trên số dòng",
+      "severity": "medium",
+      "counts": {
+        "baseline": 25,
+        "generated/_v0": 1,
+        "generated/_v1": 1,
+        "sql/_v0": 25,
+        "sql/_v1": 25,
+        "memory/_v0": 4,
+        "memory/_v1": 0
+      }
+    },
+    {
+      "violation": "E_ALLOC_IN_LOOP",
+      "cwe_primary": "CWE-1050",
+      "cwe_secondary": [],
+      "label": "Cấp phát kết quả truy vấn mới ở mỗi vòng lặp (N+1)",
+      "severity": "medium",
+      "counts": {
+        "baseline": 11,
+        "generated/_v0": 0,
+        "generated/_v1": 0,
+        "sql/_v0": 0,
+        "sql/_v1": 0,
+        "memory/_v0": 2,
+        "memory/_v1": 0
+      }
+    }
+  ],
+  "c_compilers": {
+    "clang:CWE-401": 1,
+    "clang:CWE-415": 1,
+    "clang:CWE-416": 1,
+    "clang:CWE-457": 1,
+    "gcc:CWE-121": 1,
+    "gcc:CWE-127": 1,
+    "gcc:CWE-401": 4,
+    "gcc:CWE-415": 1,
+    "gcc:CWE-457": 4,
+    "gcc:CWE-690": 6
+  },
+  "c_smt": [
+    {
+      "model": "auth_name_copy",
+      "file": "memory_c/_v0/authentication.c",
+      "line": 12,
+      "cwe": [
+        "CWE-121",
+        "CWE-787"
+      ],
+      "z3": "SAT"
+    },
+    {
+      "model": "auth_name_copy",
+      "file": "memory_c/_v1/authentication.c",
+      "line": 25,
+      "cwe": [
+        "CWE-121",
+        "CWE-787"
+      ],
+      "z3": "UNSAT"
+    },
+    {
+      "model": "query_format",
+      "file": "memory_c/_v0/database_query.c",
+      "line": 9,
+      "cwe": [
+        "CWE-122",
+        "CWE-787"
+      ],
+      "z3": "SAT"
+    },
+    {
+      "model": "query_format",
+      "file": "memory_c/_v1/database_query.c",
+      "line": 21,
+      "cwe": [
+        "CWE-122",
+        "CWE-787"
+      ],
+      "z3": "UNSAT"
+    },
+    {
+      "model": "key_copy",
+      "file": "memory_c/_v0/token_crypto.c",
+      "line": 10,
+      "cwe": [
+        "CWE-122",
+        "CWE-787"
+      ],
+      "z3": "SAT"
+    },
+    {
+      "model": "key_copy",
+      "file": "memory_c/_v1/token_crypto.c",
+      "line": 22,
+      "cwe": [
+        "CWE-122",
+        "CWE-787"
+      ],
+      "z3": "UNSAT"
+    },
+    {
+      "model": "tag_offset",
+      "file": "memory_c/_v0/token_crypto.c",
+      "line": 17,
+      "cwe": [
+        "CWE-127",
+        "CWE-125"
+      ],
+      "z3": "SAT"
+    },
+    {
+      "model": "tag_offset",
+      "file": "memory_c/_v1/token_crypto.c",
+      "line": 38,
+      "cwe": [
+        "CWE-127",
+        "CWE-125"
+      ],
+      "z3": "UNSAT"
+    },
+    {
+      "model": "escape_size",
+      "file": "memory_c/_v0/script_output.c",
+      "line": 12,
+      "cwe": [
+        "CWE-122",
+        "CWE-787"
+      ],
+      "z3": "SAT"
+    },
+    {
+      "model": "escape_size",
+      "file": "memory_c/_v1/script_output.c",
+      "line": 20,
+      "cwe": [
+        "CWE-122",
+        "CWE-787"
+      ],
+      "z3": "UNSAT"
+    }
+  ],
+  "cve_references": [
+    {
+      "id": "CVE-2023-0662",
+      "nvd_cwe": [
+        "CWE-400"
+      ],
+      "cvss3": 7.5,
+      "published": "2023-02-16",
+      "product": "PHP 8.0-8.2",
+      "relation": "Cùng lớp E_UNBOUNDED_ALLOC: đầu vào không giới hạn làm PHP tiêu thụ tài nguyên tới DoS (multipart form)"
+    },
+    {
+      "id": "CVE-2022-31626",
+      "nvd_cwe": [
+        "CWE-120"
+      ],
+      "cvss3": 7.5,
+      "published": "2022-06-16",
+      "product": "PHP 7.4-8.1 pdo_mysql/mysqlnd",
+      "relation": "Cùng lớp mem-c-unbounded-copy/auth_name_copy: mật khẩu kết nối quá dài tràn bộ đệm trong mysqlnd"
+    },
+    {
+      "id": "CVE-2016-5773",
+      "nvd_cwe": [
+        "CWE-416"
+      ],
+      "cvss3": 9.8,
+      "published": "2016-08-07",
+      "product": "PHP 5.5/5.6/7.0 ext/zip",
+      "relation": "Cùng lớp authorization.c (_v0) dòng 20: dùng vùng nhớ sau khi free; nhánh PHP 5.6 như ứng dụng gốc"
+    },
+    {
+      "id": "CVE-2023-25136",
+      "nvd_cwe": [
+        "CWE-415"
+      ],
+      "cvss3": 6.5,
+      "published": "2023-02-03",
+      "product": "OpenSSH 9.1 sshd",
+      "relation": "Cùng lớp database_query.c (_v0) dòng 29: free hai lần cùng một khối"
+    },
+    {
+      "id": "CVE-2014-0160",
+      "nvd_cwe": [
+        "CWE-125"
+      ],
+      "cvss3": 7.5,
+      "published": "2014-04-07",
+      "product": "OpenSSL 1.0.1 (Heartbleed)",
+      "relation": "Cùng lớp token_crypto.c (_v0) dòng 17 (đọc ngoài biên); cho thấy khóa còn trong heap (E_SECRET_RESIDUE) bị lộ qua lỗi đọc"
+    }
+  ],
+  "note": "CVE chỉ là tham chiếu cùng lớp CWE trên sản phẩm khác; không có CVE nào gán cho mã thư viện này."
+}

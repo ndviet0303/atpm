@@ -1,0 +1,2624 @@
+{
+  "scope": "Static only: generated PHP is linted, PHP and C text is scanned, C is analysed by compilers without linking or running",
+  "rule_sha256": "ecf6313173bf8d20d8982ada754aa4bdd5f19e27a1748afc5f0a51d56d6cb832",
+  "php_lint": [
+    {
+      "file": "generated_cases/memory/_v0/book_listing.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v0/book_listing.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v0/latest_borrow.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v0/latest_borrow.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v0/login_secret.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v0/login_secret.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v0/token_key.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v0/token_key.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v1/book_listing.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v1/book_listing.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v1/latest_borrow.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v1/latest_borrow.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v1/login_secret.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v1/login_secret.php\n"
+    },
+    {
+      "file": "generated_cases/memory/_v1/token_key.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /Volumes/SSD/WorkSpace/ziet-project/atpm/outputs/Nhom13_23010359_NguyenDuyMinh_23010345_DangNhatNhat_23010636_NghiemDucViet_BTL/generated_cases/memory/_v1/token_key.php\n"
+    }
+  ],
+  "semgrep": {
+    "command": [
+      "/Volumes/SSD/WorkSpace/ziet-project/atpm/study/.venv/bin/semgrep",
+      "scan",
+      "--metrics",
+      "off",
+      "--jobs",
+      "1",
+      "--no-git-ignore",
+      "--config",
+      "evidence/memory_rules.yaml",
+      "--json",
+      "--output",
+      "evidence/memory_semgrep.json",
+      "source_v0/librarian",
+      "generated_cases/memory",
+      "generated_cases/memory_c",
+      "generated_cases/_v0",
+      "generated_cases/_v1"
+    ],
+    "exit_code": 0,
+    "semgrep_version": "1.176.1",
+    "errors": [],
+    "findings": 167,
+    "by_group_rule": {
+      "baseline": {
+        "evidence.mem-php-result-not-freed": 39,
+        "evidence.mem-php-query-result-unchecked": 5,
+        "evidence.mem-php-select-without-limit": 37,
+        "evidence.mem-php-query-in-loop": 12,
+        "evidence.mem-php-row-unchecked": 33,
+        "evidence.mem-php-password-not-wiped": 4
+      },
+      "generated/_v0": {
+        "evidence.mem-php-result-not-freed": 1,
+        "evidence.mem-php-query-result-unchecked": 1
+      },
+      "generated/_v1": {
+        "evidence.mem-php-select-without-limit": 1
+      },
+      "memory/_v0": {
+        "evidence.mem-php-result-not-freed": 5,
+        "evidence.mem-php-select-without-limit": 4,
+        "evidence.mem-php-query-result-unchecked": 1,
+        "evidence.mem-php-query-in-loop": 2,
+        "evidence.mem-php-row-unchecked": 4,
+        "evidence.mem-php-password-not-wiped": 1,
+        "evidence.mem-php-key-not-wiped": 1
+      },
+      "memory/_v1": {
+        "evidence.mem-php-row-unchecked": 1
+      },
+      "memory_c/_v0": {
+        "evidence.mem-c-alloc-unchecked": 9,
+        "evidence.mem-c-unbounded-copy": 3,
+        "evidence.mem-c-secret-freed-without-wipe": 2,
+        "evidence.mem-c-realloc-self": 1
+      }
+    },
+    "hits": [
+      {
+        "group": "generated/_v0",
+        "file": "generated_cases/_v0/authentication.php",
+        "line": 6,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "generated/_v0",
+        "file": "generated_cases/_v0/authentication.php",
+        "line": 6,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "generated/_v1",
+        "file": "generated_cases/_v1/authentication.php",
+        "line": 6,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 6,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 6,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 9,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 9,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 9,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 9,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 12,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 12,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 12,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 14,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/book_listing.php",
+        "line": 14,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/latest_borrow.php",
+        "line": 6,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/latest_borrow.php",
+        "line": 6,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/latest_borrow.php",
+        "line": 8,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/login_secret.php",
+        "line": 7,
+        "rule": "evidence.mem-php-password-not-wiped",
+        "cwe": [
+          "CWE-226",
+          "CWE-316"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/login_secret.php",
+        "line": 9,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/login_secret.php",
+        "line": 11,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "memory/_v0",
+        "file": "generated_cases/memory/_v0/token_key.php",
+        "line": 6,
+        "rule": "evidence.mem-php-key-not-wiped",
+        "cwe": [
+          "CWE-226",
+          "CWE-316"
+        ]
+      },
+      {
+        "group": "memory/_v1",
+        "file": "generated_cases/memory/_v1/login_secret.php",
+        "line": 16,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/authentication.c",
+        "line": 10,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/authentication.c",
+        "line": 11,
+        "rule": "evidence.mem-c-unbounded-copy",
+        "cwe": [
+          "CWE-120",
+          "CWE-787"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/authentication.c",
+        "line": 12,
+        "rule": "evidence.mem-c-unbounded-copy",
+        "cwe": [
+          "CWE-120",
+          "CWE-787"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/authentication.c",
+        "line": 17,
+        "rule": "evidence.mem-c-secret-freed-without-wipe",
+        "cwe": [
+          "CWE-244",
+          "CWE-226"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/authorization.c",
+        "line": 9,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/authorization.c",
+        "line": 11,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/database_query.c",
+        "line": 8,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/database_query.c",
+        "line": 9,
+        "rule": "evidence.mem-c-unbounded-copy",
+        "cwe": [
+          "CWE-120",
+          "CWE-787"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/database_query.c",
+        "line": 15,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/database_query.c",
+        "line": 18,
+        "rule": "evidence.mem-c-realloc-self",
+        "cwe": [
+          "CWE-401"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/database_query.c",
+        "line": 18,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/database_query.c",
+        "line": 19,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/script_output.c",
+        "line": 8,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/token_crypto.c",
+        "line": 7,
+        "rule": "evidence.mem-c-alloc-unchecked",
+        "cwe": [
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "memory_c/_v0",
+        "file": "generated_cases/memory_c/_v0/token_crypto.c",
+        "line": 20,
+        "rule": "evidence.mem-c-secret-freed-without-wipe",
+        "cwe": [
+          "CWE-244",
+          "CWE-226"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/add_books.php",
+        "line": 31,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/add_books.php",
+        "line": 31,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/add_books.php",
+        "line": 31,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 58,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 58,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 65,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 65,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 65,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 65,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 65,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 73,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 73,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 73,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/advance_search.php",
+        "line": 79,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/archive.php",
+        "line": 37,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/archive.php",
+        "line": 37,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/archive.php",
+        "line": 42,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/archive.php",
+        "line": 42,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/archive.php",
+        "line": 42,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/archive.php",
+        "line": 48,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 55,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 55,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-query-result-unchecked",
+        "cwe": [
+          "CWE-252",
+          "CWE-690"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 69,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 69,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 69,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/books.php",
+        "line": 75,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 22,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 22,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 61,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 61,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 66,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 66,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 66,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow.php",
+        "line": 74,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow_save.php",
+        "line": 18,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow_save.php",
+        "line": 18,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow_save.php",
+        "line": 20,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrow_save.php",
+        "line": 26,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrowname.php",
+        "line": 8,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/borrowname.php",
+        "line": 8,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/damage.php",
+        "line": 48,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/damage.php",
+        "line": 48,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/damage.php",
+        "line": 53,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/damage.php",
+        "line": 53,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/damage.php",
+        "line": 53,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/damage.php",
+        "line": 61,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 10,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 10,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 12,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 23,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 31,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 32,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 32,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 43,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 49,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 56,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 62,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 68,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 74,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_book.php",
+        "line": 82,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 10,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 10,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 23,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 30,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 36,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 42,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 59,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 71,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_member.php",
+        "line": 85,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 10,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 10,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 23,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 30,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 36,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 42,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 58,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 58,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 77,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/edit_student.php",
+        "line": 77,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/index.php",
+        "line": 37,
+        "rule": "evidence.mem-php-password-not-wiped",
+        "cwe": [
+          "CWE-226",
+          "CWE-316"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/index.php",
+        "line": 39,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/index.php",
+        "line": 44,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/login.php",
+        "line": 5,
+        "rule": "evidence.mem-php-password-not-wiped",
+        "cwe": [
+          "CWE-226",
+          "CWE-316"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/login.php",
+        "line": 7,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/login.php",
+        "line": 12,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/lost.php",
+        "line": 48,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/lost.php",
+        "line": 48,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/lost.php",
+        "line": 53,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/lost.php",
+        "line": 53,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/lost.php",
+        "line": 53,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/lost.php",
+        "line": 61,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/member.php",
+        "line": 31,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/member.php",
+        "line": 31,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/modal_add_user.php",
+        "line": 44,
+        "rule": "evidence.mem-php-password-not-wiped",
+        "cwe": [
+          "CWE-226",
+          "CWE-316"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/modal_edit_user.php",
+        "line": 49,
+        "rule": "evidence.mem-php-password-not-wiped",
+        "cwe": [
+          "CWE-226",
+          "CWE-316"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/new_books.php",
+        "line": 48,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/new_books.php",
+        "line": 48,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/new_books.php",
+        "line": 53,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/new_books.php",
+        "line": 53,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/new_books.php",
+        "line": 53,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/new_books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/old_books.php",
+        "line": 48,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/old_books.php",
+        "line": 48,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/old_books.php",
+        "line": 53,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/old_books.php",
+        "line": 53,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/old_books.php",
+        "line": 53,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/old_books.php",
+        "line": 61,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/return.php",
+        "line": 26,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/return.php",
+        "line": 26,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/returnname.php",
+        "line": 7,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/returnname.php",
+        "line": 7,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/sub_rep.php",
+        "line": 48,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/sub_rep.php",
+        "line": 48,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/sub_rep.php",
+        "line": 53,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/sub_rep.php",
+        "line": 53,
+        "rule": "evidence.mem-php-query-in-loop",
+        "cwe": [
+          "CWE-1050"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/sub_rep.php",
+        "line": 53,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/sub_rep.php",
+        "line": 61,
+        "rule": "evidence.mem-php-row-unchecked",
+        "cwe": [
+          "CWE-252"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/unstudents.php",
+        "line": 29,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/unstudents.php",
+        "line": 29,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/users.php",
+        "line": 39,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/users.php",
+        "line": 39,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/view_borrow.php",
+        "line": 24,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/view_borrow.php",
+        "line": 24,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/view_return.php",
+        "line": 24,
+        "rule": "evidence.mem-php-result-not-freed",
+        "cwe": [
+          "CWE-772"
+        ]
+      },
+      {
+        "group": "baseline",
+        "file": "source_v0/librarian/view_return.php",
+        "line": 24,
+        "rule": "evidence.mem-php-select-without-limit",
+        "cwe": [
+          "CWE-770",
+          "CWE-400"
+        ]
+      }
+    ]
+  },
+  "compilers": {
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "gcc_image": "gcc@sha256:2cb9daf6237bf6837fc1445eff1737b626fd640f5827e6c290d15ffbe5930bf5",
+    "runs": [
+      {
+        "tool": "clang",
+        "file": "_v0/authentication.c",
+        "findings": [
+          {
+            "rule": "unix.Malloc",
+            "cwe": [
+              "CWE-401"
+            ],
+            "line": 15,
+            "message": "Potential leak of memory pointed to by 'secret'",
+            "path_events": [
+              {
+                "line": 23,
+                "event": "Calling 'authenticate_v0'"
+              },
+              {
+                "line": 10,
+                "event": "Memory is allocated"
+              },
+              {
+                "line": 13,
+                "event": "Assuming 'i' is < 'n'"
+              },
+              {
+                "line": 13,
+                "event": "Loop condition is true.  Entering loop body"
+              },
+              {
+                "line": 14,
+                "event": "Assuming the condition is true"
+              },
+              {
+                "line": 14,
+                "event": "Taking true branch"
+              },
+              {
+                "line": 15,
+                "event": "Assuming the condition is false"
+              },
+              {
+                "line": 15,
+                "event": "Potential leak of memory pointed to by 'secret'"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "gcc",
+        "file": "_v0/authentication.c",
+        "findings": [
+          {
+            "rule": "-Wanalyzer-possible-null-argument",
+            "cwe": [
+              "CWE-690"
+            ],
+            "line": 11,
+            "message": "use of possibly-NULL 'secret' where non-null expected",
+            "path_events": [
+              {
+                "line": 10,
+                "event": "this call could return NULL"
+              },
+              {
+                "line": 11,
+                "event": "argument 1 ('secret') from (1) could be NULL where non-null expected"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-out-of-bounds",
+            "cwe": [
+              "CWE-121"
+            ],
+            "line": 12,
+            "message": "stack-based buffer overflow",
+            "path_events": [
+              {
+                "line": 21,
+                "event": "entry to 'demo_login_v0'"
+              },
+              {
+                "line": 23,
+                "event": "calling 'authenticate_v0' from 'demo_login_v0'"
+              },
+              {
+                "line": 7,
+                "event": "entry to 'authenticate_v0'"
+              },
+              {
+                "line": 9,
+                "event": "capacity: 32 bytes"
+              },
+              {
+                "line": 12,
+                "event": "out-of-bounds write from byte 32 till byte 44 but 'name' ends at byte 32"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-malloc-leak",
+            "cwe": [
+              "CWE-401"
+            ],
+            "line": 15,
+            "message": "leak of 'secret'",
+            "path_events": [
+              {
+                "line": 10,
+                "event": "allocated here"
+              },
+              {
+                "line": 11,
+                "event": "assuming 'secret' is non-NULL"
+              },
+              {
+                "line": 13,
+                "event": "following 'true' branch (when 'i < n')..."
+              },
+              {
+                "line": 14,
+                "event": "...to here"
+              },
+              {
+                "line": 15,
+                "event": "'secret' leaks here; was allocated at (1)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "clang",
+        "file": "_v0/authorization.c",
+        "findings": [
+          {
+            "rule": "unix.Malloc",
+            "cwe": [
+              "CWE-416"
+            ],
+            "line": 20,
+            "message": "Use of memory after it is freed",
+            "path_events": [
+              {
+                "line": 25,
+                "event": "Calling 'load_session_v0'"
+              },
+              {
+                "line": 11,
+                "event": "'user_id' is not equal to 1"
+              },
+              {
+                "line": 11,
+                "event": "'?' condition is false"
+              },
+              {
+                "line": 11,
+                "event": "Memory is allocated"
+              },
+              {
+                "line": 25,
+                "event": "Returned allocated memory"
+              },
+              {
+                "line": 26,
+                "event": "Calling 'authorize_v0'"
+              },
+              {
+                "line": 18,
+                "event": "Taking true branch"
+              },
+              {
+                "line": 19,
+                "event": "Memory is released"
+              },
+              {
+                "line": 20,
+                "event": "Use of memory after it is freed"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "gcc",
+        "file": "_v0/authorization.c",
+        "findings": [
+          {
+            "rule": "-Wanalyzer-possible-null-dereference",
+            "cwe": [
+              "CWE-690"
+            ],
+            "line": 10,
+            "message": "dereference of possibly-NULL 's'",
+            "path_events": [
+              {
+                "line": 9,
+                "event": "this call could return NULL"
+              },
+              {
+                "line": 10,
+                "event": "'s' could be NULL: unchecked value from (1)"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-possible-null-argument",
+            "cwe": [
+              "CWE-690"
+            ],
+            "line": 20,
+            "message": "use of possibly-NULL 'role' where non-null expected",
+            "path_events": [
+              {
+                "line": 23,
+                "event": "entry to 'demo_logout_v0'"
+              },
+              {
+                "line": 25,
+                "event": "calling 'load_session_v0' from 'demo_logout_v0'"
+              },
+              {
+                "line": 7,
+                "event": "entry to 'load_session_v0'"
+              },
+              {
+                "line": 11,
+                "event": "following 'false' branch (when 'user_id != 1')..."
+              },
+              {
+                "line": 11,
+                "event": "...to here"
+              },
+              {
+                "line": 11,
+                "event": "this call could return NULL"
+              },
+              {
+                "line": 25,
+                "event": "returning to 'demo_logout_v0' from 'load_session_v0'"
+              },
+              {
+                "line": 26,
+                "event": "calling 'authorize_v0' from 'demo_logout_v0'"
+              },
+              {
+                "line": 15,
+                "event": "entry to 'authorize_v0'"
+              },
+              {
+                "line": 18,
+                "event": "following 'false' branch (when the strings are non-equal)..."
+              },
+              {
+                "line": 20,
+                "event": "...to here"
+              },
+              {
+                "line": 20,
+                "event": "argument 1 ('role') from (6) could be NULL where non-null expected"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-malloc-leak",
+            "cwe": [
+              "CWE-401"
+            ],
+            "line": 26,
+            "message": "leak of 's'",
+            "path_events": [
+              {
+                "line": 23,
+                "event": "entry to 'demo_logout_v0'"
+              },
+              {
+                "line": 25,
+                "event": "calling 'load_session_v0' from 'demo_logout_v0'"
+              },
+              {
+                "line": 7,
+                "event": "entry to 'load_session_v0'"
+              },
+              {
+                "line": 9,
+                "event": "allocated here"
+              },
+              {
+                "line": 10,
+                "event": "assuming 's' is non-NULL"
+              },
+              {
+                "line": 11,
+                "event": "following 'false' branch (when 'user_id != 1')..."
+              },
+              {
+                "line": 11,
+                "event": "...to here"
+              },
+              {
+                "line": 25,
+                "event": "returning to 'demo_logout_v0' from 'load_session_v0'"
+              },
+              {
+                "line": 26,
+                "event": "calling 'authorize_v0' from 'demo_logout_v0'"
+              },
+              {
+                "line": 15,
+                "event": "entry to 'authorize_v0'"
+              },
+              {
+                "line": 18,
+                "event": "following 'false' branch (when the strings are non-equal)..."
+              },
+              {
+                "line": 20,
+                "event": "...to here"
+              },
+              {
+                "line": 26,
+                "event": "returning to 'demo_logout_v0' from 'authorize_v0'"
+              },
+              {
+                "line": 26,
+                "event": "'s' leaks here; was allocated at (4)"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-malloc-leak",
+            "cwe": [
+              "CWE-401"
+            ],
+            "line": 26,
+            "message": "leak of '<unknown>'",
+            "path_events": [
+              {
+                "line": 23,
+                "event": "entry to 'demo_logout_v0'"
+              },
+              {
+                "line": 25,
+                "event": "calling 'load_session_v0' from 'demo_logout_v0'"
+              },
+              {
+                "line": 7,
+                "event": "entry to 'load_session_v0'"
+              },
+              {
+                "line": 11,
+                "event": "following 'false' branch (when 'user_id != 1')..."
+              },
+              {
+                "line": 11,
+                "event": "...to here"
+              },
+              {
+                "line": 11,
+                "event": "allocated here"
+              },
+              {
+                "line": 25,
+                "event": "returning to 'demo_logout_v0' from 'load_session_v0'"
+              },
+              {
+                "line": 26,
+                "event": "calling 'authorize_v0' from 'demo_logout_v0'"
+              },
+              {
+                "line": 15,
+                "event": "entry to 'authorize_v0'"
+              },
+              {
+                "line": 18,
+                "event": "following 'false' branch (when the strings are non-equal)..."
+              },
+              {
+                "line": 20,
+                "event": "...to here"
+              },
+              {
+                "line": 20,
+                "event": "assuming 'role' is non-NULL"
+              },
+              {
+                "line": 26,
+                "event": "returning to 'demo_logout_v0' from 'authorize_v0'"
+              },
+              {
+                "line": 26,
+                "event": "'<unknown>' leaks here; was allocated at (6)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "clang",
+        "file": "_v0/database_query.c",
+        "findings": [
+          {
+            "rule": "unix.Malloc",
+            "cwe": [
+              "CWE-415"
+            ],
+            "line": 29,
+            "message": "Attempt to free released memory",
+            "path_events": [
+              {
+                "line": 26,
+                "event": "Assuming 'i' is >= 'rows'"
+              },
+              {
+                "line": 26,
+                "event": "Loop condition is false. Execution continues on line 28"
+              },
+              {
+                "line": 28,
+                "event": "Memory is released"
+              },
+              {
+                "line": 29,
+                "event": "Attempt to free released memory"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "gcc",
+        "file": "_v0/database_query.c",
+        "findings": [
+          {
+            "rule": "-Wuse-after-free",
+            "cwe": [],
+            "line": 29,
+            "message": "pointer 'titles' used after 'free'",
+            "path_events": []
+          },
+          {
+            "rule": "-Wanalyzer-possible-null-argument",
+            "cwe": [
+              "CWE-690"
+            ],
+            "line": 9,
+            "message": "use of possibly-NULL 'sql' where non-null expected",
+            "path_events": [
+              {
+                "line": 8,
+                "event": "this call could return NULL"
+              },
+              {
+                "line": 9,
+                "event": "argument 1 ('sql') from (1) could be NULL where non-null expected"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-possible-null-dereference",
+            "cwe": [
+              "CWE-690"
+            ],
+            "line": 19,
+            "message": "dereference of possibly-NULL 'titles'",
+            "path_events": [
+              {
+                "line": 15,
+                "event": "this call could return NULL"
+              },
+              {
+                "line": 16,
+                "event": "following 'true' branch (when 'i < rows')..."
+              },
+              {
+                "line": 17,
+                "event": "...to here"
+              },
+              {
+                "line": 17,
+                "event": "following 'false' branch (when 'i <= 3')..."
+              },
+              {
+                "line": 19,
+                "event": "...to here"
+              },
+              {
+                "line": 19,
+                "event": "'titles + i * 8' could be NULL: unchecked value from (1)"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-malloc-leak",
+            "cwe": [
+              "CWE-401"
+            ],
+            "line": 21,
+            "message": "leak of 'titles'",
+            "path_events": [
+              {
+                "line": 15,
+                "event": "allocated here"
+              },
+              {
+                "line": 16,
+                "event": "following 'true' branch (when 'i < rows')..."
+              },
+              {
+                "line": 17,
+                "event": "...to here"
+              },
+              {
+                "line": 17,
+                "event": "following 'false' branch (when 'i <= 3')..."
+              },
+              {
+                "line": 19,
+                "event": "...to here"
+              },
+              {
+                "line": 19,
+                "event": "assuming 'titles' is non-NULL"
+              },
+              {
+                "line": 16,
+                "event": "following 'true' branch (when 'i < rows')..."
+              },
+              {
+                "line": 17,
+                "event": "...to here"
+              },
+              {
+                "line": 17,
+                "event": "following 'false' branch (when 'i <= 3')..."
+              },
+              {
+                "line": 19,
+                "event": "...to here"
+              },
+              {
+                "line": 16,
+                "event": "following 'true' branch (when 'i < rows')..."
+              },
+              {
+                "line": 17,
+                "event": "...to here"
+              },
+              {
+                "line": 17,
+                "event": "following 'false' branch (when 'i <= 3')..."
+              },
+              {
+                "line": 19,
+                "event": "...to here"
+              },
+              {
+                "line": 16,
+                "event": "following 'true' branch (when 'i < rows')..."
+              },
+              {
+                "line": 17,
+                "event": "...to here"
+              },
+              {
+                "line": 17,
+                "event": "following 'false' branch (when 'i <= 3')..."
+              },
+              {
+                "line": 19,
+                "event": "...to here"
+              },
+              {
+                "line": 16,
+                "event": "following 'true' branch (when 'i < rows')..."
+              },
+              {
+                "line": 17,
+                "event": "...to here"
+              },
+              {
+                "line": 17,
+                "event": "following 'true' branch..."
+              },
+              {
+                "line": 18,
+                "event": "...to here"
+              },
+              {
+                "line": 18,
+                "event": "when 'realloc' fails"
+              },
+              {
+                "line": 16,
+                "event": "following 'false' branch (when 'i >= rows')..."
+              },
+              {
+                "line": 21,
+                "event": "...to here"
+              },
+              {
+                "line": 21,
+                "event": "'titles' leaks here; was allocated at (1)"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-double-free",
+            "cwe": [
+              "CWE-415"
+            ],
+            "line": 29,
+            "message": "double-'free' of 'titles'",
+            "path_events": [
+              {
+                "line": 26,
+                "event": "following 'false' branch (when 'i >= rows')..."
+              },
+              {
+                "line": 28,
+                "event": "...to here"
+              },
+              {
+                "line": 28,
+                "event": "first 'free' here"
+              },
+              {
+                "line": 29,
+                "event": "second 'free' here; first 'free' was at (3)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "clang",
+        "file": "_v0/script_output.c",
+        "findings": [
+          {
+            "rule": "core.UndefinedBinaryOperatorResult",
+            "cwe": [
+              "CWE-457"
+            ],
+            "line": 12,
+            "message": "The right operand of '+' is a garbage value",
+            "path_events": [
+              {
+                "line": 24,
+                "event": "Calling 'escape_html_v0'"
+              },
+              {
+                "line": 9,
+                "event": "'j' declared without an initial value"
+              },
+              {
+                "line": 10,
+                "event": "Loop condition is true.  Entering loop body"
+              },
+              {
+                "line": 11,
+                "event": "Taking true branch"
+              },
+              {
+                "line": 12,
+                "event": "The right operand of '+' is a garbage value"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "gcc",
+        "file": "_v0/script_output.c",
+        "findings": [
+          {
+            "rule": "-Wanalyzer-use-of-uninitialized-value",
+            "cwe": [
+              "CWE-457"
+            ],
+            "line": 12,
+            "message": "use of uninitialized value 'j'",
+            "path_events": [
+              {
+                "line": 9,
+                "event": "region created on stack here"
+              },
+              {
+                "line": 9,
+                "event": "capacity: 8 bytes"
+              },
+              {
+                "line": 10,
+                "event": "following 'true' branch (when 'i < n')..."
+              },
+              {
+                "line": 11,
+                "event": "...to here"
+              },
+              {
+                "line": 11,
+                "event": "following 'true' branch..."
+              },
+              {
+                "line": 12,
+                "event": "...to here"
+              },
+              {
+                "line": 12,
+                "event": "use of uninitialized value 'j' here"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-use-of-uninitialized-value",
+            "cwe": [
+              "CWE-457"
+            ],
+            "line": 12,
+            "message": "use of uninitialized value 'j'",
+            "path_events": [
+              {
+                "line": 22,
+                "event": "entry to 'demo_escape_v0'"
+              },
+              {
+                "line": 24,
+                "event": "calling 'escape_html_v0' from 'demo_escape_v0'"
+              },
+              {
+                "line": 5,
+                "event": "entry to 'escape_html_v0'"
+              },
+              {
+                "line": 9,
+                "event": "region created on stack here"
+              },
+              {
+                "line": 9,
+                "event": "capacity: 8 bytes"
+              },
+              {
+                "line": 10,
+                "event": "following 'true' branch (when 'i < n')..."
+              },
+              {
+                "line": 11,
+                "event": "...to here"
+              },
+              {
+                "line": 11,
+                "event": "following 'true' branch..."
+              },
+              {
+                "line": 12,
+                "event": "...to here"
+              },
+              {
+                "line": 12,
+                "event": "use of uninitialized value 'j' here"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-use-of-uninitialized-value",
+            "cwe": [
+              "CWE-457"
+            ],
+            "line": 15,
+            "message": "use of uninitialized value 'j'",
+            "path_events": [
+              {
+                "line": 9,
+                "event": "region created on stack here"
+              },
+              {
+                "line": 9,
+                "event": "capacity: 8 bytes"
+              },
+              {
+                "line": 10,
+                "event": "following 'true' branch (when 'i < n')..."
+              },
+              {
+                "line": 11,
+                "event": "...to here"
+              },
+              {
+                "line": 11,
+                "event": "following 'false' branch..."
+              },
+              {
+                "line": 15,
+                "event": "...to here"
+              },
+              {
+                "line": 15,
+                "event": "use of uninitialized value 'j' here"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-use-of-uninitialized-value",
+            "cwe": [
+              "CWE-457"
+            ],
+            "line": 18,
+            "message": "use of uninitialized value 'j'",
+            "path_events": [
+              {
+                "line": 9,
+                "event": "region created on stack here"
+              },
+              {
+                "line": 9,
+                "event": "capacity: 8 bytes"
+              },
+              {
+                "line": 10,
+                "event": "following 'false' branch (when 'i >= n')..."
+              },
+              {
+                "line": 18,
+                "event": "...to here"
+              },
+              {
+                "line": 18,
+                "event": "use of uninitialized value 'j' here"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "clang",
+        "file": "_v0/token_crypto.c",
+        "findings": []
+      },
+      {
+        "tool": "gcc",
+        "file": "_v0/token_crypto.c",
+        "findings": [
+          {
+            "rule": "-Wanalyzer-possible-null-dereference",
+            "cwe": [
+              "CWE-690"
+            ],
+            "line": 10,
+            "message": "dereference of possibly-NULL 'key'",
+            "path_events": [
+              {
+                "line": 7,
+                "event": "this call could return NULL"
+              },
+              {
+                "line": 9,
+                "event": "following 'true' branch (when 'i < n')..."
+              },
+              {
+                "line": 10,
+                "event": "...to here"
+              },
+              {
+                "line": 10,
+                "event": "'key + i' could be NULL: unchecked value from (1)"
+              }
+            ]
+          },
+          {
+            "rule": "-Wanalyzer-out-of-bounds",
+            "cwe": [
+              "CWE-127"
+            ],
+            "line": 17,
+            "message": "buffer under-read",
+            "path_events": [
+              {
+                "line": 24,
+                "event": "entry to 'demo_tag_v0'"
+              },
+              {
+                "line": 26,
+                "event": "calling 'token_tag_v0' from 'demo_tag_v0'"
+              },
+              {
+                "line": 14,
+                "event": "entry to 'token_tag_v0'"
+              },
+              {
+                "line": 17,
+                "event": "out-of-bounds read from byte -11 till byte -1 but '\"short\"' starts at byte 0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tool": "clang",
+        "file": "_v1/authentication.c",
+        "findings": []
+      },
+      {
+        "tool": "gcc",
+        "file": "_v1/authentication.c",
+        "findings": []
+      },
+      {
+        "tool": "clang",
+        "file": "_v1/authorization.c",
+        "findings": []
+      },
+      {
+        "tool": "gcc",
+        "file": "_v1/authorization.c",
+        "findings": []
+      },
+      {
+        "tool": "clang",
+        "file": "_v1/database_query.c",
+        "findings": []
+      },
+      {
+        "tool": "gcc",
+        "file": "_v1/database_query.c",
+        "findings": []
+      },
+      {
+        "tool": "clang",
+        "file": "_v1/script_output.c",
+        "findings": []
+      },
+      {
+        "tool": "gcc",
+        "file": "_v1/script_output.c",
+        "findings": []
+      },
+      {
+        "tool": "clang",
+        "file": "_v1/token_crypto.c",
+        "findings": []
+      },
+      {
+        "tool": "gcc",
+        "file": "_v1/token_crypto.c",
+        "findings": []
+      }
+    ]
+  },
+  "limits": "Semgrep PHP hits are candidates (no schema, no refcount); models/memory_typestate.py decides them. Zero analyzer findings on _v1 covers only the defect classes these analyzers model."
+}

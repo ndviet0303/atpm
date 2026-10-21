@@ -14,9 +14,9 @@ Mã lớp và học kỳ chưa được cung cấp. Không tự gán phân công
 
 Baseline upstream `082d6fb9bdd7846b57033513791ba5b6d2095c11`, dự án [Library Management System](https://github.com/vinitshahdeo/Library-Management-System), giấy phép MIT. Phạm vi: **66 PHP trực tiếp trong librarian** và đọc schema `db/eb_lms.sql`. Không tính vendor, bản sao library, portal hoặc tài sản JS/CSS riêng.
 
-Đã thực hiện đọc nguồn, lint, SAST và solver offline. **Không khởi chạy ứng dụng, import CSDL, gửi HTTP hoặc thực thi các hàm PHP của mã sinh.** PHP `-l` chỉ phân tích cú pháp; bộ token đọc văn bản bằng `token_get_all`. PHPStan dùng stub hàm rỗng để nhận biết API cổ.
+Đã thực hiện đọc nguồn, lint, SAST và solver offline. **Không khởi chạy ứng dụng, import CSDL, gửi HTTP hoặc thực thi các hàm PHP của mã sinh.** PHP `-l` chỉ phân tích cú pháp; bộ token đọc văn bản bằng `token_get_all`. PHPStan dùng stub hàm rỗng để nhận biết API cổ. Phần bộ nhớ (21/10/2026) cũng chỉ phân tích văn bản: Clang `--analyze` và GCC `-fanalyzer -c -o /dev/null` không liên kết hay chạy chương trình C.
 
-| Bằng chứng | Kết quả nền 04/10 và phần mở rộng 05/10/2026 |
+| Bằng chứng | Kết quả nền 04/10, mở rộng 05/10 và bộ nhớ 21/10/2026 |
 |---|---|
 | Semgrep OSS 1.176.1 | 322 hit trên 66 PHP ở mỗi lần; 0 errors; exit 0 |
 | Lặp Semgrep | 322 chữ ký giống nhau; chênh 0/0 |
@@ -30,21 +30,29 @@ Baseline upstream `082d6fb9bdd7846b57033513791ba5b6d2095c11`, dự án [Library 
 | Mã sinh SQL theo từng query | 54 cặp +1 helper =109 PHP; lint109/109; 54 raw mysql_query hit _v0, 0 _v1 |
 | CNF SQL | 162/162 khớp kỳ vọng và ba cách giải DPLL/Z3/bảng chân trị |
 | SMT từng field | 552/552 khớp kỳ vọng; sáu điều kiện riêng cho mỗi trong 92 field |
+| Trạng thái bộ nhớ (13 trạng thái, 36 phép chuyển) | 96 vi phạm trên 27/66 PHP baseline; _v0/_v1: mã sinh 4/3, SQL 29/29, memory 14/0; 19/19 unit test |
+| Z3 BMC bộ nhớ | 250/250 đối tượng: Z3, vét cạn và bộ phân tích trùng kết quả; 92 SAT |
+| Z3 ngân sách 128 MiB | Baseline 24 SAT, 14 UNSAT, 1 không xác định; memory/_v1 4/4 UNSAT |
+| Semgrep bộ nhớ (7 luật PHP, 4 luật C) | 167 hit ứng viên; 0 errors; exit 0 |
+| C: GCC 14.4, Clang 21, Z3 | GCC báo lỗi ở 5/5 tệp _v0, Clang ở 4/5; 0 kết quả ở _v1; 5 mô hình bộ đệm: _v0 SAT, _v1 UNSAT |
 
-322 hit là cảnh báo thô, chưa phải số lỗ hổng độc lập. 11 nhóm phát hiện đã được đối chiếu source. Baseline **chưa được vá**. 0 hit ở mã sinh hoặc UNSAT trong mô hình không chứng minh phần mềm an toàn.
+322 hit là cảnh báo thô, chưa phải số lỗ hổng độc lập. 11 nhóm phát hiện đã được đối chiếu source. Baseline **chưa được vá**. 0 hit ở mã sinh hoặc UNSAT trong mô hình không chứng minh phần mềm an toàn. Vi phạm bộ nhớ là kết quả của mô hình trạng thái trừu tượng; 38 E_HELD_TO_END có mức thấp vì PHP dọn resource khi request kết thúc.
 
 ## Thành phần
 
-- `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp (bản 16/10/2026, 99 trang; xem ghi chú đầu `KIEM_TRA_HOAN_THIEN.md`).
+- `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp (bản 21/10/2026, 108 trang, thêm mục 5.5 kiểm thử tĩnh bộ nhớ; xem ghi chú đầu `KIEM_TRA_HOAN_THIEN.md`).
 - `.docx` cùng tên: bản chỉnh sửa, mục lục có trường Word; số trang cached đã đối chiếu bản PDF.
-- `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 816 hồ sơ: 22 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Không coi 22 mục tổng hợp là phép chạy mới.
+- `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 816 hồ sơ: 22 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Không coi 22 mục tổng hợp là phép chạy mới. Thêm 5 sheet bộ nhớ: BoNhoTrangThai, BoNhoViPham, BoNhoBMC, BoNhoNganSach, BoNhoBoDemC.
 - `source_v0/`: bản sao đúng 66 PHP khảo sát, schema và LICENSE; không phải gói triển khai đủ tài sản giao diện/vendor.
 - `generated_cases/_v0/` và `_v1/`: 5 cặp về login, authz, query, token và encoding script. `_v0` có lỗi cố ý, chỉ dùng phân tích tĩnh.
 - `models/run_models.py`: DPLL cùng cross-check Z3/bảng chân trị; 10 bài toán SMT token.
 - `generated_cases/sql/_v0/`, `_v1/` và `guards.php`: 54 cặp SQL độc lập cùng guard dùng chung; không tích hợp vào baseline.
 - `models/run_sql_cases.py`: trích đủ 54 query, truy nguồn 92 field, sinh mã và chạy 162 CNF/552 SMT mới; lint/SAST109 PHP. `models/build_case_register.py` xây sổ 816 hồ sơ từ output đã lưu.
 - `evidence/`: raw JSON, log, snapshot rule, manifest, inventory; `formal/` chứa DIMACS CNF và SMT-LIB.
-- `evidence/sql_formal/`: công thức từng case SQL. Toàn gói có 178 `.cnf` và 740 `.smt2`; 178 SMT-LIB mã hóa SAT và 562 SMT-LIB cho token/field.
+- `evidence/sql_formal/`: công thức từng case SQL. Toàn gói có 178 `.cnf` và 785 `.smt2`; 178 SMT-LIB mã hóa SAT, 562 SMT-LIB cho token/field và 45 SMT-LIB bộ nhớ trong `evidence/memory_formal/`.
+- `generated_cases/memory/_v0/`, `_v1/`: 4 cặp PHP cho bộ nhớ; `generated_cases/memory_c/_v0/`, `_v1/`: 5 cặp C viết lại năm chức năng. Chỉ phân tích văn bản, không chạy.
+- `models/memory_typestate.py` và `evidence/extract_memory_tokens.php`: bộ phân tích trạng thái bộ nhớ trên token PHP; `models/test_memory_typestate.py`: 19 unit test; `models/run_memory_cases.py`: chạy bộ phân tích trên mọi nhóm mã, BMC, ngân sách bộ nhớ và mô hình bộ đệm C bằng Z3.
+- `evidence/run_memory_static.py`, `memory_rules.yaml`: lint, Semgrep, Clang và GCC cho phần bộ nhớ; output ở `memory_static_results.json`, `memory_semgrep.json`, `memory_case_results.json`, `memory_traces.json` và `memory_cwe_cve.json` (CWE/CVE tra MITRE và NVD ngày 21/10/2026).
 - `tools/mysql_stub.php`, `tools/phpstan.neon`: cấu hình phân tích tĩnh cho bản sao nguồn trong gói.
 
 ## Chuẩn bị công cụ
@@ -63,6 +71,8 @@ Chỉ bước cài công cụ cần mạng. Quét dùng snapshot rule local, `--
 export SSL_CERT_FILE="$(.venv/bin/python -m certifi)"
 ```
 
+Phần bộ nhớ cần thêm `clang` (số liệu trong gói dùng Apple clang 21.0.0). GCC 14.4 chạy trong Docker từ image ghim theo digest, với `--network none`; nếu không có Docker, `run_memory_static.py` ghi `skipped` cho GCC thay vì kết quả.
+
 ## Chạy lại phân tích tĩnh
 
 Nên sao chép gói trước khi chạy lại vì các script ghi đè output cùng tên. Kết quả gốc trong gói ZIP và `checksums.json` giúp so sánh.
@@ -77,6 +87,9 @@ export SEMGREP_BIN="$PWD/.venv/bin/semgrep"
 .venv/bin/python models/build_case_register.py
 .venv/bin/python evidence/auth_model.py
 php -d memory_limit=1G tools/phpstan.phar analyse -c tools/phpstan.neon --error-format=json --no-progress --debug
+.venv/bin/python models/test_memory_typestate.py
+.venv/bin/python evidence/run_memory_static.py
+.venv/bin/python models/run_memory_cases.py
 ```
 
 Script tự chọn `study/source` khi chạy trong repo ban đầu hoặc `source_v0` khi giải nén riêng. `run_sast.py` kiểm tra SHA-256 rule trước khi quét; mỗi lần quét phải exit 0 và `errors=[]`. PHPStan exit 1 khi có messages là kết quả phân tích có lỗi trong nguồn, không có nghĩa công cụ không chạy. Với `--debug`, stdout có danh sách tệp trước JSON cuối; giữ nguyên log, tách đối tượng JSON cuối để so 17 thông báo. Đường dẫn và timestamp có thể khác khi giải nén, so chữ ký đã chuẩn hóa theo tên tệp/toạ độ và tổng hợp rule.
@@ -124,6 +137,20 @@ z3 evidence/formal/token_v1_expired.smt2
 ```
 
 Kết quả kỳ vọng: `unsat`. Trace/witness đối chiếu trong JSON được tạo bởi chương trình đã chạy; không phải giá trị ví dụ được điền bằng tay.
+
+## Kiểm thử tĩnh bộ nhớ
+
+Mục 5.5 của báo cáo trình bày phần này. Trong Excel:
+
+| Sheet | Nội dung |
+|---|---|
+| BoNhoTrangThai | 36 phép chuyển (trạng thái, sự kiện) → (trạng thái mới, vi phạm, CWE) |
+| BoNhoViPham | 175 vi phạm của mọi nhóm mã: tệp, dòng, biến, mệnh đề, vi phạm, CWE, mức |
+| BoNhoBMC | 250 đối tượng: chuỗi sự kiện, kết quả Z3, vi phạm và một nhân chứng |
+| BoNhoNganSach | 128 truy vấn: SQL, cận số dòng, byte mỗi dòng, Z3 và N nhỏ nhất vượt 128 MiB |
+| BoNhoBoDemC | 10 mô hình bộ đệm C (_v0 và _v1): CWE, Z3, nhân chứng và tệp SMT-LIB |
+
+Bộ phân tích không phân biệt đường đi, trải vòng lặp 2 lần và không nối `include`. Độ rộng dòng lấy theo khai báo cột trong `eb_lms.sql`; ngân sách giả định driver mysqlnd. CVE trong `memory_cwe_cve.json` chỉ là ví dụ cùng lớp CWE trên sản phẩm khác, không gán cho mã thư viện.
 
 ## Toàn vẹn và nguồn tham khảo
 

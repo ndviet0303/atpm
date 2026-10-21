@@ -1,5 +1,7 @@
 # Rà soát mức độ hoàn thiện báo cáo Nhóm 13
 
+> Ghi chú ngày 21/10/2026: báo cáo được thêm mục 5.5 "Kiểm thử tĩnh cấp phát bộ nhớ" (PDF 108 trang; Bảng 37–45 và Hình 17 mới, các bảng, hình sau đó được đánh số lại). Excel được thêm 5 sheet BoNho* và các dòng memory_*, count_mem_* trong ThongTin. Hàng R16–R19 dưới đây đối chiếu phần bộ nhớ với bản 21/10, số trang theo số in trong mục lục. Ghi chú 16/10 bên dưới vẫn đúng cho R01–R15.
+
 > Ghi chú ngày 16/10/2026: bảng dưới đây, `evidence/final_quality_check.json` và `evidence/completion_audit.json` là kết quả rà soát bản báo cáo ngày 04/10 (PDF 172 trang). Bản Word/PDF hiện tại trong gói (16/10, PDF 99 trang) đã thay bản đó, nên số trang trích dẫn ở đây không còn khớp và `report_artifact_hashes` trong `completion_audit.json` là hash của bản cũ. Excel chỉ đổi hai ô `ThongTin!B9` và `ThongTin!B20`. Hash hiện hành nằm trong `checksums.json`.
 
 Bản kiểm tra này đối chiếu yêu cầu của nhóm với bản PDF, Word, Excel và bằng chứng đã lưu. Có 17 trang nội dung chính, 54 hồ sơ SQL, 178 case SAT và 562 case SMT.
@@ -21,6 +23,10 @@ Bản kiểm tra này đối chiếu yêu cầu của nhóm với bản PDF, Wor
 | R13 | Kết quả có bằng chứng, CWE, nguyên nhân và mức ưu tiên; không dùng số hit/case làm số lỗi | Phần 5 phân tích11 nhóm; SQL hằng/HTTP/DB tách riêng; 816 hồ sơ gồm22 tổng hợp | PDF trang 10–16; TestCase; evidence/case_register.json |
 | R14 | Thảo luận giới hạn, tài liệu tham khảo và công bố hỗ trợ AI | Phần 6,7.2,7.4; mô hình guard thủ công; chưa chứng minh AES/entropy/replay; baseline chưa vá | PDF trang 17–19; README.md |
 | R15 | Có thể tra cứu và tái lập, nộp đủ PDF/Word/Excel/mã/kết quả | README có lệnh tái lập; bản sao độc lập đã khớp; source,models,raw output và manifest trong ZIP theo tên/MSSV | README.md; evidence/expanded_validation.json; evidence/portability_check.json; checksums.json |
+| R16 | Các trạng thái của bộ nhớ | Mục 5.5.1: 13 trạng thái P0–P12 cho result set, kết nối, statement, dòng, chuỗi bí mật PHP và malloc/free của mã C (Bảng 37) | Trang 61–62; models/memory_typestate.py; evidence/memory_case_results.json |
+| R17 | Cấp phát bộ nhớ, chuyển trạng thái qua mệnh đề | Mục 5.5.2: mệnh đề PHP → sự kiện (Bảng 38), 36 phép chuyển, sơ đồ Hình 17, vết login.php (Bảng 39); 1.127 bước chuyển được ghi | Trang 62–65; BoNhoTrangThai; evidence/memory_traces.json |
+| R18 | Test case và test code bộ nhớ | Mục 5.5.3: 4 cặp PHP, 5 cặp C, 19 unit test đạt, 11 luật Semgrep; BMC 250 đối tượng, ngân sách 128 truy vấn, 10 mô hình bộ đệm C (Bảng 40–41) | Trang 65–66; generated_cases/memory, memory_c; models/test_memory_typestate.py, run_memory_cases.py; BoNhoBMC, BoNhoNganSach, BoNhoBoDemC; evidence/memory_formal |
+| R19 | Chạy công cụ, ghi nhận lỗi bộ nhớ, phân loại CWE/CVE | Mục 5.5.4–5.5.5: 96 vi phạm trên 27/66 tệp baseline; Semgrep 167 hit, exit 0; GCC/Clang trên mã C; Bảng 42–45; CWE tra MITRE, CVE tra NVD ngày 21/10, CVE chỉ là tham chiếu cùng lớp | Trang 66–69; BoNhoViPham; evidence/memory_static_results.json, memory_semgrep.json, memory_cwe_cve.json |
 
 ## Thông tin và giới hạn cần đọc kèm
 

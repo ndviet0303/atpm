@@ -1,0 +1,166 @@
+# Memory/resource rules for the memory study. PHP hits are candidates: Semgrep has no schema and no
+# refcount model, models/memory_typestate.py confirms or rejects them. C rules cover what the
+# compiler analyzers do not report by name (unsafe copies, realloc self-assignment, key not wiped).
+# metavariable-regex is anchored at the start of the bound text, hence the leading .*
+rules:
+  - id: mem-php-query-result-unchecked
+    languages: [php]
+    severity: WARNING
+    message: Kết quả mysql_query() có thể là FALSE nhưng được truyền ngay vào hàm đọc kết quả.
+    metadata: {cwe: ['CWE-252', 'CWE-690']}
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $R = mysql_query(...);
+              ...
+              $F($R, ...);
+          - pattern: |
+              $R = mysql_query(...);
+              ...
+              while (<... $F($R, ...) ...>) { ... }
+      - metavariable-regex:
+          metavariable: $F
+          regex: ^mysql_(fetch_\w+|num_rows|result)$
+      # Semgrep 1.176.1 PHP AST drops the "or die(...)" branch, so the check is removed by text
+      - pattern-not-regex: (?i)\)\s*or\s+die\b
+  - id: mem-php-select-without-limit
+    languages: [php]
+    severity: WARNING
+    message: SELECT không có LIMIT; bộ đệm kết quả tăng theo kích thước bảng (cần đối chiếu khóa chính).
+    metadata: {cwe: ['CWE-770', 'CWE-400']}
+    patterns:
+      - pattern-either:
+          - pattern: mysql_query($Q, ...)
+          - pattern: $DB->prepare($Q, ...)
+          - pattern: $DB->query($Q, ...)
+      - metavariable-regex:
+          metavariable: $Q
+          regex: (?is)^["']\s*select\b(?!.*\blimit\b)
+  - id: mem-php-query-in-loop
+    languages: [php]
+    severity: WARNING
+    message: Mỗi vòng lặp cấp phát một result set mới (truy vấn N+1).
+    metadata: {cwe: ['CWE-1050']}
+    patterns:
+      - pattern: mysql_query(...)
+      - pattern-either:
+          - pattern-inside: while (...) { ... }
+          - pattern-inside: foreach ($X as $Y) { ... }
+          - pattern-inside: foreach ($X as $K => $V) { ... }
+          - pattern-inside: for ($A; $B; $C) { ... }
+  - id: mem-php-result-not-freed
+    languages: [php]
+    severity: INFO
+    message: Result set không được mysql_free_result(), giữ tới khi biến bị ghi đè hoặc hết request.
+    metadata: {cwe: ['CWE-772']}
+    patterns:
+      - pattern: $R = mysql_query(...)
+      - pattern-not-inside: |
+          $R = mysql_query(...);
+          ...
+          mysql_free_result($R);
+      - pattern-not-inside: |
+          $R = mysql_query(...) or die(...);
+          ...
+          mysql_free_result($R);
+  - id: mem-php-row-unchecked
+    languages: [php]
+    severity: INFO
+    message: Đọc chỉ mục trên dòng fetch khi chưa kiểm tra FALSE.
+    metadata: {cwe: ['CWE-252']}
+    patterns:
+      - pattern: $ROW[$K]
+      - pattern-either:
+          - pattern-inside: |
+              $ROW = mysql_fetch_array(...);
+              ...
+          - pattern-inside: |
+              $ROW = $S->fetch(...);
+              ...
+      - pattern-not-inside: |
+          if (<... $ROW ...>) { ... }
+      - pattern-not-inside: |
+          if (<... $ROW ...>) { ... }
+          ...
+      - pattern-not-inside: is_array($ROW) && $E
+  - id: mem-php-password-not-wiped
+    languages: [php]
+    severity: INFO
+    message: Mật khẩu dạng rõ không được xóa; sodium_memzero chỉ có tác dụng sau khi bỏ bản trong $_POST.
+    metadata: {cwe: ['CWE-226', 'CWE-316']}
+    patterns:
+      - pattern: $P = <... $_POST[$K] ...>;
+      - metavariable-regex:
+          metavariable: $K
+          regex: (?i).*pass
+      - pattern-not-inside: |
+          $P = <... $_POST[$K] ...>;
+          ...
+          unset($_POST[$K]);
+          ...
+          sodium_memzero($P);
+  - id: mem-php-key-not-wiped
+    languages: [php]
+    severity: INFO
+    message: Khóa giải mã nằm trong heap tới khi hàm kết thúc mà không bị ghi đè.
+    metadata: {cwe: ['CWE-226', 'CWE-316']}
+    patterns:
+      - pattern: $KEY = $F(...);
+      - metavariable-regex:
+          metavariable: $KEY
+          regex: (?i).*key$
+      - metavariable-regex:
+          metavariable: $F
+          regex: ^(base64_decode|hex2bin|getenv)$
+      - pattern-not-inside: |
+          $KEY = $F(...);
+          ...
+          sodium_memzero($KEY);
+  - id: mem-c-unbounded-copy
+    languages: [c]
+    severity: ERROR
+    message: Sao chép không giới hạn độ dài vào bộ đệm cố định.
+    metadata: {cwe: ['CWE-120', 'CWE-787']}
+    pattern-either:
+      - pattern: strcpy($D, $S)
+      - pattern: sprintf($D, ...)
+  - id: mem-c-realloc-self
+    languages: [c]
+    severity: WARNING
+    message: Gán realloc() đè lên chính con trỏ cũ; khi realloc thất bại khối cũ bị mất.
+    metadata: {cwe: ['CWE-401']}
+    pattern: $P = realloc($P, $N)
+  - id: mem-c-alloc-unchecked
+    languages: [c]
+    severity: WARNING
+    message: Kết quả cấp phát được dùng mà không kiểm tra NULL.
+    metadata: {cwe: ['CWE-690']}
+    patterns:
+      - pattern: $P = $ALLOC(...);
+      - metavariable-regex:
+          metavariable: $ALLOC
+          regex: ^(malloc|calloc|realloc|strdup)$
+      - pattern-not-inside: |
+          $P = $ALLOC(...);
+          ...
+          if (<... $P ...>) $BODY;
+      - pattern-not-inside: |
+          $P = $ALLOC(...);
+          ...
+          if (<... $P ...>) { ... }
+  - id: mem-c-secret-freed-without-wipe
+    languages: [c]
+    severity: WARNING
+    message: Vùng nhớ chứa khóa hoặc mật khẩu được free() mà không ghi đè trước.
+    metadata: {cwe: ['CWE-244', 'CWE-226']}
+    patterns:
+      - pattern: free($K)
+      - metavariable-regex:
+          metavariable: $K
+          regex: (?i).*(key|secret|pass)
+      - pattern-not-inside: |
+          wipe($K, ...);
+          ...
+      - pattern-not-inside: |
+          explicit_bzero($K, ...);
+          ...

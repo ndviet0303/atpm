@@ -1,0 +1,6 @@
+(declare-fun rows () Int)
+(assert (>= rows 0))
+(assert (> (* rows 183) 134217728))
+(assert (<= rows 50))
+(minimize rows)
+(check-sat)
