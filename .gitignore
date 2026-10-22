@@ -18,3 +18,6 @@ run_output/
 # Bản làm việc trùng và bản nén của gói outputs/Nhom13_..._BTL
 outputs/bao_cao_thu_vien_20261004/
 outputs/*.zip
+
+# File khóa tạm của Word/Excel khi đang mở tài liệu
+~$*
