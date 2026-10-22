@@ -2,13 +2,13 @@
 
 **Môn ưu tiên:** CSE703093 An toàn phần mềm. Hướng dẫn BTL được dùng cho báo cáo 7 phần. report_guide được tham chiếu cho bảng trước/sau.
 
-| Thành viên | MSSV |
-|---|---|
-| Nguyễn Duy Minh | 23010359 |
-| Đặng Nhất Nhất | 23010345 |
-| Nghiêm Đức Việt | 23010636 |
+| Thành viên | MSSV | Gói công việc |
+|---|---|---|
+| Nguyễn Duy Minh | 23010359 | A1–A5 (static testing), C2 (kế hoạch, điều phối) |
+| Đặng Nhất Nhất | 23010345 | B1–B5 (đặc tả và test case) |
+| Nghiêm Đức Việt | 23010636 | D1–D4 (sinh mã, SAT, SMT, bộ nhớ), C1 (biên soạn báo cáo) |
 
-Mã lớp và học kỳ chưa được cung cấp. Không tự gán phân công hoặc tỷ lệ đóng góp cho thành viên.
+Mã lớp và học kỳ chưa được cung cấp. Phân công chốt ngày 22/10/2026 theo 16 gói công việc A1–D4, ghi ở trang "Phân công thực hiện đồ án" của báo cáo và sheet PhanCong của Excel; không ghi tỷ lệ đóng góp.
 
 ## Phạm vi và kết quả
 
@@ -40,9 +40,9 @@ Baseline upstream `082d6fb9bdd7846b57033513791ba5b6d2095c11`, dự án [Library 
 
 ## Thành phần
 
-- `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp (bản 21/10/2026, 108 trang, thêm mục 5.5 kiểm thử tĩnh bộ nhớ; xem ghi chú đầu `KIEM_TRA_HOAN_THIEN.md`).
+- `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp (bản 22/10/2026, 108 trang: mục 5.5 kiểm thử tĩnh bộ nhớ thêm ngày 21/10, bảng phân công điền ngày 22/10; xem ghi chú đầu `KIEM_TRA_HOAN_THIEN.md`).
 - `.docx` cùng tên: bản chỉnh sửa, mục lục có trường Word; số trang cached đã đối chiếu bản PDF.
-- `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 816 hồ sơ: 22 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Không coi 22 mục tổng hợp là phép chạy mới. Thêm 5 sheet bộ nhớ: BoNhoTrangThai, BoNhoViPham, BoNhoBMC, BoNhoNganSach, BoNhoBoDemC.
+- `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 816 hồ sơ: 22 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Không coi 22 mục tổng hợp là phép chạy mới. Thêm 5 sheet bộ nhớ: BoNhoTrangThai, BoNhoViPham, BoNhoBMC, BoNhoNganSach, BoNhoBoDemC, và sheet PhanCong (16 gói công việc, người phụ trách) ngay sau ThongTin.
 - `source_v0/`: bản sao đúng 66 PHP khảo sát, schema và LICENSE; không phải gói triển khai đủ tài sản giao diện/vendor.
 - `generated_cases/_v0/` và `_v1/`: 5 cặp về login, authz, query, token và encoding script. `_v0` có lỗi cố ý, chỉ dùng phân tích tĩnh.
 - `models/run_models.py`: DPLL cùng cross-check Z3/bảng chân trị; 10 bài toán SMT token.

@@ -1,5 +1,7 @@
 # Rà soát mức độ hoàn thiện báo cáo Nhóm 13
 
+> Ghi chú ngày 22/10/2026: trang "Phân công thực hiện đồ án" được điền cột Nhiệm vụ; danh mục gói công việc thêm mảng (D) gồm D1–D4 (sinh mã, SAT, SMT, bộ nhớ), tổng 16 gói A1–D4; Phụ lục G.1 sửa theo. Excel thêm sheet PhanCong. PDF vẫn 108 trang, mục lục và danh mục bảng, hình không đổi số trang, nên số trang ở R16–R19 vẫn đúng.
+
 > Ghi chú ngày 21/10/2026: báo cáo được thêm mục 5.5 "Kiểm thử tĩnh cấp phát bộ nhớ" (PDF 108 trang; Bảng 37–45 và Hình 17 mới, các bảng, hình sau đó được đánh số lại). Excel được thêm 5 sheet BoNho* và các dòng memory_*, count_mem_* trong ThongTin. Hàng R16–R19 dưới đây đối chiếu phần bộ nhớ với bản 21/10, số trang theo số in trong mục lục. Ghi chú 16/10 bên dưới vẫn đúng cho R01–R15.
 
 > Ghi chú ngày 16/10/2026: bảng dưới đây, `evidence/final_quality_check.json` và `evidence/completion_audit.json` là kết quả rà soát bản báo cáo ngày 04/10 (PDF 172 trang). Bản Word/PDF hiện tại trong gói (16/10, PDF 99 trang) đã thay bản đó, nên số trang trích dẫn ở đây không còn khớp và `report_artifact_hashes` trong `completion_audit.json` là hash của bản cũ. Excel chỉ đổi hai ô `ThongTin!B9` và `ThongTin!B20`. Hash hiện hành nằm trong `checksums.json`.
@@ -31,7 +33,7 @@ Bản kiểm tra này đối chiếu yêu cầu của nhóm với bản PDF, Wor
 ## Thông tin và giới hạn cần đọc kèm
 
 - Mã lớp và học kỳ chưa được cung cấp; giữ thông báo rõ trên bìa.
-- Phân công cá nhân chưa được cung cấp; không tự gán đóng góp.
+- Phân công chốt ngày 22/10/2026 theo gói công việc: Minh A1–A5, C2; Nhất B1–B5; Việt D1–D4, C1. Không ghi tỷ lệ đóng góp.
 - RBAC,TTL và một số cận nghiệp vụ là chính sách đề xuất; chưa phải SRS upstream.
 - Mô hình guard thủ công; kết quả SMT không là chứng minh mật mã hoặc toàn bộ hành vi PHP.
 
