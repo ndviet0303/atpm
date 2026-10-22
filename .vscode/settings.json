@@ -1,0 +1,23 @@
+{
+  "files.exclude": {
+    "run_output": true,
+    ".agent": true,
+    ".agents": true,
+    "**/__pycache__": true,
+    "outputs/bao_cao_thu_vien_20261004": true,
+    "outputs/*.zip": true
+  },
+  // evidence/: gom rule và output dưới script sinh ra chúng, file không bị di chuyển
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "auth_model.py": "auth_model.json",
+    "case_register.json": "report_case_metadata.json",
+    "collect_static.py": "static_summary.json, static_inventory.php, source_inventory.json, php_*",
+    "completion_audit.json": "expanded_validation.json, final_quality_check.json, portability_check.json",
+    "extract_sql_calls.php": "sql_*",
+    "run_generated_static.py": "generated_*",
+    "run_memory_static.py": "memory_*, extract_memory_tokens.php",
+    "run_sast.py": "custom_php_rules_corrected.yaml, frozen_registry_php_rules.json, registry_*, rule_downloads.json, sast_manifest.json, semgrep*, historical_semgrep_audit.json, phpstan_*"
+  }
+}
