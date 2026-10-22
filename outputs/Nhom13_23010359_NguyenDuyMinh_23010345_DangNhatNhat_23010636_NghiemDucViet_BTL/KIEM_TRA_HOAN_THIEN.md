@@ -32,7 +32,7 @@ Bản kiểm tra này đối chiếu yêu cầu của nhóm với bản PDF, Wor
 
 ## Thông tin và giới hạn cần đọc kèm
 
-- Mã lớp và học kỳ chưa được cung cấp; giữ thông báo rõ trên bìa.
+- Bìa, bảng phân công và ThongTin không ghi lớp tín chỉ, học kỳ (bỏ ngày 22/10/2026).
 - Phân công chốt ngày 22/10/2026 theo gói công việc: Minh A1–A5, C2; Nhất B1–B5; Việt D1–D4, C1. Không ghi tỷ lệ đóng góp.
 - RBAC,TTL và một số cận nghiệp vụ là chính sách đề xuất; chưa phải SRS upstream.
 - Mô hình guard thủ công; kết quả SMT không là chứng minh mật mã hoặc toàn bộ hành vi PHP.

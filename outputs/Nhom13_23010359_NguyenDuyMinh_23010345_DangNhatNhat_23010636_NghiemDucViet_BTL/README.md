@@ -8,7 +8,7 @@
 | Đặng Nhất Nhất | 23010345 | B1–B5 (đặc tả và test case) |
 | Nghiêm Đức Việt | 23010636 | D1–D4 (sinh mã, SAT, SMT, bộ nhớ), C1 (biên soạn báo cáo) |
 
-Mã lớp và học kỳ chưa được cung cấp. Phân công chốt ngày 22/10/2026 theo 16 gói công việc A1–D4, ghi ở trang "Phân công thực hiện đồ án" của báo cáo và sheet PhanCong của Excel; không ghi tỷ lệ đóng góp.
+Phân công chốt ngày 22/10/2026 theo 16 gói công việc A1–D4, ghi ở trang "Phân công thực hiện đồ án" của báo cáo và sheet PhanCong của Excel; không ghi tỷ lệ đóng góp.
 
 ## Phạm vi và kết quả
 
