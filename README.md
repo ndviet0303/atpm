@@ -20,6 +20,7 @@ atpm/
 ├── README.md                      # Giới thiệu tổng quan dự án
 ├── .gitignore                     # Bỏ qua môi trường ảo và tệp nhị phân
 ├── run.sh                         # Tái lập lần quét hợp lệ (322 cảnh báo) + PHPStan
+├── chon_test.py                   # Giao diện web chọn test, chạy trên bản sao gói nộp, xuất báo cáo HTML
 ├── outputs/Nhom13_..._BTL/        # Gói nộp: báo cáo PDF/Word, Excel, bằng chứng, mã sinh, mô hình
 ├── openspec/                      # Quản lý vòng đời đặc tả nghiên cứu (OpenSpec)
 │   └── changes/archive/           # Artifacts nghiên cứu đã hoàn thành và lưu trữ
@@ -64,5 +65,15 @@ Yêu cầu môi trường: Python 3.10+, bash; thêm PHP và `study/phpstan.phar
 ```
 
 Kỳ vọng: `Semgrep: 322 cảnh báo, mã thoát 0, 0 lỗi công cụ` và `PHPStan: 17 thông báo`. Script tự tạo `study/.venv` với Semgrep 1.176.1, quét 66 tệp `study/source/librarian/*.php` bằng bộ rule đóng băng trong `evidence/` của gói nộp, ghi kết quả vào `run_output/` và trả mã khác 0 nếu lệch.
+
+### Chọn test bằng giao diện
+
+```bash
+python3 chon_test.py
+```
+
+Script mở `http://127.0.0.1:8790` (đổi cổng: `python3 chon_test.py 8791`). Mỗi lần khởi động, script chép gói nộp sang `run_output/goi_chay_lai/` và chạy 12 bước của gói trên bản sao đó, nên `evidence/` và `checksums.json` của gói nộp không bị ghi đè. Tích các test cần chạy rồi bấm "Chạy các test đã chọn": log chạy ở cột phải, mỗi test hiện Đạt hoặc Lỗi kèm mã thoát. Chạy xong, bấm "Mở báo cáo" để xem `run_output/goi_chay_lai/bao_cao.html`. Báo cáo có bảng kỳ vọng so với thực tế và một mục riêng cho mỗi test đã chạy: phát hiện Semgrep nhóm theo rule (CWE, FIND, vị trí, dòng mã), thông báo PHPStan, bài toán SAT/SMT, 54 truy vấn SQL, danh sách unit test, sổ 816 hồ sơ test case, lỗi bộ nhớ PHP/C. Nút "In / lưu PDF" để xuất PDF. Dòng "Xem" trên mỗi thẻ test mở mã kiểm thử, tệp kết quả và mục tương ứng trong báo cáo.
+
+Rule nằm ở `evidence/` của gói nộp: `custom_php_rules_corrected.yaml` (4 rule tự viết), `frozen_registry_php_rules.json` (24 rule registry), `memory_rules.yaml` (11 rule bộ nhớ), `generated_case_rules.yaml` (6 rule cho mã sinh). Riêng PHPStan dùng `tools/phpstan.neon`. Trên giao diện, mỗi test có link mở thẳng file rule mà nó nạp. Tệp `study/rules/custom_php_rules.yaml` là bản cũ, lỗi parse (lần quét 270), không dùng nữa.
 
 Lần quét lịch sử 270 cảnh báo dùng `--config p/php --config p/sql-injection --config p/xss --config study/rules/custom_php_rules.yaml`; chạy lại lệnh đó có thể ra số khác vì registry thay đổi theo thời gian.
