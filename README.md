@@ -21,6 +21,7 @@ atpm/
 ├── .gitignore                     # Bỏ qua môi trường ảo và tệp nhị phân
 ├── run.sh                         # Tái lập lần quét hợp lệ (322 cảnh báo) + PHPStan
 ├── chon_test.py                   # Giao diện web chọn test, chạy trên bản sao gói nộp, xuất báo cáo HTML
+├── bien_ban_test.py               # Chạy đủ 12 test, xuất biên bản kiểm thử Word (outputs/Bien_ban_test_Nhom13.docx)
 ├── outputs/Nhom13_..._BTL/        # Gói nộp: báo cáo PDF/Word, Excel, bằng chứng, mã sinh, mô hình
 ├── openspec/                      # Quản lý vòng đời đặc tả nghiên cứu (OpenSpec)
 │   └── changes/archive/           # Artifacts nghiên cứu đã hoàn thành và lưu trữ
@@ -75,5 +76,13 @@ python3 chon_test.py
 Script mở `http://127.0.0.1:8790` (đổi cổng: `python3 chon_test.py 8791`). Mỗi lần khởi động, script chép gói nộp sang `run_output/goi_chay_lai/` và chạy 12 bước của gói trên bản sao đó, nên `evidence/` và `checksums.json` của gói nộp không bị ghi đè. Tích các test cần chạy rồi bấm "Chạy các test đã chọn": log chạy ở cột phải, mỗi test hiện Đạt hoặc Lỗi kèm mã thoát. Chạy xong, bấm "Mở báo cáo" để xem `run_output/goi_chay_lai/bao_cao.html`. Báo cáo có bảng kỳ vọng so với thực tế và một mục riêng cho mỗi test đã chạy: phát hiện Semgrep nhóm theo rule (CWE, FIND, vị trí, dòng mã), thông báo PHPStan, bài toán SAT/SMT, 54 truy vấn SQL, danh sách unit test, sổ 816 hồ sơ test case, lỗi bộ nhớ PHP/C. Nút "In / lưu PDF" để xuất PDF. Dòng "Xem" trên mỗi thẻ test mở mã kiểm thử, tệp kết quả và mục tương ứng trong báo cáo.
 
 Rule nằm ở `evidence/` của gói nộp: `custom_php_rules_corrected.yaml` (4 rule tự viết), `frozen_registry_php_rules.json` (24 rule registry), `memory_rules.yaml` (11 rule bộ nhớ), `generated_case_rules.yaml` (6 rule cho mã sinh). Riêng PHPStan dùng `tools/phpstan.neon`. Trên giao diện, mỗi test có link mở thẳng file rule mà nó nạp. Tệp `study/rules/custom_php_rules.yaml` là bản cũ, lỗi parse (lần quét 270), không dùng nữa.
+
+### Biên bản kiểm thử
+
+```bash
+python3 bien_ban_test.py
+```
+
+Chạy đủ 12 test của `chon_test.py` trên bản sao riêng `run_output/bien_ban/` (chạy được cả khi giao diện đang mở) và ghi `outputs/Bien_ban_test_Nhom13.docx`: thông tin chung, môi trường, bảng kỳ vọng/thực tế, sổ phát hiện, lỗi bộ nhớ, kết luận, chỗ ký và lệnh chạy ở phụ lục. Mục kiểm thử lại trên source_v1 để trống, chờ `bo_sung_v1/`.
 
 Lần quét lịch sử 270 cảnh báo dùng `--config p/php --config p/sql-injection --config p/xss --config study/rules/custom_php_rules.yaml`; chạy lại lệnh đó có thể ra số khác vì registry thay đổi theo thời gian.

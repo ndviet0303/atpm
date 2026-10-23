@@ -252,7 +252,7 @@ def actual(tid):
         d = load(E + 'memory_case_results.json')
         base = [f for f in d['findings'] if f['file'].startswith('baseline/')]
         s = d['summary']
-        return (f"{len(base)} vi phạm trên {len({f['file'] for f in base})} tệp; "
+        return (f"{len(base)} vi phạm trên {len({f['file'] for f in base})}/{load(E + 'static_summary.json')['php_file_count']} tệp; "
                 f"BMC {s['z3_bruteforce_walker_agree']}/{s['objects']}, {s['objects_z3_sat']} SAT")
     return '—'
 
