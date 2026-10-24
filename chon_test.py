@@ -14,7 +14,7 @@ import sys
 import threading
 import time
 import webbrowser
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -200,6 +200,193 @@ def tags(*values):
     return ''.join(f'<span class="tag">{esc(v)}</span>' for v in values if v)
 
 
+def state_graph(nodes, edges, start):
+    """Sơ đồ trạng thái viết bằng cú pháp Mermaid, Pele vẽ thành SVG. nodes: [(tên, chữ hiển thị, đỏ)], edges: [(từ, đến, nhãn, đỏ)].
+    Pele tải từ CDN; offline thì trang hiện nguyên văn bản này, vẫn đọc được từng phép chuyển."""
+    ids = {name: f's{i}' for i, (name, *_) in enumerate(nodes)}  # id ngắn, tránh từ khóa Mermaid như end
+    out = ['flowchart LR'] + ([f'  start(( )) --> {ids[start]}'] if start else [])
+    out += [f'  {ids[n]}["{text}"]' + (':::bad' if bad else '') for n, text, bad in nodes]
+    out += [f'  {ids[a]} -->' + (f'|"{label}"|' if label else '') + f' {ids[b]}' for a, b, label, _ in edges]
+    red = [str(i + bool(start)) for i, e in enumerate(edges) if e[3]]  # cạnh 0 là mũi tên vào trạng thái đầu, nếu có
+    out += [f'  linkStyle {",".join(red)} stroke:#d93025,stroke-width:2.5px'] if red else []
+    out.append('  classDef bad stroke:#d93025,stroke-width:2.5px')
+    return chr(10).join(out)
+
+
+def auth_graph(d):
+    """Cấu trúc Kripke từ auth_model.json: trạng thái mang nhãn violation và đường phản ví dụ tô đỏ."""
+    paths = [r.get('counterexample') or [] for r in d['results']]
+    cex = {pair for p in paths for pair in zip(p, p[1:])}
+    nodes = [(s, s + '<br>{' + ', '.join(d['labels'][s]) + '}', 'violation' in d['labels'][s]) for s in d['states']]
+    edges = [(a, b, '', (a, b) in cex) for a, targets in d['states'].items() for b in targets]
+    return nodes, edges, d['initial_state']
+
+
+def memory_graph(d):
+    """Mô hình trạng thái bộ nhớ từ memory_case_results.json: gộp phép chuyển cùng hai đầu, phép chuyển sinh vi phạm tô đỏ."""
+    by_edge = defaultdict(list)
+    for t in d['transition_table']:
+        by_edge[t['from'], t['to']].append(t)
+    edges = [(a, b, '<br>'.join(t['event'] + (f' ⚠ {t["violation"]}' if t['violation'] else '') for t in ts),
+              any(t['violation'] for t in ts)) for (a, b), ts in by_edge.items()]
+    nodes = [(s, f'{s} ({v["id"]})', False) for s, v in d['states'].items()]
+    return nodes, edges, next(iter(d['states']))  # trạng thái đầu là P0, mục đầu của states
+
+
+SRC, V0, V1 = 'source_v0: mã gốc', '_v0: mã lỗi cố ý', '_v1: mã đã sửa'
+
+
+def ver(path):
+    """Nhánh mã của một tệp hay nhóm theo quy ước của gói: thư mục _v0 là mã lỗi, _v1 là mã đã sửa, còn lại là mã gốc."""
+    p = f'/{path}/'
+    return V0 if '/_v0/' in p else V1 if '/_v1/' in p else SRC
+
+
+def memory_walk(d, branch):
+    """Phép chuyển mà đối tượng của một nhánh mã thực sự đi qua: phát lại chuỗi sự kiện từng đối tượng trên bảng chuyển."""
+    step = {(t['from'], t['event']): t for t in d['transition_table']}
+    start, used = next(iter(d['states'])), Counter()
+    for o in d['objects']:
+        if ver(o['group']) != branch:
+            continue
+        s, found = start, set()
+        for event in o['events']:
+            t = step.get((s, event))
+            if t is None:  # cặp không có trong bảng giữ nguyên trạng thái, như step() của memory_typestate.py
+                continue
+            v = t['violation'] if t['violation'] != 'E_HELD_TO_END' or o['kind'] in ('link', 'result', 'stmt') else None
+            used[s, event, t['to'], v] += 1
+            found.add(v)
+            s = t['to']
+        assert found - {None} == set(o['violations']), o['obj']  # phát lại phải ra đúng vi phạm run_memory_cases.py đã ghi
+    table = [{'from': a, 'event': f'{event} ×{n}', 'to': b, 'violation': v} for (a, event, b, v), n in used.items()]
+    seen = {start} | {t[k] for t in table for k in ('from', 'to')}
+    return memory_graph({'states': {s: v for s, v in d['states'].items() if s in seen}, 'transition_table': table})
+
+
+def rule_hits(data):
+    hits = Counter(r['check_id'].rsplit('.', 1)[-1] for r in data['results'])
+    return [(f'{rule}<br>{n} hit · {FINDS.get(rule, "—")}', True) for rule, n in hits.most_common()]
+
+
+def branches(tid):
+    """Kết quả của test chia theo nhánh mã (mã gốc, _v0, _v1): (tệp nguồn dữ liệu, {nhánh: [(chữ, lỗi)]}).
+    Lỗi TypeError khi JSON chưa có (load trả None), tức test chưa chạy."""
+    if tid == 'kiem_ke':
+        d = load(E + 'static_summary.json')
+        n = d['php_file_count']
+        return E + 'static_summary.json', {SRC: [
+            (f"{n} tệp PHP, {d['physical_lines']} dòng", False), (f"lint {d['lint_ok']}/{n}", d['lint_ok'] < n),
+            (f"{len(d['empty_files'])} tệp rỗng", bool(d['empty_files'])),
+            (f"{len(d['missing_includes'])} include gãy", bool(d['missing_includes']))]}
+    if tid in ('sast', 'bao_cao'):
+        rel = E + 'semgrep_run1.json' if tid == 'sast' else 'bao_cao_semgrep.json'
+        return rel, {SRC: rule_hits(load(rel))}
+    if tid == 'phpstan':
+        d = phpstan_data()
+        return None, {SRC: [(f"{Path(f).name}: {v['errors']} thông báo", True) for f, v in d['files'].items()]}
+    if tid == 'ma_sinh':
+        d = load(E + 'generated_static_results.json')
+        return E + 'generated_static_results.json', {ver(r['version']): [  # cùng 5 tệp ở cả hai nhánh, tệp 0 hit vẫn hiện
+            (f"{x['file']}: {r['by_file'].get(x['file'], 0)} hit · lint {'đạt' if x['exit_code'] == 0 else 'lỗi'}",
+             r['by_file'].get(x['file'], 0) > 0 or x['exit_code'] != 0) for x in r['lint']] for r in d['runs']}
+    if tid == 'sat_smt':
+        cases = defaultdict(list)
+        for c in load(E + 'formal_results.json')['boolean_cases'] + load(E + 'formal_results.json')['smt_cases']:
+            # SAT ở ca kiểm vi phạm là có phản ví dụ; ca đối chứng (control) phải SAT nên không tô đỏ
+            cases[ver(c['source']), Path(c['source']).name].append(
+                c.get('status', c.get('dpll')) == 'SAT' and 'control' not in c['id'])
+        out = defaultdict(list)
+        for (b, f), bad in sorted(cases.items()):
+            if b != SRC:  # ca đối chứng của chính DPLL, không thuộc nhánh mã nào
+                out[b].append((f'{f}: {sum(bad)}/{len(bad)} ca có phản ví dụ', any(bad)))
+        return E + 'formal_results.json', dict(out)
+    if tid == 'sql':
+        s, st = load(E + 'sql_case_results.json')['summary'], load(E + 'sql_static_results.json')
+        lint = defaultdict(list)
+        for x in st['lint']:
+            lint[ver(x['file'])].append(x['exit_code'] == 0)
+        return E + 'sql_case_results.json', {SRC: [
+            (f"{s['queries']} truy vấn, {s['fields']} trường", False),
+            (f"CNF {s['query_cnf_crosschecks_passed']}/{s['query_cnf_cases']} trùng", s['query_cnf_crosschecks_passed'] < s['query_cnf_cases']),
+            (f"SMT {s['field_smt_expected_passed']}/{s['field_smt_cases']} đúng kỳ vọng", s['field_smt_expected_passed'] < s['field_smt_cases'])],
+            **{ver(sc['version']): [(f"Semgrep: {sc['findings']} hit / {sc['scanned']} tệp", sc['findings'] > 0),
+                                    (f"lint {sum(lint[ver(sc['version'])])}/{len(lint[ver(sc['version'])])}",
+                                     not all(lint[ver(sc['version'])]))] for sc in st['scans']}}
+    if tid == 'auth':
+        d = load(E + 'auth_model.json')
+        return E + 'auth_model.json', {SRC: [(f"{r['formula']}: {'đúng' if r['initial_satisfies'] else 'sai'}",
+                                              not r['initial_satisfies']) for r in d['results']]}
+    if tid == 'so_ho_so':
+        d = load(E + 'case_register.json')
+        rows = defaultdict(list)
+        for r in d['sat_rows'] + d['smt_rows']:
+            rows[ver(r['source'])].append(r.get('status', r.get('dpll')) == r['expected'])
+        return E + 'case_register.json', {
+            SRC: [(f"{d['summary']['overview_cases']} hồ sơ tổng hợp, {d['summary']['sql_source_cases']} truy vấn SQL", False)],
+            **{b: [(f'{len(ok)} hồ sơ SAT/SMT', False), (f'khớp kỳ vọng {sum(ok)}/{len(ok)}', not all(ok))]
+               for b, ok in sorted(rows.items()) if b != SRC}}
+    if tid == 'bo_nho_unit':
+        by_class = defaultdict(list)
+        for _, cls, status in unit_tests():
+            by_class[cls.split('.')[-2] if '.' in cls else cls].append(status == 'ok')  # như sec_bo_nho_unit
+        return None, {'models/test_memory_typestate.py': [(f'{c}: {sum(ok)}/{len(ok)} đạt', not all(ok))
+                                                         for c, ok in by_class.items()]} if by_class else None
+    if tid == 'bo_nho_tinh':
+        d, out = load(E + 'memory_static_results.json'), {SRC: [], V0: [], V1: []}
+        rules = d['semgrep']['by_group_rule']
+        for g in dict.fromkeys([*rules, *(g.replace('_v0', '_v1') for g in rules)]):  # nhóm 0 hit không có trong JSON
+            n = sum(rules.get(g, {}).values())
+            out[ver(g)].append((f'Semgrep {g}: {n} hit', n > 0))
+        runs = defaultdict(dict)
+        for r in d['compilers']['runs']:
+            runs[r['file']][r['tool']] = len(r['findings'])
+        for f, n in runs.items():
+            out[ver(f)].append((f"{Path(f).name}: GCC {n.get('gcc', '—')}, Clang {n.get('clang', '—')}", any(n.values())))
+        return E + 'memory_static_results.json', out
+    if tid == 'bo_nho_case':
+        s, out = load(E + 'memory_case_results.json')['summary'], {SRC: [], V0: [], V1: []}
+        for g, codes in s['by_group'].items():
+            out[ver(g)].append((f'{g}: {sum(codes.values())} vi phạm' + ''.join(f'<br>{c} ×{n}' for c, n in codes.items()),
+                                bool(codes)))
+        for m, z in s['c_models'].items():
+            out[V0 if m.endswith('_v0') else V1].append((f'C {m[:-3]}: {z}', z == 'SAT'))
+        return E + 'memory_case_results.json', out
+
+
+def diagrams(tid):
+    """Sơ đồ của một test cho giao diện: kết quả theo nhánh mã, thêm mô hình trạng thái nếu test có."""
+    out = []
+    try:
+        rel, b = branches(tid)
+    except TypeError:
+        rel, b = None, None
+    if b:
+        if SRC in b:  # bản vá của mã gốc (source_v1) chưa có trong gói
+            b['source_v1: mã gốc đã vá'] = [('chưa có trong gói, chờ bo_sung_v1/', False)]
+        title = next(t[2] for t in TESTS if t[0] == tid)
+        out.append({'title': 'Kết quả theo nhánh mã', 'file': rel, 'src': state_graph(*tree_graph(title, b))})
+    if tid == 'auth' and (d := load(E + 'auth_model.json')):
+        out.append({'title': 'Kripke source_v0', 'file': E + 'auth_model.json', 'src': state_graph(*auth_graph(d))})
+    if tid == 'bo_nho_case' and (d := load(E + 'memory_case_results.json')):
+        out += [{'title': f'Trạng thái {b.split(":")[0]}', 'file': E + 'memory_case_results.json',
+                 'src': state_graph(*memory_walk(d, b))} for b in (SRC, V0, V1)]
+        out.append({'title': 'Mô hình đầy đủ', 'file': E + 'memory_case_results.json', 'src': state_graph(*memory_graph(d))})
+    return out
+
+
+def tree_graph(title, branches):
+    """Cây kết quả: gốc là test, mỗi nhánh mã nối tới các mục của nó, mục lỗi tô đỏ."""
+    nodes, edges = [('test', title, False)], []
+    for i, (branch, items) in enumerate(branches.items()):
+        nodes.append((f'b{i}', branch, False))
+        edges.append(('test', f'b{i}', '', False))
+        for j, (text, bad) in enumerate(items):
+            nodes.append((f'b{i}.{j}', text, bad))
+            edges.append((f'b{i}', f'b{i}.{j}', '', bad))
+    return nodes, edges, None
+
+
 def actual(tid):
     """Một dòng số liệu thực tế của test, để đặt cạnh cột kỳ vọng."""
     if tid == 'kiem_ke':
@@ -342,9 +529,13 @@ def sec_sql():
 
 def sec_auth():
     d = load(E + 'auth_model.json')
-    rows = [tr(code(r['formula']), td('đúng' if r['initial_satisfies'] else 'sai'), td(' → '.join(r.get('counterexample', []))))
+    rows = [tr(code(r['formula']), td('đúng' if r['initial_satisfies'] else 'sai'), td(' → '.join(r.get('counterexample') or [])))
             for r in d['results']]
-    return (f'{esc(d["scope"])} Trạng thái đạt tới: {esc(", ".join(d["reachable"]))}.',
+    return (f'{esc(d["scope"])}. Trạng thái đạt tới: {esc(", ".join(d["reachable"]))}. '
+            f'Mô hình dựng từ {esc(", ".join(d["source_refs"]))}.',
+            '<p class="muted">Cấu trúc Kripke: mỗi ô là một trạng thái, {…} là nhãn mệnh đề, mũi tên là phép chuyển, '
+            'mũi tên quay về chính ô là tự lặp. Đỏ: trạng thái mang nhãn violation và đường phản ví dụ của công thức sai. '
+            'Đọc công thức: AG(p) là p đúng ở mọi trạng thái đi tới được; EF(p) là có ít nhất một đường tới trạng thái có p.</p>' +
             table(['Công thức', 'Từ trạng thái đầu', 'Phản ví dụ'], rows))
 
 
@@ -384,21 +575,41 @@ def sec_bo_nho_case():
     for f in d['findings']:
         if f['file'].startswith('baseline/'):
             by_kind[f['id']].append(f)
+    steps = defaultdict(list)
+    for t in d['transition_table']:
+        if t['violation']:
+            steps[t['violation']].append(f'{t["from"]} –{t["event"]}→ {t["to"]}')
+    states = [tr(code(v['id']), code(s), td(v['meaning'])) for s, v in d['states'].items()]
     blocks = []
     for kind, items in sorted(by_kind.items(), key=lambda kv: -len(kv[1])):
         rows = [tr(td(f'{Path(f["file"]).name}:{f["line"]}', 'loc'), code(f['var']), code(f['stmt'][:140])) for f in items]
-        note = tags(items[0]['severity'], ', '.join(items[0]['cwe'])) + f'<div class="muted">{esc(items[0]["label"])}</div>'
+        note = tags(items[0]['severity'], ', '.join(items[0]['cwe']), *(steps[kind] or ['ngoài sơ đồ: kiểm tra câu SQL'])) + \
+            f'<div class="muted">{esc(items[0]["label"])}</div>'
         blocks.append(details(len(items), esc(kind), note, f'<table class="locs">{"".join(rows)}</table>'))
     total = sum(map(len, by_kind.values()))
     return (f'{total} vi phạm trên {len({f["file"] for v in by_kind.values() for f in v})} tệp baseline, theo mô hình '
             f'{len(d["states"])} trạng thái và {len(d["transition_table"])} phép chuyển. Mã case ở '
-            '<a href="/generated_cases/memory/">generated_cases/memory/</a>.', ''.join(blocks))
+            '<a href="/generated_cases/memory/">generated_cases/memory/</a>.',
+            '<p class="muted">Mỗi biến PHP giữ resource hoặc bí mật đi theo mô hình đầy đủ ở trên từ UNDEF. Nhãn mũi tên là sự kiện '
+            'trong mã; mũi tên đỏ có ⚠ là phép chuyển sinh vi phạm. Mỗi nhóm vi phạm bên dưới ghi phép chuyển tương ứng '
+            'để dò lại trên sơ đồ.</p>' + details(len(states), 'trạng thái và ý nghĩa', '', table(['ID', 'Trạng thái', 'Ý nghĩa'], states)) +
+            ''.join(blocks))
 
 
 SECTIONS = {'kiem_ke': sec_kiem_ke, 'sast': sec_sast, 'bao_cao': sec_bao_cao, 'phpstan': sec_phpstan, 'ma_sinh': sec_ma_sinh,
             'sat_smt': sec_sat_smt, 'sql': sec_sql, 'auth': sec_auth, 'so_ho_so': sec_so_ho_so,
             'bo_nho_unit': sec_bo_nho_unit, 'bo_nho_tinh': sec_bo_nho_tinh, 'bo_nho_case': sec_bo_nho_case}
 assert set(SECTIONS) == {t[0] for t in TESTS}, 'test chưa có mục báo cáo'
+
+
+def figures(tid):
+    """Các sơ đồ của test như khung sơ đồ của giao diện, xếp liền nhau để báo cáo in được."""
+    out = ''
+    for g in diagrams(tid):
+        src = f'<a href="/{g["file"]}">{g["file"]}</a>' if g['file'] else 'nhật ký của lần chạy'
+        out += (f'<figure><figcaption><b>{esc(g["title"])}</b> · vẽ từ {src}</figcaption>'
+                f'<pre class="mermaid">{esc(g["src"])}</pre></figure>')
+    return out
 
 
 def build_report():
@@ -410,6 +621,7 @@ def build_report():
         try:
             got = esc(actual(tid)) if ok else f'<pre>{esc("".join(outputs.get(tid, "").splitlines(True)[-12:]))}</pre>'
             intro, body = SECTIONS[tid]() if ok else ('Test lỗi, xem log ở cột Thực tế của bảng tổng hợp.', '')
+            body = (figures(tid) if ok else '') + body
         except Exception as error:  # JSON thiếu trường: báo trong mục đó, không làm hỏng cả báo cáo
             got = intro = f'Không đọc được kết quả: {esc(repr(error))}'
             body = ''
@@ -424,55 +636,85 @@ def build_report():
             .replace('__ROWS__', ''.join(rows)).replace('__DETAILS__', ''.join(sections)))
 
 
+THEME = '''/* Màu và bán kính theo theme neutral của shadcn/ui; viết CSS thường để trang vẫn là một tệp, không cần build */
+:root { --radius:0.625rem; --background:oklch(1 0 0); --foreground:oklch(0.145 0 0); --card:oklch(1 0 0);
+  --primary:oklch(0.205 0 0); --primary-foreground:oklch(0.985 0 0); --secondary:oklch(0.97 0 0); --muted:oklch(0.97 0 0);
+  --muted-foreground:oklch(0.556 0 0); --accent:oklch(0.97 0 0); --destructive:oklch(0.577 0.245 27.325);
+  --border:oklch(0.922 0 0); --input:oklch(0.922 0 0); --ring:oklch(0.708 0 0);
+  --ok:oklch(0.527 0.154 150.069); --run:oklch(0.546 0.245 262.881); color-scheme:light dark; }
+@media (prefers-color-scheme: dark) { :root { --background:oklch(0.145 0 0); --foreground:oklch(0.985 0 0);
+  --card:oklch(0.205 0 0); --primary:oklch(0.922 0 0); --primary-foreground:oklch(0.205 0 0); --secondary:oklch(0.269 0 0);
+  --muted:oklch(0.269 0 0); --muted-foreground:oklch(0.708 0 0); --accent:oklch(0.269 0 0);
+  --destructive:oklch(0.704 0.191 22.216); --border:oklch(1 0 0 / 10%); --input:oklch(1 0 0 / 15%); --ring:oklch(0.556 0 0);
+  --ok:oklch(0.792 0.209 151.711); --run:oklch(0.707 0.165 254.624); } }'''
+
 REPORT = '''<!doctype html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Báo cáo kiểm thử tĩnh – Nhóm 13</title>
 <style>
-:root { --bg:#f6f4ef; --card:#fbfaf7; --line:#ddd6c8; --text:#13202e; --muted:#4f5a66; --accent:#a84a14; --link:#1f5c99;
-  --ok:#1f6b3a; --ok-bg:#e3f1e7; --fail:#b3261e; --fail-bg:#fbe6e4; --code:#efeae0; }
-@media (prefers-color-scheme: dark) { :root { --bg:#10161d; --card:#18212b; --line:#2c3845; --text:#e8edf2; --link:#7fb2e5;
-  --muted:#a9b4bf; --accent:#f08a3c; --ok:#5fc27e; --ok-bg:#16301f; --fail:#ff8a80; --fail-bg:#3a1a18; --code:#0f151c; } }
+__THEME__
 * { box-sizing:border-box; }
-body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui, sans-serif; }
+body { margin:0; background:var(--background); color:var(--foreground); font:14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
 main { max-width:1180px; margin:0 auto; padding:32px 16px 64px; }
-a { color:var(--link); }
-h1 { font-size:26px; margin:0; } h2 { font-size:19px; margin:40px 0 4px; color:var(--accent); } h3 { font-size:15px; margin:18px 0 6px; }
+a { color:inherit; text-decoration:underline; text-decoration-color:color-mix(in oklch, currentColor 35%, transparent); text-underline-offset:3px; }
+a:hover { text-decoration-color:currentColor; }
+h1 { font-size:20px; font-weight:600; letter-spacing:-0.01em; margin:0; }
+h2 { font-size:16px; font-weight:600; margin:36px 0 4px; } h3 { font-size:14px; font-weight:600; margin:18px 0 6px; }
 section { scroll-margin-top:16px; }
-.muted { color:var(--muted); font-size:13px; }
+.muted { color:var(--muted-foreground); font-size:13px; }
 .head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:end;
-  border-bottom:2px solid var(--accent); padding-bottom:14px; }
-.big { font-size:22px; font-weight:700; }
-button { font:inherit; padding:7px 14px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--text); cursor:pointer; }
-.scroll { overflow-x:auto; }
-table { width:100%; border-collapse:collapse; background:var(--card); font-size:14px; }
-th, td { text-align:left; vertical-align:top; padding:7px 10px; border-bottom:1px solid var(--line); }
-th { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  border-bottom:1px solid var(--border); padding-bottom:16px; }
+.big { font-size:20px; font-weight:600; margin-bottom:8px; }
+button { height:32px; padding:0 12px; font:500 13px system-ui, sans-serif; border:1px solid var(--border); cursor:pointer;
+  border-radius:calc(var(--radius) * 0.8); background:var(--background); color:var(--foreground); box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05); }
+button:hover { background:var(--accent); }
+.scroll { overflow-x:auto; background:var(--card); border:1px solid var(--border); border-radius:calc(var(--radius) * 1.4); }
+details .scroll { border:0; border-top:1px solid var(--border); border-radius:0; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th, td { text-align:left; vertical-align:top; padding:8px 12px; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:0; }
+th { font-size:12px; font-weight:500; color:var(--muted-foreground); background:var(--muted); }
 td.num { text-align:right; font-variant-numeric:tabular-nums; }
-.status { display:inline-block; padding:2px 10px; border-radius:999px; font-weight:600; font-size:13px; white-space:nowrap; }
-.status.ok { color:var(--ok); background:var(--ok-bg); } .status.fail { color:var(--fail); background:var(--fail-bg); }
-code, pre { font:12.5px/1.45 ui-monospace, Menlo, monospace; }
-code { background:var(--code); padding:1px 5px; border-radius:4px; word-break:break-word; }
+.status { display:inline-flex; padding:2px 8px; border-radius:calc(var(--radius) * 0.8); font-weight:500; font-size:12px; white-space:nowrap; }
+.status.ok { color:var(--ok); background:color-mix(in oklch, var(--ok) 12%, transparent); }
+.status.fail { color:var(--destructive); background:color-mix(in oklch, var(--destructive) 12%, transparent); }
+code, pre { font:12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+code { background:var(--muted); padding:1px 5px; border-radius:calc(var(--radius) * 0.6); word-break:break-word; }
 pre { margin:0; white-space:pre-wrap; max-height:220px; overflow:auto; }
-details { background:var(--card); border:1px solid var(--line); border-radius:10px; margin:8px 0; }
+figure { margin:12px 0; } figcaption { font-size:13px; color:var(--muted-foreground); margin-bottom:6px; }
+figcaption b { color:var(--foreground); font-weight:600; }
+pre.mermaid { max-height:none; background:var(--card); border:1px solid var(--border); border-radius:calc(var(--radius) * 1.4);
+  padding:12px; text-align:center; font-family:system-ui, sans-serif; --pele-font:system-ui, sans-serif; --pele-bg:var(--card);
+  --pele-fg:var(--foreground); --pele-muted:var(--muted-foreground); --pele-line:var(--muted-foreground); --pele-surface:var(--muted);
+  --pele-surface-alt:var(--secondary); --pele-border:var(--ring); --pele-accent:var(--primary); }
+details { background:var(--card); border:1px solid var(--border); border-radius:calc(var(--radius) * 1.4); margin:8px 0; overflow:hidden; }
 summary { cursor:pointer; padding:10px 14px; display:flex; flex-wrap:wrap; gap:6px 10px; align-items:baseline; }
+summary:hover { background:var(--accent); }
 summary .muted { flex-basis:100%; }
-.count { min-width:44px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent); }
-.tag { font-size:12px; padding:1px 8px; border:1px solid var(--line); border-radius:999px; color:var(--muted); margin-right:4px; }
-.tag.find { color:var(--accent); border-color:var(--accent); }
-td.loc { white-space:nowrap; font-family:ui-monospace, Menlo, monospace; font-size:12.5px; }
+.count { min-width:44px; font-weight:600; font-variant-numeric:tabular-nums; }
+.tag { font-size:12px; padding:1px 8px; border:1px solid var(--border); border-radius:calc(var(--radius) * 0.8);
+  color:var(--muted-foreground); margin-right:4px; }
+.tag.find { color:var(--run); border-color:color-mix(in oklch, var(--run) 40%, transparent); }
+td.loc { white-space:nowrap; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; }
 td:first-child code { white-space:nowrap; word-break:normal; }
-@media print { button { display:none; } body { background:#fff; } details { break-inside:avoid-page; } }
+@media print { button { display:none; } body { background:#fff; } details, figure { break-inside:avoid-page; } }
 </style></head><body><main>
 <div class="head"><div><h1>Báo cáo kiểm thử tĩnh – Nhóm 13</h1>
 <div class="muted">Hệ thống quản lý thư viện (librarian, 66 tệp PHP). Chỉ phân tích mã nguồn, không chạy ứng dụng hay CSDL. Tạo lúc __TIME__.</div></div>
 <div><div class="big">__SUMMARY__</div>
 <button onclick="document.querySelectorAll('details').forEach(d => d.open = true)">Mở hết</button>
 <button onclick="document.querySelectorAll('details').forEach(d => d.open = true); print()">In / lưu PDF</button></div></div>
-<h2>Tổng hợp</h2><p class="muted">Cột thực tế đọc từ JSON mà chính lần chạy này ghi ra; cột kỳ vọng lấy theo README của gói. Bấm tên test để tới mục chi tiết.</p>
+<h2>Tổng hợp</h2><p class="muted">Cột thực tế đọc từ JSON mà chính lần chạy này ghi ra; cột kỳ vọng lấy theo README của gói. Bấm tên test để tới mục chi tiết. Mỗi mục có các sơ đồ như giao diện chọn test: kết quả theo nhánh mã
+(source_v0 mã gốc, _v0 mã lỗi cố ý, _v1 mã đã sửa), thêm Kripke và sơ đồ trạng thái bộ nhớ ở mục tương ứng; màu đỏ là lỗi hoặc vi phạm.</p>
 <div class="scroll"><table><tr><th>Test</th><th>Kết quả</th><th>Kỳ vọng</th><th>Thực tế</th><th>Mã</th><th>Giây</th></tr>__ROWS__</table></div>
 __DETAILS__
-</main></body></html>
-'''
+</main>
+<script type="module">
+import { mount } from 'https://cdn.jsdelivr.net/npm/pele@1.3.0/dist/pele.js';
+for (const el of document.querySelectorAll('pre.mermaid')) mount(el, el.textContent);
+</script>
+</body></html>
+'''.replace('__THEME__', THEME)
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -508,6 +750,10 @@ class Handler(SimpleHTTPRequestHandler):
                         'log': ''.join(log_lines[start:]), 'next': len(log_lines)}
                 body = json.dumps(data, ensure_ascii=False).encode()
             self.send_body(body, 'application/json; charset=utf-8')
+        elif url.path == '/api/diagrams':  # đọc lại JSON mỗi lần, để sơ đồ theo kết quả của lần chạy mới nhất
+            tid = parse_qs(url.query).get('test', [''])[0]
+            data = diagrams(tid) if any(t[0] == tid for t in TESTS) else []
+            self.send_body(json.dumps(data, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
         else:
             super().do_GET()
 
@@ -531,93 +777,246 @@ PAGE = '''<!doctype html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chọn test – Nhóm 13</title>
 <style>
-:root { --bg:#f6f4ef; --card:#fbfaf7; --line:#ddd6c8; --text:#13202e; --muted:#4f5a66; --accent:#a84a14;
-  --ok:#1f6b3a; --fail:#b3261e; --run:#1f5c99; --log-bg:#13202e; --log-text:#dfe6ee; }
-@media (prefers-color-scheme: dark) { :root { --bg:#10161d; --card:#18212b; --line:#2c3845; --text:#e8edf2;
-  --muted:#a9b4bf; --accent:#f08a3c; --ok:#5fc27e; --fail:#ff8a80; --run:#7fb2e5; --log-bg:#0b1016; } }
+__THEME__
 * { box-sizing:border-box; }
-body { margin:0; background:var(--bg); color:var(--text); font:15px/1.45 system-ui, sans-serif; }
-main { max-width:1280px; margin:0 auto; padding:24px 16px; display:grid; gap:20px; grid-template-columns:minmax(0,5fr) minmax(0,6fr); }
-header { grid-column:1/-1; }
-h1 { font-size:22px; margin:0 0 4px; }
-.muted { color:var(--muted); font-size:13px; }
-a { color:var(--run); }
-h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); margin:16px 0 6px; }
-label.test { display:grid; grid-template-columns:auto 1fr auto; gap:4px 10px; align-items:start; background:var(--card);
-  border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:6px; cursor:pointer; }
-label.test input { margin-top:3px; }
-.expect { grid-column:2/4; color:var(--muted); font-size:13px; word-break:break-word; }
-.badge { font-size:12px; white-space:nowrap; padding:2px 8px; border-radius:999px; border:1px solid var(--line); color:var(--muted); }
-.badge.ok { color:var(--ok); border-color:var(--ok); } .badge.fail { color:var(--fail); border-color:var(--fail); }
-.badge.running { color:var(--run); border-color:var(--run); }
-.actions { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; align-items:center; }
-button, a.button { font:inherit; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--card);
-  color:var(--text); cursor:pointer; text-decoration:none; }
-button.primary { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600; }
-a.button.report { border-color:var(--ok); color:var(--ok); font-weight:600; }
-button:disabled { opacity:.5; cursor:default; }
-pre { margin:0; background:var(--log-bg); color:var(--log-text); border-radius:10px; padding:14px; height:calc(100vh - 170px);
-  min-height:320px; overflow:auto; font:12.5px/1.45 ui-monospace, Menlo, monospace; white-space:pre-wrap; word-break:break-word; }
-@media (max-width: 860px) { main { grid-template-columns:1fr; } pre { height:60vh; } }
-</style></head><body><main>
+body { margin:0; background:var(--background); color:var(--foreground); font:14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.app { max-width:1440px; margin:0 auto; padding:16px; }
+header { margin-bottom:14px; }
+h1 { font-size:20px; font-weight:600; letter-spacing:-0.01em; margin:0; }
+h2 { font-size:14px; font-weight:600; margin:0; }
+.desc { color:var(--muted-foreground); font-size:13px; margin:2px 0 0; }
+a { color:inherit; text-decoration:underline; text-decoration-color:color-mix(in oklch, currentColor 35%, transparent); text-underline-offset:3px; }
+a:hover { text-decoration-color:currentColor; }
+code { font:12px ui-monospace, SFMono-Regular, Menlo, monospace; background:var(--muted); padding:1px 5px; border-radius:calc(var(--radius) * 0.6); }
+:focus-visible { outline:none; box-shadow:0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent); }
+.panes { display:grid; grid-template-columns:var(--left, 360px) 16px minmax(0, 1fr); }
+aside { display:flex; flex-direction:column; gap:16px; min-height:0; }
+.right { display:grid; gap:16px; min-height:0; min-width:0; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:calc(var(--radius) * 1.4); padding:16px;
+  box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05); min-width:0; }
+.card-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
+.stack { display:grid; gap:8px; }
+hr { border:0; border-top:1px solid var(--border); margin:4px 0; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:36px; padding:0 16px; width:100%;
+  border:1px solid transparent; border-radius:calc(var(--radius) * 0.8); font-family:inherit; font-size:14px; font-weight:500;
+  white-space:nowrap; cursor:pointer; transition:background-color .15s; }
+.btn.primary { background:var(--primary); color:var(--primary-foreground); box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.btn.primary:hover { background:color-mix(in oklch, var(--primary) 90%, transparent); }
+.btn.outline { background:var(--background); border-color:var(--border); color:var(--foreground); box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.btn.secondary { background:var(--secondary); color:var(--foreground); }
+.btn.secondary:hover { background:color-mix(in oklch, var(--secondary) 80%, transparent); }
+.btn.ghost { background:transparent; color:var(--foreground); width:auto; }
+.btn.outline:hover, .btn.ghost:hover { background:var(--accent); }
+.btn.sm { height:32px; padding:0 12px; font-size:13px; gap:6px; width:auto; }
+.btn.step { justify-content:flex-start; padding:0 12px; }
+.btn:disabled { opacity:.5; pointer-events:none; }
+.num { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:999px; background:var(--secondary);
+  font-size:12px; font-weight:600; flex:none; }
+.grow { flex:1; text-align:left; }
+.group { font-size:12px; font-weight:500; color:var(--muted-foreground); margin:12px 0 4px; padding:0 8px; }
+.group:first-child { margin-top:0; }
+.row { display:flex; align-items:center; gap:10px; padding:4px 8px; border-radius:calc(var(--radius) * 0.8); cursor:pointer; }
+.row:hover { background:color-mix(in oklch, var(--accent) 60%, transparent); }
+.row.active { background:var(--accent); }
+.row.active .name { font-weight:500; }
+.row input { width:16px; height:16px; margin:0; accent-color:var(--primary); flex:none; cursor:pointer; }
+.name { flex:1; min-width:0; text-align:left; background:none; border:0; padding:2px 0; font:inherit; color:inherit; cursor:pointer; border-radius:4px; }
+.badge { display:inline-flex; align-items:center; border:1px solid var(--border); border-radius:calc(var(--radius) * 0.8);
+  padding:1px 8px; font-size:12px; font-weight:500; white-space:nowrap; color:var(--muted-foreground); flex:none; }
+.badge.ok { color:var(--ok); border-color:transparent; background:color-mix(in oklch, var(--ok) 12%, transparent); }
+.badge.fail { color:var(--destructive); border-color:transparent; background:color-mix(in oklch, var(--destructive) 12%, transparent); }
+.badge.running, .badge.queued { color:var(--run); border-color:transparent; background:color-mix(in oklch, var(--run) 12%, transparent); }
+.tabs { display:inline-flex; flex-wrap:wrap; gap:2px; background:var(--muted); border-radius:var(--radius); padding:3px; }
+.tab { border:1px solid transparent; background:transparent; color:var(--muted-foreground); font:inherit; font-size:13px; font-weight:500;
+  padding:2px 10px; border-radius:calc(var(--radius) * 0.8); cursor:pointer; white-space:nowrap; }
+.tab:hover { color:var(--foreground); }
+.tab[aria-selected="true"] { background:var(--background); color:var(--foreground); box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.detail-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.detail-head h2 { font-size:16px; }
+.actions { display:flex; align-items:center; gap:8px; flex:none; }
+.filebar { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:10px 0; font-size:13px; }
+.sash { position:relative; cursor:col-resize; touch-action:none; border-radius:4px; }
+.sash::after { content:''; position:absolute; left:6px; top:50%; width:4px; height:36px; margin-top:-18px; border-radius:4px;
+  background:var(--border); transition:background-color .15s; }
+.sash:hover::after, .sash.drag::after, .sash:focus-visible::after { background:var(--ring); }
+pre { margin:0; background:var(--muted); border-radius:calc(var(--radius) * 0.8); padding:12px; overflow:auto; height:50vh;
+  font:12.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+#log { white-space:pre-wrap; word-break:break-word; }
+.code { white-space:pre; counter-reset:ln; padding-left:0; }
+.code span { display:block; }
+.code span::before { counter-increment:ln; content:counter(ln); display:inline-block; width:4.5em; padding-right:12px; margin-right:12px;
+  text-align:right; color:var(--muted-foreground); border-right:1px solid var(--border); background:var(--muted); position:sticky; left:0; user-select:none; }
+.code em { display:block; padding:8px 12px; color:var(--muted-foreground); font-style:normal; }
+.diagram { height:50vh; overflow:auto; border:1px solid var(--border); border-radius:calc(var(--radius) * 0.8); padding:8px; text-align:center;
+  --pele-font:system-ui, sans-serif; --pele-bg:var(--card); --pele-fg:var(--foreground); --pele-muted:var(--muted-foreground);
+  --pele-line:var(--muted-foreground); --pele-surface:var(--muted); --pele-surface-alt:var(--secondary); --pele-border:var(--ring);
+  --pele-accent:var(--primary); }
+.diagram pre { height:100%; padding:0; background:none; text-align:left; white-space:pre; }
+.diagram svg { width:100%; height:100% !important; max-width:none !important; }  /* Pele gắn style height:auto; cho sơ đồ co vừa khung */
+#diagram-card:fullscreen { border:0; border-radius:0; padding:24px; }
+/* Màn rộng: hai cột cao bằng cửa sổ như ứng dụng desktop; danh sách test và cột phải cuộn bên trong */
+@media (min-width: 861px) { html, body { height:100%; } .app { height:100%; display:flex; flex-direction:column; }
+  .panes { flex:1; min-height:0; } aside { overflow:auto; } .list-card { flex:1; min-height:300px; display:flex; flex-direction:column; }
+  #list { flex:1; min-height:0; overflow:auto; }
+  .right { overflow:auto; grid-template-rows:minmax(180px, .7fr) minmax(340px, 1.3fr) minmax(400px, 1.5fr); }
+  .flex-card { display:flex; flex-direction:column; min-height:0; } .fill { flex:1; min-height:0; height:auto; } }
+@media (max-width: 860px) { .panes { grid-template-columns:1fr; gap:16px; } .sash { display:none; } }
+@media (prefers-color-scheme: dark) { .tab[aria-selected="true"] { background:var(--card); border-color:var(--input); } }
+</style></head><body><div class="app">
 <header><h1>Chọn test phân tích tĩnh – Nhóm 13</h1>
-<div class="muted">Chạy trên bản sao <code>__WORK__</code>, không ghi đè gói nộp. Chạy xong sẽ có báo cáo HTML.
-Tệp kết quả: <a href="/evidence/" target="_blank">evidence/</a> · <a href="/generated_cases/" target="_blank">generated_cases/</a></div></header>
-<section><div class="actions">
-<button class="primary" id="run">Chạy các test đã chọn</button>
-<button id="all">Chọn tất cả</button><button id="none">Bỏ chọn</button>
-<a class="button report" id="report" href="/bao_cao.html" target="_blank" hidden>Mở báo cáo</a></div>
-<div id="list"></div></section>
-<section><pre id="log" aria-live="polite">Chọn test rồi bấm “Chạy các test đã chọn”.</pre></section>
-</main><script>
+<p class="desc">Mã nguồn PHP → Semgrep, PHPStan → Mã sinh và hình thức → Bộ nhớ → Báo cáo</p></header>
+<div class="panes" id="panes">
+<aside>
+<section class="card"><h2>Nguồn kiểm thử</h2>
+<p class="desc">Phân hệ librarian, 66 tệp PHP; chỉ đọc mã, không chạy ứng dụng hay CSDL. Chạy trên bản sao
+<code>__WORK__</code>, gói nộp giữ nguyên.</p>
+<p class="desc"><a href="/source_v0/librarian/" target="_blank">source_v0/librarian/</a> · <a href="/evidence/" target="_blank">evidence/</a> ·
+<a href="/generated_cases/" target="_blank">generated_cases/</a></p></section>
+<section class="card list-card"><div class="card-head"><h2>Danh sách test</h2><span>
+<button class="btn ghost sm" id="all">Chọn tất cả</button><button class="btn ghost sm" id="none">Bỏ chọn</button></span></div>
+<div id="list"></div><button class="btn secondary" id="run" style="margin-top:12px">Chạy các test đã chọn</button></section>
+<section class="card"><div class="card-head"><div><h2>Chạy theo bước</h2><p class="desc">Mỗi bước chạy cả nhóm test.</p></div></div>
+<div class="stack" id="steps"></div>
+<button class="btn outline" id="report" style="margin-top:8px" disabled>Mở báo cáo HTML</button>
+<p class="desc">Báo cáo đầy đủ nhất khi đã chạy cả 3 bước; trong báo cáo có nút In / lưu PDF.</p></section>
+</aside>
+<div class="sash" id="sash" role="separator" aria-orientation="vertical" tabindex="0"
+  aria-label="Thanh chia hai cột: kéo hoặc dùng phím mũi tên trái, phải"></div>
+<div class="right">
+<section class="card flex-card"><div class="card-head"><h2>Nhật ký chạy</h2></div>
+<pre id="log" class="fill" aria-live="polite">Tích test rồi bấm “Chạy các test đã chọn”, hoặc chọn một bước.</pre></section>
+<section class="card flex-card"><div id="detail"></div><pre id="code" class="code fill"></pre></section>
+<section class="card flex-card" id="diagram-card"><div class="card-head"><div class="tabs" id="graphs" role="tablist"
+  aria-label="Sơ đồ của test đang chọn"></div><button class="btn outline sm" id="full">Xem toàn màn hình</button></div>
+<div class="diagram fill" id="diagram"></div><p class="desc" id="graph-note"></p></section>
+</div></div></div>
+<script>
 const TESTS = __TESTS__;
-const list = document.getElementById('list'), log = document.getElementById('log'), runBtn = document.getElementById('run');
-const report = document.getElementById('report');
+const MAX = 3000;  // số dòng tối đa trong khung mã nguồn; tệp dài hơn thì mở bằng link
+const $ = id => document.getElementById(id);
+const list = $('list'), log = $('log'), report = $('report'), panes = $('panes'), sash = $('sash');
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const link = (href, text) => `<a href="/${href}" target="_blank">${text}</a>`;
 const name = p => p.replace(/\\/$/, '').split('/').pop() + (p.endsWith('/') ? '/' : '');
-let group = null, from = 0, started = false;
-for (const t of TESTS) {
-  if (t.group !== group) { group = t.group; list.insertAdjacentHTML('beforeend', `<h2>${group}</h2>`); }
-  list.insertAdjacentHTML('beforeend', `<label class="test"><input type="checkbox" value="${t.id}">
-    <span>${t.title}</span><span class="badge" id="b-${t.id}">Chưa chạy</span>
-    <span class="expect">Kỳ vọng: ${t.expect}</span>
-    ${t.rules.length ? `<span class="expect">Rule: ${t.rules.map(f => link(f, f)).join(' · ')}</span>` : ''}
-    <span class="expect">Xem: ${t.view.map(f => link(f, name(f))).join(' · ')}${t.view.length ? ' · ' : ''}<a class="rep" hidden
-      href="/bao_cao.html#${t.id}" target="_blank">mục trong báo cáo</a></span></label>`);
-}
+const STATUS = {queued: 'Đang chờ', running: 'Đang chạy…', ok: 'Đạt', fail: 'Lỗi'};
+const results = {};
+let selected = TESTS[0].id, file = null, loaded = null, reportAt = null, busy = false, from = 0, started = false, shown = '';
+let graphs = [], graph = 0, pele = null;
+[...new Set(TESTS.map(t => t.group))].forEach((group, i) => {
+  const tests = TESTS.filter(t => t.group === group);
+  $('steps').insertAdjacentHTML('beforeend', `<button class="btn outline step" data-run="${tests.map(t => t.id)}">
+    <span class="num">${i + 1}</span><span class="grow">${group}</span><span class="desc">${tests.length} test</span></button>`);
+  list.insertAdjacentHTML('beforeend', `<p class="group">${i + 1}. ${group}</p>` + tests.map(t => `<div class="row" data-id="${t.id}">
+    <input type="checkbox" value="${t.id}" aria-label="Chọn ${t.title}"><button type="button" class="name">${t.title}</button>
+    <span class="badge" id="b-${t.id}">Chưa chạy</span></div>`).join(''));
+});
+$('steps').insertAdjacentHTML('beforeend', `<hr><button class="btn primary" data-run="${TESTS.map(t => t.id)}">
+  Chạy toàn bộ ${TESTS.length} test</button>`);
 const boxes = () => [...list.querySelectorAll('input')];
-document.getElementById('all').onclick = () => boxes().forEach(b => b.checked = true);
-document.getElementById('none').onclick = () => boxes().forEach(b => b.checked = false);
-runBtn.onclick = async () => {
-  const ids = boxes().filter(b => b.checked).map(b => b.value);
+$('all').onclick = () => boxes().forEach(b => b.checked = true);
+$('none').onclick = () => boxes().forEach(b => b.checked = false);
+$('run').onclick = () => start(boxes().filter(b => b.checked).map(b => b.value));
+report.onclick = () => open('/bao_cao.html', '_blank');
+$('full').onclick = () => $('diagram-card').requestFullscreen();
+document.addEventListener('click', e => {
+  const run = e.target.closest('[data-run]'), tab = e.target.closest('[data-file]'), g = e.target.closest('[data-graph]');
+  const row = e.target.closest('.row');
+  if (run) start(run.dataset.run.split(','));
+  else if (tab) { file = tab.dataset.file; render(); }
+  else if (g) showGraph(+g.dataset.graph);
+  else if (row && e.target.tagName !== 'INPUT' && row.dataset.id !== selected) {
+    selected = row.dataset.id; file = null; graph = 0; render(); loadGraphs();
+  }
+});
+const setLeft = px => panes.style.setProperty('--left', Math.max(280, Math.min(px, panes.clientWidth - 440)) + 'px');
+sash.onpointerdown = e => { e.preventDefault(); sash.setPointerCapture(e.pointerId); sash.classList.add('drag'); };
+sash.onpointermove = e => { if (sash.hasPointerCapture(e.pointerId)) setLeft(e.clientX - panes.getBoundingClientRect().left - 8); };
+sash.onpointerup = () => sash.classList.remove('drag');
+sash.onkeydown = e => { const step = {ArrowLeft: -24, ArrowRight: 24}[e.key];
+  if (step) { e.preventDefault(); setLeft(document.querySelector('aside').offsetWidth + step); } };
+async function start(ids) {
   if (!ids.length) { alert('Chưa chọn test nào.'); return; }
-  runBtn.disabled = true;
-  for (const id of ids) setBadge(id, {status: 'queued'});
+  busy = true;
+  for (const id of ids) results[id] = {status: 'queued'};
+  render();
   await fetch('/api/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ids})});
-};
-function setBadge(id, r) {
-  const b = document.getElementById('b-' + id);
-  b.className = 'badge ' + r.status;
-  b.textContent = {queued: 'Đang chờ', running: 'Đang chạy…', ok: `Đạt · mã ${r.code} · ${r.secs} s`,
-    fail: `Lỗi · mã ${r.code} · ${r.secs} s`}[r.status];
+}
+const badge = r => `<span class="badge ${r ? r.status : ''}">${r ? STATUS[r.status] : 'Chưa chạy'}</span>`;
+function render() {
+  const t = TESTS.find(t => t.id === selected), files = [...t.view, ...t.rules].filter(f => !f.endsWith('/'));
+  if (!files.includes(file)) file = files[0] || null;
+  const key = JSON.stringify([results, selected, file, reportAt, busy]);
+  if (key === shown) return;  // vẽ lại mỗi giây sẽ làm mất focus trên nút và link trong khung chi tiết
+  shown = key;
+  for (const t of TESTS) $('b-' + t.id).outerHTML = badge(results[t.id]).replace('<span', `<span id="b-${t.id}"`);
+  list.querySelectorAll('.row').forEach(row => row.classList.toggle('active', row.dataset.id === selected));
+  const r = results[t.id], done = r && (r.status === 'ok' || r.status === 'fail');
+  $('detail').innerHTML = `<div class="detail-head"><div><p class="desc">${t.group}</p><h2>${t.title}</h2></div>
+    <div class="actions">${badge(r)}<button class="btn outline sm" data-run="${t.id}">Chạy test này</button></div></div>
+    <p class="desc">Kỳ vọng: ${t.expect}${done ? ` · Lần chạy: mã thoát ${r.code}, ${r.secs} giây` : ''}${reportAt && done
+      ? ` · <a href="/bao_cao.html#${t.id}" target="_blank">mục trong báo cáo</a>` : ''}</p>
+    <div class="filebar"><div class="tabs" role="tablist" aria-label="Tệp của test">${files.map(f => `<button class="tab" role="tab"
+      data-file="${f}" aria-selected="${f === file}" title="${f}">${t.rules.includes(f) ? 'rule: ' : ''}${name(f)}</button>`).join('')}</div>
+      ${t.view.filter(f => f.endsWith('/')).map(f => link(f, name(f))).join(' · ')}${file ? (t.view.some(f => f.endsWith('/')) ? ' · ' : '') +
+      link(file, 'mở tệp riêng') : ''}</div>`;
+  document.querySelectorAll('[data-run], #run').forEach(b => b.disabled = busy);
+  report.disabled = !reportAt;
+  report.textContent = reportAt ? `Mở báo cáo HTML (${reportAt})` : 'Mở báo cáo HTML';
+  showFile();
+}
+async function showFile() {
+  if (file === loaded) return;
+  const want = loaded = file, code = $('code');
+  if (!want) { code.innerHTML = '<em>Test này không có tệp văn bản; mở thư mục ở link bên trên.</em>'; return; }
+  const res = await fetch('/' + want).catch(() => null);
+  let text = res && res.ok ? await res.text() : null;
+  if (want !== loaded) return;  // đã chọn tệp khác trong lúc tải
+  if (text === null) { code.innerHTML = '<em>Chưa có tệp này trong bản sao; chạy test để tạo ra nó.</em>'; return; }
+  if (want.endsWith('.json') || want.endsWith('.sarif')) try { text = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
+  const lines = text.split('\\n');
+  code.innerHTML = lines.slice(0, MAX).map(l => `<span>${esc(l)}</span>`).join('') +
+    (lines.length > MAX ? `<em>Còn ${lines.length - MAX} dòng nữa: ${link(want, 'mở tệp đầy đủ')}</em>` : '');
+  code.scrollTop = 0;
+}
+async function loadGraphs() {
+  const want = selected;
+  let got;
+  try { got = await (await fetch('/api/diagrams?test=' + want)).json(); } catch (e) { return; }
+  if (want !== selected) return;  // đã chọn test khác trong lúc chờ
+  graphs = got;
+  $('graphs').innerHTML = graphs.map((g, i) => `<button class="tab" role="tab" data-graph="${i}">${g.title}</button>`).join('');
+  if (graphs.length) return showGraph(Math.min(graph, graphs.length - 1));
+  $('diagram').innerHTML = '<p class="desc">Test này chưa có dữ liệu để vẽ: bấm “Chạy test này”.</p>';
+  $('graph-note').textContent = '';
+}
+async function showGraph(i) {
+  const g = graphs[graph = i], box = $('diagram');
+  $('graphs').querySelectorAll('.tab').forEach((b, j) => b.setAttribute('aria-selected', j === i));
+  box.innerHTML = '<pre class="mermaid"></pre>';
+  box.firstChild.textContent = g.src;  // offline thì giữ văn bản này, vẫn đọc được từng phép chuyển
+  $('graph-note').innerHTML = `Vẽ từ ${g.file ? link(g.file, g.file) : 'nhật ký của lần chạy'}, cập nhật sau mỗi lần chạy
+    “${TESTS.find(t => t.id === selected).title}”. Màu đỏ: lỗi hoặc vi phạm (hit, ca có phản ví dụ, trạng thái violation, phép chuyển ⚠ E_…).`;
+  try { pele = pele || await import('https://cdn.jsdelivr.net/npm/pele@1.3.0/dist/pele.js'); pele.mount(box.firstChild, g.src); }
+  catch (e) {}
 }
 async function poll() {
   try {
     const s = await (await fetch('/api/state?from=' + from)).json();
     from = s.next;
     if (s.log) { if (!started) { log.textContent = ''; started = true; } log.textContent += s.log; log.scrollTop = log.scrollHeight; }
-    for (const [id, r] of Object.entries(s.result)) {
-      setBadge(id, r);
-      if (s.report && r.status !== 'running') document.querySelector(`a.rep[href$="#${id}"]`).hidden = false;
-    }
-    runBtn.disabled = s.running !== null;
-    if (s.report) { report.hidden = false; report.textContent = `Mở báo cáo (${s.report})`; }
-  } catch (e) { runBtn.disabled = true; }
+    Object.assign(results, s.result);
+    busy = s.running !== null;
+    if (s.report && s.report !== reportAt) { loaded = null; loadGraphs(); }  // vừa chạy xong: tệp và sơ đồ có thể đã đổi
+    reportAt = s.report;
+  } catch (e) { busy = true; }
+  render();
   setTimeout(poll, 1000);
 }
+render();
+loadGraphs();
 poll();
 </script></body></html>
-'''
+'''.replace('__THEME__', THEME)
 
 if __name__ == '__main__':
     try:

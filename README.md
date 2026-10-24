@@ -73,7 +73,26 @@ Kỳ vọng: `Semgrep: 322 cảnh báo, mã thoát 0, 0 lỗi công cụ` và `P
 python3 chon_test.py
 ```
 
-Script mở `http://127.0.0.1:8790` (đổi cổng: `python3 chon_test.py 8791`). Mỗi lần khởi động, script chép gói nộp sang `run_output/goi_chay_lai/` và chạy 12 bước của gói trên bản sao đó, nên `evidence/` và `checksums.json` của gói nộp không bị ghi đè. Tích các test cần chạy rồi bấm "Chạy các test đã chọn": log chạy ở cột phải, mỗi test hiện Đạt hoặc Lỗi kèm mã thoát. Chạy xong, bấm "Mở báo cáo" để xem `run_output/goi_chay_lai/bao_cao.html`. Báo cáo có bảng kỳ vọng so với thực tế và một mục riêng cho mỗi test đã chạy: phát hiện Semgrep nhóm theo rule (CWE, FIND, vị trí, dòng mã), thông báo PHPStan, bài toán SAT/SMT, 54 truy vấn SQL, danh sách unit test, sổ 816 hồ sơ test case, lỗi bộ nhớ PHP/C. Nút "In / lưu PDF" để xuất PDF. Dòng "Xem" trên mỗi thẻ test mở mã kiểm thử, tệp kết quả và mục tương ứng trong báo cáo.
+Script mở `http://127.0.0.1:8790` (đổi cổng: `python3 chon_test.py 8791`). Mỗi lần khởi động, script chép gói nộp sang `run_output/goi_chay_lai/` và chạy 12 bước của gói trên bản sao đó, nên `evidence/` và `checksums.json` của gói nộp không bị ghi đè. Cột trái từ trên xuống có các phần sau:
+- thẻ nguồn kiểm thử, có link tới `source_v0/librarian/`, `evidence/` và `generated_cases/`;
+- danh sách 12 test: tích rồi bấm "Chạy các test đã chọn", mỗi test hiện Đạt hoặc Lỗi;
+- ba nút bước 1–3, mỗi nút chạy cả một nhóm (Static testing, Mã sinh và hình thức, Bộ nhớ);
+- nút "Chạy toàn bộ 12 test";
+- nút "Mở báo cáo HTML", bật sau lần chạy đầu tiên.
+
+Cột phải có ba khối:
+- nhật ký chạy;
+- chi tiết test đang chọn: kỳ vọng, mã thoát, nút "Chạy test này", và các tab mở script, tệp kết quả, file rule kèm số dòng;
+- sơ đồ của test đang chọn, đổi theo test.
+
+Sơ đồ "Kết quả theo nhánh mã" chia kết quả thành ba nhánh, mục lỗi tô đỏ:
+- `source_v0`: mã gốc;
+- `_v0`: mã lỗi cố ý;
+- `_v1`: mã đã sửa.
+
+Hai nhánh `_v0` và `_v1` liệt kê cùng các tệp theo cùng thứ tự, kể cả tệp 0 hit, để so từng cặp.
+
+Nhánh `source_v1` ghi "chưa có trong gói" cho tới khi có `bo_sung_v1/`. Test mô hình xác thực có thêm sơ đồ Kripke. Test trạng thái bộ nhớ có thêm sơ đồ trạng thái riêng cho `source_v0`, `_v0` và `_v1`, vẽ bằng cách phát lại chuỗi sự kiện của từng đối tượng, cùng mô hình đầy đủ. Nút "Xem toàn màn hình" phóng to khung sơ đồ. Kéo thanh chia giữa hai cột, hoặc dùng phím mũi tên, để đổi độ rộng. Giao diện theo màu của shadcn/ui và tự đổi sáng/tối theo hệ thống. Báo cáo nằm ở `run_output/goi_chay_lai/bao_cao.html`. Báo cáo có bảng kỳ vọng so với thực tế và một mục riêng cho mỗi test đã chạy: phát hiện Semgrep nhóm theo rule (CWE, FIND, vị trí, dòng mã), thông báo PHPStan, bài toán SAT/SMT, 54 truy vấn SQL, danh sách unit test, sổ 816 hồ sơ test case, lỗi bộ nhớ PHP/C. Báo cáo dùng cùng bảng màu shadcn với giao diện, và mỗi mục có đúng các sơ đồ mà giao diện hiện cho test đó, xếp liền nhau để in. Mục mô hình xác thực có sơ đồ Kripke vẽ từ `auth_model.json` (đường phản ví dụ tô đỏ). Mục bộ nhớ có sơ đồ trạng thái cho từng nhánh và mô hình đầy đủ 13 trạng thái vẽ từ `memory_case_results.json` (phép chuyển sinh vi phạm tô đỏ, ghi mã E_…); mỗi nhóm vi phạm ghi phép chuyển tương ứng để dò trên sơ đồ. Sơ đồ viết bằng cú pháp Mermaid và vẽ bằng [Pele](https://pele.run/) 1.3.0 tải từ CDN, có nút phóng to/thu nhỏ; khi offline, trang hiện văn bản định nghĩa sơ đồ thay cho hình. Nút "In / lưu PDF" để xuất PDF.
 
 Rule nằm ở `evidence/` của gói nộp: `custom_php_rules_corrected.yaml` (4 rule tự viết), `frozen_registry_php_rules.json` (24 rule registry), `memory_rules.yaml` (11 rule bộ nhớ), `generated_case_rules.yaml` (6 rule cho mã sinh). Riêng PHPStan dùng `tools/phpstan.neon`. Trên giao diện, mỗi test có link mở thẳng file rule mà nó nạp. Tệp `study/rules/custom_php_rules.yaml` là bản cũ, lỗi parse (lần quét 270), không dùng nữa.
 
