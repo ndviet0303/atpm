@@ -340,7 +340,8 @@ def branches(tid):
             out[ver(g)].append((f'Semgrep {g}: {n} hit', n > 0))
         runs = defaultdict(dict)
         for r in d['compilers']['runs']:
-            runs[r['file']][r['tool']] = len(r['findings'])
+            # GCC báo 2 lần cùng dòng, cùng CWE; đếm như nhật ký và Bảng 46
+            runs[r['file']][r['tool']] = len({(f['line'], tuple(f['cwe']) or f['rule']) for f in r['findings']})
         for f, n in runs.items():
             out[ver(f)].append((f"{Path(f).name}: GCC {n.get('gcc', '—')}, Clang {n.get('clang', '—')}", any(n.values())))
         return E + 'memory_static_results.json', out
