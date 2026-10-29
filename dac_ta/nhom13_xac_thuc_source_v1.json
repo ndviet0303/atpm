@@ -1,0 +1,75 @@
+{
+  "name": "nhom13_xac_thuc_source_v1",
+  "description": "Luồng đăng nhập, phân quyền, ghi của source_v1, lấy từ auth_v1.json",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Mọi thao tác ghi chỉ xảy ra sau khi đã xác thực: AG(!violation), violation gắn ở trạng thái ghi mà chưa xác thực",
+      "category": "safety",
+      "priority": "HIGH"
+    },
+    {
+      "id": "REQ-2",
+      "text": "Luôn còn đường bị từ chối khi sai thông tin: EF(denied)",
+      "category": "liveness",
+      "priority": "MEDIUM"
+    },
+    {
+      "id": "REQ-3",
+      "text": "Luôn còn đường đăng nhập thành công: EF(authenticated)",
+      "category": "liveness",
+      "priority": "MEDIUM"
+    }
+  ],
+  "state_machine": {
+    "states": [
+      "unauthenticated",
+      "denied",
+      "authenticated",
+      "authorized_write"
+    ],
+    "initial": [
+      "unauthenticated"
+    ],
+    "labeling": {
+      "unauthenticated": [],
+      "denied": [
+        "denied"
+      ],
+      "authenticated": [
+        "authenticated"
+      ],
+      "authorized_write": [
+        "authenticated",
+        "write"
+      ]
+    },
+    "transitions": [
+      [
+        "unauthenticated",
+        "denied"
+      ],
+      [
+        "unauthenticated",
+        "authenticated"
+      ],
+      [
+        "denied",
+        "denied"
+      ],
+      [
+        "authenticated",
+        "authorized_write"
+      ],
+      [
+        "authorized_write",
+        "authorized_write"
+      ]
+    ]
+  },
+  "safety_properties": [
+    "AG(!violation)",
+    "EF(denied)",
+    "EF(authenticated)"
+  ]
+}

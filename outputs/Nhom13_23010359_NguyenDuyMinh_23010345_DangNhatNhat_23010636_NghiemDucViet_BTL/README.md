@@ -54,6 +54,7 @@ Baseline upstream `082d6fb9bdd7846b57033513791ba5b6d2095c11`, dự án [Library 
 - `models/memory_typestate.py` và `evidence/extract_memory_tokens.php`: bộ phân tích trạng thái bộ nhớ trên token PHP; `models/test_memory_typestate.py`: 19 unit test; `models/run_memory_cases.py`: chạy bộ phân tích trên mọi nhóm mã, BMC, ngân sách bộ nhớ và mô hình bộ đệm C bằng Z3.
 - `evidence/run_memory_static.py`, `memory_rules.yaml`: lint, Semgrep, Clang và GCC cho phần bộ nhớ; output ở `memory_static_results.json`, `memory_semgrep.json`, `memory_case_results.json`, `memory_traces.json` và `memory_cwe_cve.json` (CWE/CVE tra MITRE và NVD ngày 21/10/2026).
 - `tools/mysql_stub.php`, `tools/phpstan.neon`: cấu hình phân tích tĩnh cho bản sao nguồn trong gói.
+- `exe_specs/` và `models/export_exe_specs.py`: 8 đặc tả JSON theo định dạng `dataset/specs/FORMAT.md` của SpecVerificationLab.exe, xuất từ bằng chứng đã lưu, xem mục "Mở bằng SpecVerificationLab.exe".
 
 ## Chuẩn bị công cụ
 
@@ -95,6 +96,29 @@ php -d memory_limit=1G tools/phpstan.phar analyse -c tools/phpstan.neon --error-
 Script tự chọn `study/source` khi chạy trong repo ban đầu hoặc `source_v0` khi giải nén riêng. `run_sast.py` kiểm tra SHA-256 rule trước khi quét; mỗi lần quét phải exit 0 và `errors=[]`. PHPStan exit 1 khi có messages là kết quả phân tích có lỗi trong nguồn, không có nghĩa công cụ không chạy. Với `--debug`, stdout có danh sách tệp trước JSON cuối; giữ nguyên log, tách đối tượng JSON cuối để so 17 thông báo. Đường dẫn và timestamp có thể khác khi giải nén, so chữ ký đã chuẩn hóa theo tên tệp/toạ độ và tổng hợp rule.
 
 PHP sinh được lint trong `run_generated_static.py` và `run_sql_cases.py`. Không chạy `php generated_cases/...` để thử nghiệp vụ. Không cần secret key triển khai, CSDL hoặc tài khoản ứng dụng cho các phép kiểm tra này.
+
+## Mở bằng SpecVerificationLab.exe
+
+`exe_specs/` chứa cùng kết quả dưới dạng đặc tả mà exe nạp được qua nút "Nạp từ file JSON khác...". Sinh lại sau khi chạy các script trên:
+
+```sh
+.venv/bin/python models/export_exe_specs.py
+```
+
+| Tệp | Exe hiển thị | Kết quả khi exe chạy |
+|---|---|---|
+| `nhom13_00_tong_hop.json` | 28 yêu cầu, 822 test case truy vết | chỉ tài liệu hóa, exe không chạy test case |
+| `nhom13_01_xac_thuc_v0.json`, `_v1.json` | Kripke xác thực, bản kia là luồng đối chiếu | `AG(!violation)` vi phạm ở v0 (CWE-693), đúng ở v1 |
+| `nhom13_02_ma_sinh_sat_smt.json` | 26 kiểm tra Z3 | khớp 26/26 kỳ vọng |
+| `nhom13_03_sql_sat_smt.json` | 714 kiểm tra Z3 | khớp 714/714; SQL không có mô hình trạng thái nên không có Kripke |
+| `nhom13_04_bo_nho_source_v0.json`, `_v0.json`, `_v1.json` | Kripke typestate theo nhánh, mô hình đầy đủ là luồng phụ; 0/28/17 kiểm tra Z3 | vi phạm như Bảng 42; v1 chỉ còn `E_SECRET_RESIDUE` |
+
+Chuyển đổi theo giới hạn của exe:
+
+- Parser CTL của exe chỉ nhận `OP(atom)` hoặc `OP(!atom)`, nên `AG(write -> authenticated)` được viết thành `AG(!violation)`. Hai công thức tương đương vì nhãn `violation` chỉ gắn ở trạng thái có `write` mà thiếu `authenticated`.
+- Vi phạm bộ nhớ nằm trên phép chuyển, còn Kripke gắn nhãn trên trạng thái, nên mỗi phép chuyển vi phạm được tách thành một trạng thái mang nhãn `violation` và mã lỗi. Trạng thái không có phép chuyển ra được thêm vòng tự lặp như `auth_model.py`. `E_UNBOUNDED_ALLOC` và `E_ALLOC_IN_LOOP` đến từ mô hình ngân sách chứ không từ bảng chuyển, nên chỉ có trong các kiểm tra Z3.
+- Mỗi tệp `.smt2` được dịch sang cú pháp điều kiện của exe: Bool thành biến nguyên 0/1, độ dài chuỗi thành biến nguyên ≥ 0, `ite` được nhấc ra ngoài phép so sánh. Script giải lại từng điều kiện và dừng nếu kết quả khác tệp gốc. Tên mỗi kiểm tra ghi kết quả kỳ vọng.
+- Exe chỉ sinh mã C/Python từ mẫu của nó, nên các tệp không khai báo `functions`; mã PHP của nhóm không đưa vào Chương 2–4 của exe. Xlsx giữ nguyên định dạng của báo cáo; exe đọc được xlsx nhưng dừng ở sheet `HamSinhMa` vì ngôn ngữ `PHP`.
 
 ## Tra từng query và case SQL
 

@@ -1,0 +1,32 @@
+{
+  "name": "nhom13_xac_thuc_source_v1",
+  "checked_at": "2026-10-30T01:27:09",
+  "states": 4,
+  "transitions": 5,
+  "deadlocks": [],
+  "properties": [
+    {
+      "formula": "AG(!violation)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "EF(denied)",
+      "holds": true,
+      "path": [
+        "unauthenticated",
+        "denied"
+      ]
+    },
+    {
+      "formula": "EF(authenticated)",
+      "holds": true,
+      "path": [
+        "unauthenticated",
+        "authenticated"
+      ]
+    }
+  ],
+  "mutual_exclusion": null,
+  "not_run": []
+}

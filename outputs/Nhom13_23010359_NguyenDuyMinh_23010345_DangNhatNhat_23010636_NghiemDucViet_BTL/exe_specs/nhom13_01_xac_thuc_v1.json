@@ -1,0 +1,116 @@
+{
+ "name": "nhom13_xac_thuc_v1",
+ "description": "Mô hình trừu tượng đăng nhập → phân quyền → ghi của source_v1 (evidence/auth_model.py). Luồng phụ là bản còn lại để đối chiếu.",
+ "state_machine": {
+  "states": [
+   "unauthenticated",
+   "denied",
+   "authenticated",
+   "authorized_write"
+  ],
+  "initial": [
+   "unauthenticated"
+  ],
+  "labeling": {
+   "unauthenticated": [],
+   "denied": [
+    "denied"
+   ],
+   "authenticated": [
+    "authenticated"
+   ],
+   "authorized_write": [
+    "authenticated",
+    "write"
+   ]
+  },
+  "transitions": [
+   [
+    "unauthenticated",
+    "denied"
+   ],
+   [
+    "unauthenticated",
+    "authenticated"
+   ],
+   [
+    "denied",
+    "denied"
+   ],
+   [
+    "authenticated",
+    "authorized_write"
+   ],
+   [
+    "authorized_write",
+    "authorized_write"
+   ]
+  ]
+ },
+ "additional_flows": {
+  "source_v0 (đối chiếu)": {
+   "states": [
+    "unauthenticated",
+    "denied",
+    "authenticated",
+    "authorized_write",
+    "unauthorized_write"
+   ],
+   "initial": [
+    "unauthenticated"
+   ],
+   "labeling": {
+    "unauthenticated": [],
+    "denied": [
+     "denied"
+    ],
+    "authenticated": [
+     "authenticated"
+    ],
+    "authorized_write": [
+     "authenticated",
+     "write"
+    ],
+    "unauthorized_write": [
+     "write",
+     "violation"
+    ]
+   },
+   "transitions": [
+    [
+     "unauthenticated",
+     "denied"
+    ],
+    [
+     "unauthenticated",
+     "authenticated"
+    ],
+    [
+     "unauthenticated",
+     "unauthorized_write"
+    ],
+    [
+     "denied",
+     "denied"
+    ],
+    [
+     "authenticated",
+     "authorized_write"
+    ],
+    [
+     "authorized_write",
+     "authorized_write"
+    ],
+    [
+     "unauthorized_write",
+     "unauthorized_write"
+    ]
+   ]
+  }
+ },
+ "safety_properties": [
+  "AG(!violation)",
+  "EF(denied)",
+  "EF(authenticated)"
+ ]
+}

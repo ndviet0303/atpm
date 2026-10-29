@@ -1,0 +1,397 @@
+{
+ "name": "nhom13_bo_nho_source_v0",
+ "description": "Typestate bộ nhớ: Kripke chính là các phép chuyển mà đối tượng nhánh source_v0 thực sự đi qua; vi phạm tách thành trạng thái mang nhãn violation và mã lỗi. Luồng phụ là mô hình đầy đủ.",
+ "state_machine": {
+  "states": [
+   "UNDEF",
+   "PENDING",
+   "ALLOCATED",
+   "ROW_PENDING",
+   "ROW",
+   "SECRET",
+   "RELEASED",
+   "HELD_TO_END",
+   "ALLOCATED_E_HELD_TO_END",
+   "SECRET_E_SECRET_RESIDUE",
+   "ROW_PENDING_E_ROW_UNCHECKED",
+   "PENDING_E_USE_FALSE"
+  ],
+  "initial": [
+   "UNDEF"
+  ],
+  "labeling": {
+   "UNDEF": [
+    "P0"
+   ],
+   "PENDING": [
+    "P1"
+   ],
+   "ALLOCATED": [
+    "P3"
+   ],
+   "ROW_PENDING": [
+    "P4"
+   ],
+   "ROW": [
+    "P5"
+   ],
+   "SECRET": [
+    "P7"
+   ],
+   "RELEASED": [
+    "P9"
+   ],
+   "HELD_TO_END": [
+    "P11"
+   ],
+   "ALLOCATED_E_HELD_TO_END": [
+    "E_HELD_TO_END",
+    "violation"
+   ],
+   "SECRET_E_SECRET_RESIDUE": [
+    "E_SECRET_RESIDUE",
+    "violation"
+   ],
+   "ROW_PENDING_E_ROW_UNCHECKED": [
+    "E_ROW_UNCHECKED",
+    "violation"
+   ],
+   "PENDING_E_USE_FALSE": [
+    "E_USE_FALSE",
+    "violation"
+   ]
+  },
+  "transitions": [
+   [
+    "ALLOCATED",
+    "ALLOCATED_E_HELD_TO_END"
+   ],
+   [
+    "ALLOCATED",
+    "RELEASED"
+   ],
+   [
+    "ALLOCATED_E_HELD_TO_END",
+    "HELD_TO_END"
+   ],
+   [
+    "HELD_TO_END",
+    "HELD_TO_END"
+   ],
+   [
+    "PENDING",
+    "PENDING_E_USE_FALSE"
+   ],
+   [
+    "PENDING_E_USE_FALSE",
+    "ALLOCATED"
+   ],
+   [
+    "RELEASED",
+    "RELEASED"
+   ],
+   [
+    "ROW",
+    "HELD_TO_END"
+   ],
+   [
+    "ROW",
+    "RELEASED"
+   ],
+   [
+    "ROW_PENDING",
+    "HELD_TO_END"
+   ],
+   [
+    "ROW_PENDING",
+    "RELEASED"
+   ],
+   [
+    "ROW_PENDING",
+    "ROW"
+   ],
+   [
+    "ROW_PENDING",
+    "ROW_PENDING_E_ROW_UNCHECKED"
+   ],
+   [
+    "ROW_PENDING_E_ROW_UNCHECKED",
+    "ROW"
+   ],
+   [
+    "SECRET",
+    "SECRET_E_SECRET_RESIDUE"
+   ],
+   [
+    "SECRET_E_SECRET_RESIDUE",
+    "HELD_TO_END"
+   ],
+   [
+    "UNDEF",
+    "ALLOCATED"
+   ],
+   [
+    "UNDEF",
+    "PENDING"
+   ],
+   [
+    "UNDEF",
+    "ROW"
+   ],
+   [
+    "UNDEF",
+    "ROW_PENDING"
+   ],
+   [
+    "UNDEF",
+    "SECRET"
+   ]
+  ]
+ },
+ "additional_flows": {
+  "Mô hình typestate đầy đủ": {
+   "states": [
+    "UNDEF",
+    "PENDING",
+    "ALLOCATED",
+    "ROW_PENDING",
+    "ROW",
+    "SECRET",
+    "WIPED",
+    "RELEASED",
+    "ESCAPED",
+    "HELD_TO_END",
+    "SECRET_E_SECRET_RESIDUE",
+    "PENDING_E_USE_FALSE",
+    "PENDING_E_HELD_TO_END",
+    "RELEASED_E_DOUBLE_RELEASE",
+    "ALLOCATED_E_HELD_TO_END",
+    "RELEASED_E_USE_RELEASED",
+    "ROW_PENDING_E_ROW_UNCHECKED"
+   ],
+   "initial": [
+    "UNDEF"
+   ],
+   "labeling": {
+    "UNDEF": [
+     "P0"
+    ],
+    "PENDING": [
+     "P1"
+    ],
+    "ALLOCATED": [
+     "P3"
+    ],
+    "ROW_PENDING": [
+     "P4"
+    ],
+    "ROW": [
+     "P5"
+    ],
+    "SECRET": [
+     "P7"
+    ],
+    "WIPED": [
+     "P8"
+    ],
+    "RELEASED": [
+     "P9"
+    ],
+    "ESCAPED": [
+     "P10"
+    ],
+    "HELD_TO_END": [
+     "P11"
+    ],
+    "SECRET_E_SECRET_RESIDUE": [
+     "E_SECRET_RESIDUE",
+     "violation"
+    ],
+    "PENDING_E_USE_FALSE": [
+     "E_USE_FALSE",
+     "violation"
+    ],
+    "PENDING_E_HELD_TO_END": [
+     "E_HELD_TO_END",
+     "violation"
+    ],
+    "RELEASED_E_DOUBLE_RELEASE": [
+     "E_DOUBLE_RELEASE",
+     "violation"
+    ],
+    "ALLOCATED_E_HELD_TO_END": [
+     "E_HELD_TO_END",
+     "violation"
+    ],
+    "RELEASED_E_USE_RELEASED": [
+     "E_USE_RELEASED",
+     "violation"
+    ],
+    "ROW_PENDING_E_ROW_UNCHECKED": [
+     "E_ROW_UNCHECKED",
+     "violation"
+    ]
+   },
+   "transitions": [
+    [
+     "ALLOCATED",
+     "ALLOCATED_E_HELD_TO_END"
+    ],
+    [
+     "ALLOCATED",
+     "ESCAPED"
+    ],
+    [
+     "ALLOCATED",
+     "RELEASED"
+    ],
+    [
+     "ALLOCATED_E_HELD_TO_END",
+     "HELD_TO_END"
+    ],
+    [
+     "ESCAPED",
+     "ESCAPED"
+    ],
+    [
+     "HELD_TO_END",
+     "HELD_TO_END"
+    ],
+    [
+     "PENDING",
+     "ALLOCATED"
+    ],
+    [
+     "PENDING",
+     "ESCAPED"
+    ],
+    [
+     "PENDING",
+     "PENDING_E_HELD_TO_END"
+    ],
+    [
+     "PENDING",
+     "PENDING_E_USE_FALSE"
+    ],
+    [
+     "PENDING",
+     "RELEASED"
+    ],
+    [
+     "PENDING_E_HELD_TO_END",
+     "HELD_TO_END"
+    ],
+    [
+     "PENDING_E_USE_FALSE",
+     "ALLOCATED"
+    ],
+    [
+     "RELEASED",
+     "RELEASED_E_DOUBLE_RELEASE"
+    ],
+    [
+     "RELEASED",
+     "RELEASED_E_USE_RELEASED"
+    ],
+    [
+     "RELEASED_E_DOUBLE_RELEASE",
+     "RELEASED"
+    ],
+    [
+     "RELEASED_E_USE_RELEASED",
+     "RELEASED"
+    ],
+    [
+     "ROW",
+     "ESCAPED"
+    ],
+    [
+     "ROW",
+     "HELD_TO_END"
+    ],
+    [
+     "ROW",
+     "RELEASED"
+    ],
+    [
+     "ROW_PENDING",
+     "ESCAPED"
+    ],
+    [
+     "ROW_PENDING",
+     "HELD_TO_END"
+    ],
+    [
+     "ROW_PENDING",
+     "RELEASED"
+    ],
+    [
+     "ROW_PENDING",
+     "ROW"
+    ],
+    [
+     "ROW_PENDING",
+     "ROW_PENDING_E_ROW_UNCHECKED"
+    ],
+    [
+     "ROW_PENDING_E_ROW_UNCHECKED",
+     "ROW"
+    ],
+    [
+     "SECRET",
+     "ESCAPED"
+    ],
+    [
+     "SECRET",
+     "SECRET_E_SECRET_RESIDUE"
+    ],
+    [
+     "SECRET",
+     "WIPED"
+    ],
+    [
+     "SECRET_E_SECRET_RESIDUE",
+     "HELD_TO_END"
+    ],
+    [
+     "SECRET_E_SECRET_RESIDUE",
+     "RELEASED"
+    ],
+    [
+     "UNDEF",
+     "ALLOCATED"
+    ],
+    [
+     "UNDEF",
+     "PENDING"
+    ],
+    [
+     "UNDEF",
+     "ROW"
+    ],
+    [
+     "UNDEF",
+     "ROW_PENDING"
+    ],
+    [
+     "UNDEF",
+     "SECRET"
+    ],
+    [
+     "WIPED",
+     "RELEASED"
+    ]
+   ]
+  }
+ },
+ "safety_properties": [
+  "AG(!violation)",
+  "AG(!E_DOUBLE_RELEASE)",
+  "AG(!E_HELD_TO_END)",
+  "AG(!E_ROW_UNCHECKED)",
+  "AG(!E_SECRET_RESIDUE)",
+  "AG(!E_USE_FALSE)",
+  "AG(!E_USE_RELEASED)"
+ ],
+ "arithmetic_checks": []
+}

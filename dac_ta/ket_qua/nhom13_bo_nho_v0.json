@@ -1,0 +1,71 @@
+{
+  "name": "nhom13_bo_nho_v0",
+  "checked_at": "2026-10-30T01:27:08",
+  "states": 11,
+  "transitions": 17,
+  "deadlocks": [],
+  "properties": [
+    {
+      "formula": "AG(!violation)",
+      "holds": false,
+      "path": [
+        "UNDEF",
+        "SECRET",
+        "RELEASED__E_SECRET_RESIDUE"
+      ]
+    },
+    {
+      "formula": "AG(!E_USE_FALSE)",
+      "holds": false,
+      "path": [
+        "UNDEF",
+        "PENDING",
+        "ALLOCATED__E_USE_FALSE"
+      ]
+    },
+    {
+      "formula": "AG(!E_ROW_UNCHECKED)",
+      "holds": false,
+      "path": [
+        "UNDEF",
+        "ROW_PENDING",
+        "ROW__E_ROW_UNCHECKED"
+      ]
+    },
+    {
+      "formula": "AG(!E_USE_RELEASED)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_DOUBLE_RELEASE)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_HELD_TO_END)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_SECRET_RESIDUE)",
+      "holds": false,
+      "path": [
+        "UNDEF",
+        "SECRET",
+        "RELEASED__E_SECRET_RESIDUE"
+      ]
+    },
+    {
+      "formula": "EF(released)",
+      "holds": true,
+      "path": [
+        "UNDEF",
+        "SECRET",
+        "RELEASED__E_SECRET_RESIDUE"
+      ]
+    }
+  ],
+  "mutual_exclusion": null,
+  "not_run": []
+}

@@ -1,0 +1,348 @@
+{
+ "name": "nhom13_ma_sinh_sat_smt",
+ "description": "CNF (DPLL) và SMT token của mã sinh _v0/_v1, dịch từ evidence/formal/*.smt2.",
+ "arithmetic_checks": [
+  {
+   "name": "authentication_v0 (kỳ vọng SAT)",
+   "int_vars": [
+    "grant",
+    "password_valid",
+    "row_exists"
+   ],
+   "condition": "(grant >= 0) and (grant <= 1) and (password_valid >= 0) and (password_valid <= 1) and (row_exists >= 0) and (row_exists <= 1) and ((not (grant == 1)) or (row_exists == 1)) and ((grant == 1) or (not (row_exists == 1))) and ((grant == 1)) and ((not (password_valid == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "authentication_v1 (kỳ vọng UNSAT)",
+   "int_vars": [
+    "grant",
+    "password_valid",
+    "row_exists"
+   ],
+   "condition": "(grant >= 0) and (grant <= 1) and (password_valid >= 0) and (password_valid <= 1) and (row_exists >= 0) and (row_exists <= 1) and ((not (grant == 1)) or (row_exists == 1)) and ((not (grant == 1)) or (password_valid == 1)) and ((grant == 1) or (not (row_exists == 1)) or (not (password_valid == 1))) and ((grant == 1)) and ((not (password_valid == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "authentication_valid_control (kỳ vọng SAT)",
+   "int_vars": [
+    "grant",
+    "password_valid",
+    "row_exists"
+   ],
+   "condition": "(grant >= 0) and (grant <= 1) and (password_valid >= 0) and (password_valid <= 1) and (row_exists >= 0) and (row_exists <= 1) and ((not (grant == 1)) or (row_exists == 1)) and ((not (grant == 1)) or (password_valid == 1)) and ((grant == 1) or (not (row_exists == 1)) or (not (password_valid == 1))) and ((grant == 1)) and ((row_exists == 1)) and ((password_valid == 1))",
+   "overflow_expr": null
+  },
+  {
+   "name": "authorization_v0 (kỳ vọng SAT)",
+   "int_vars": [
+    "authenticated",
+    "grant",
+    "role_permitted"
+   ],
+   "condition": "(authenticated >= 0) and (authenticated <= 1) and (grant >= 0) and (grant <= 1) and (role_permitted >= 0) and (role_permitted <= 1) and ((grant == 1)) and ((grant == 1)) and ((not (authenticated == 1)) or (not (role_permitted == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "authorization_v1 (kỳ vọng UNSAT)",
+   "int_vars": [
+    "authenticated",
+    "grant",
+    "role_permitted"
+   ],
+   "condition": "(authenticated >= 0) and (authenticated <= 1) and (grant >= 0) and (grant <= 1) and (role_permitted >= 0) and (role_permitted <= 1) and ((not (grant == 1)) or (authenticated == 1)) and ((not (grant == 1)) or (role_permitted == 1)) and ((grant == 1) or (not (authenticated == 1)) or (not (role_permitted == 1))) and ((grant == 1)) and ((not (authenticated == 1)) or (not (role_permitted == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "authorization_valid_control (kỳ vọng SAT)",
+   "int_vars": [
+    "authenticated",
+    "grant",
+    "role_permitted"
+   ],
+   "condition": "(authenticated >= 0) and (authenticated <= 1) and (grant >= 0) and (grant <= 1) and (role_permitted >= 0) and (role_permitted <= 1) and ((not (grant == 1)) or (authenticated == 1)) and ((not (grant == 1)) or (role_permitted == 1)) and ((grant == 1) or (not (authenticated == 1)) or (not (role_permitted == 1))) and ((grant == 1)) and ((authenticated == 1)) and ((role_permitted == 1))",
+   "overflow_expr": null
+  },
+  {
+   "name": "database_query_v0 (kỳ vọng SAT)",
+   "int_vars": [
+    "bound_parameter",
+    "executed",
+    "untrusted_input"
+   ],
+   "condition": "(bound_parameter >= 0) and (bound_parameter <= 1) and (executed >= 0) and (executed <= 1) and (untrusted_input >= 0) and (untrusted_input <= 1) and ((executed == 1)) and ((not (bound_parameter == 1))) and ((executed == 1)) and ((untrusted_input == 1)) and ((not (bound_parameter == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "database_query_v1 (kỳ vọng UNSAT)",
+   "int_vars": [
+    "bound_parameter",
+    "executed",
+    "untrusted_input"
+   ],
+   "condition": "(bound_parameter >= 0) and (bound_parameter <= 1) and (executed >= 0) and (executed <= 1) and (untrusted_input >= 0) and (untrusted_input <= 1) and ((executed == 1)) and ((bound_parameter == 1)) and ((executed == 1)) and ((untrusted_input == 1)) and ((not (bound_parameter == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "database_query_valid_control (kỳ vọng SAT)",
+   "int_vars": [
+    "bound_parameter",
+    "executed",
+    "untrusted_input"
+   ],
+   "condition": "(bound_parameter >= 0) and (bound_parameter <= 1) and (executed >= 0) and (executed <= 1) and (untrusted_input >= 0) and (untrusted_input <= 1) and ((executed == 1)) and ((bound_parameter == 1)) and ((executed == 1)) and ((untrusted_input == 1)) and ((bound_parameter == 1))",
+   "overflow_expr": null
+  },
+  {
+   "name": "dpll_branch_control (kỳ vọng UNSAT)",
+   "int_vars": [
+    "p",
+    "q"
+   ],
+   "condition": "(p >= 0) and (p <= 1) and (q >= 0) and (q <= 1) and ((p == 1) or (q == 1)) and ((p == 1) or (not (q == 1))) and ((not (p == 1)) or (q == 1)) and ((not (p == 1)) or (not (q == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "script_output_v0 (kỳ vọng SAT)",
+   "int_vars": [
+    "context_encoded",
+    "emitted",
+    "untrusted_text"
+   ],
+   "condition": "(context_encoded >= 0) and (context_encoded <= 1) and (emitted >= 0) and (emitted <= 1) and (untrusted_text >= 0) and (untrusted_text <= 1) and ((emitted == 1)) and ((not (context_encoded == 1))) and ((emitted == 1)) and ((untrusted_text == 1)) and ((not (context_encoded == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "script_output_v1 (kỳ vọng UNSAT)",
+   "int_vars": [
+    "context_encoded",
+    "emitted",
+    "untrusted_text"
+   ],
+   "condition": "(context_encoded >= 0) and (context_encoded <= 1) and (emitted >= 0) and (emitted <= 1) and (untrusted_text >= 0) and (untrusted_text <= 1) and ((emitted == 1)) and ((context_encoded == 1)) and ((emitted == 1)) and ((untrusted_text == 1)) and ((not (context_encoded == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "script_output_valid_control (kỳ vọng SAT)",
+   "int_vars": [
+    "context_encoded",
+    "emitted",
+    "untrusted_text"
+   ],
+   "condition": "(context_encoded >= 0) and (context_encoded <= 1) and (emitted >= 0) and (emitted <= 1) and (untrusted_text >= 0) and (untrusted_text <= 1) and ((emitted == 1)) and ((context_encoded == 1)) and ((emitted == 1)) and ((untrusted_text == 1)) and ((context_encoded == 1))",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_crypto_v0 (kỳ vọng SAT)",
+   "int_vars": [
+    "accepted",
+    "claims_valid",
+    "parsed",
+    "tag_valid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (claims_valid >= 0) and (claims_valid <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_valid >= 0) and (tag_valid <= 1) and ((not (accepted == 1)) or (parsed == 1)) and ((accepted == 1) or (not (parsed == 1))) and ((accepted == 1)) and ((not (tag_valid == 1)) or (not (claims_valid == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_crypto_v1 (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "claims_valid",
+    "parsed",
+    "tag_valid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (claims_valid >= 0) and (claims_valid <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_valid >= 0) and (tag_valid <= 1) and ((not (accepted == 1)) or (parsed == 1)) and ((not (accepted == 1)) or (tag_valid == 1)) and ((not (accepted == 1)) or (claims_valid == 1)) and ((accepted == 1) or (not (parsed == 1)) or (not (tag_valid == 1)) or (not (claims_valid == 1))) and ((accepted == 1)) and ((not (tag_valid == 1)) or (not (claims_valid == 1)))",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_crypto_valid_control (kỳ vọng SAT)",
+   "int_vars": [
+    "accepted",
+    "claims_valid",
+    "parsed",
+    "tag_valid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (claims_valid >= 0) and (claims_valid <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_valid >= 0) and (tag_valid <= 1) and ((not (accepted == 1)) or (parsed == 1)) and ((not (accepted == 1)) or (tag_valid == 1)) and ((not (accepted == 1)) or (claims_valid == 1)) and ((accepted == 1) or (not (parsed == 1)) or (not (tag_valid == 1)) or (not (claims_valid == 1))) and ((accepted == 1)) and ((parsed == 1)) and ((tag_valid == 1)) and ((claims_valid == 1))",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v0_counterexample (kỳ vọng SAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and (parsed == 1)) or ((not (accepted == 1)) and (not (parsed == 1)))) and (accepted == 1) and ((key_bytes == 16) and (nonce_bytes == 16) and (tag_bytes == 0) and (not (tag_ok == 1)) and (parsed == 1) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800)))) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_excess_ttl (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and ((exp - iat) > 1800) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_expired (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and (exp <= now) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_future_iat (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and (iat > now) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_identity_audience (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and ((uid <= 0) or (not (audience_ok == 1))) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_invalid_tag (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and (not (tag_ok == 1)) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_key_length (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and ((not (key_bytes == 32)) and (1 == 1)) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_nonce_length (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and ((not (nonce_bytes == 12)) and (1 == 1)) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_tag_length (kỳ vọng UNSAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and ((not (tag_bytes == 16)) and (1 == 1)) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  },
+  {
+   "name": "token_v1_valid_control (kỳ vọng SAT)",
+   "int_vars": [
+    "accepted",
+    "audience_ok",
+    "exp",
+    "iat",
+    "key_bytes",
+    "nonce_bytes",
+    "now",
+    "parsed",
+    "tag_bytes",
+    "tag_ok",
+    "uid"
+   ],
+   "condition": "(accepted >= 0) and (accepted <= 1) and (audience_ok >= 0) and (audience_ok <= 1) and (parsed >= 0) and (parsed <= 1) and (tag_ok >= 0) and (tag_ok <= 1) and (((accepted == 1) and ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))) or ((not (accepted == 1)) and (not ((parsed == 1) and (key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (uid > 0) and (iat >= 0) and (iat <= now) and (exp > now) and ((exp - iat) <= 1800))))) and (accepted == 1) and ((key_bytes == 32) and (nonce_bytes == 12) and (tag_bytes == 16) and (tag_ok == 1) and (audience_ok == 1) and (parsed == 1) and (uid == 1) and (iat == 1000) and (now == 1100) and (exp == 2800)) and (now >= 0) and (key_bytes >= 0) and (nonce_bytes >= 0) and (tag_bytes >= 0)",
+   "overflow_expr": null
+  }
+ ]
+}

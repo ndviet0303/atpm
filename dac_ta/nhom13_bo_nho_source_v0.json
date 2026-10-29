@@ -1,0 +1,193 @@
+{
+  "name": "nhom13_bo_nho_source_v0",
+  "description": "Kripke typestate bộ nhớ của nhánh source_v0 (127 đối tượng), lấy từ memory_case_results.json / bo_nho_case_v1.json",
+  "requirements": [
+    {
+      "id": "MEM-1",
+      "text": "Không đối tượng bộ nhớ nào rơi vào trạng thái vi phạm: AG(!violation)",
+      "category": "memory",
+      "priority": "HIGH"
+    },
+    {
+      "id": "MEM-2",
+      "text": "Từng loại vi phạm (dùng FALSE, đọc dòng chưa kiểm, dùng sau giải phóng, giải phóng hai lần, giữ tới cuối, còn bí mật trong heap) không xảy ra: AG(!E_...)",
+      "category": "memory",
+      "priority": "HIGH"
+    },
+    {
+      "id": "MEM-3",
+      "text": "Luôn còn đường giải phóng tài nguyên: EF(released)",
+      "category": "liveness",
+      "priority": "MEDIUM"
+    }
+  ],
+  "state_machine": {
+    "states": [
+      "UNDEF",
+      "PENDING",
+      "ROW",
+      "ALLOCATED",
+      "ROW_PENDING",
+      "SECRET",
+      "ALLOCATED__E_USE_FALSE",
+      "RELEASED",
+      "HELD_TO_END",
+      "HELD_TO_END__E_HELD_TO_END",
+      "ROW__E_ROW_UNCHECKED",
+      "HELD_TO_END__E_SECRET_RESIDUE"
+    ],
+    "initial": [
+      "UNDEF"
+    ],
+    "labeling": {
+      "UNDEF": [
+        "undef"
+      ],
+      "PENDING": [
+        "pending"
+      ],
+      "ROW": [
+        "row"
+      ],
+      "ALLOCATED": [
+        "allocated"
+      ],
+      "ROW_PENDING": [
+        "row_pending"
+      ],
+      "SECRET": [
+        "secret"
+      ],
+      "ALLOCATED__E_USE_FALSE": [
+        "allocated",
+        "E_USE_FALSE",
+        "violation"
+      ],
+      "RELEASED": [
+        "released"
+      ],
+      "HELD_TO_END": [
+        "held_to_end"
+      ],
+      "HELD_TO_END__E_HELD_TO_END": [
+        "held_to_end",
+        "E_HELD_TO_END",
+        "violation"
+      ],
+      "ROW__E_ROW_UNCHECKED": [
+        "row",
+        "E_ROW_UNCHECKED",
+        "violation"
+      ],
+      "HELD_TO_END__E_SECRET_RESIDUE": [
+        "held_to_end",
+        "E_SECRET_RESIDUE",
+        "violation"
+      ]
+    },
+    "transitions": [
+      [
+        "UNDEF",
+        "PENDING"
+      ],
+      [
+        "UNDEF",
+        "ROW"
+      ],
+      [
+        "UNDEF",
+        "ALLOCATED"
+      ],
+      [
+        "UNDEF",
+        "ROW_PENDING"
+      ],
+      [
+        "UNDEF",
+        "SECRET"
+      ],
+      [
+        "PENDING",
+        "ALLOCATED__E_USE_FALSE"
+      ],
+      [
+        "ROW",
+        "RELEASED"
+      ],
+      [
+        "ROW",
+        "HELD_TO_END"
+      ],
+      [
+        "ALLOCATED",
+        "HELD_TO_END__E_HELD_TO_END"
+      ],
+      [
+        "ALLOCATED",
+        "RELEASED"
+      ],
+      [
+        "ROW_PENDING",
+        "RELEASED"
+      ],
+      [
+        "ROW_PENDING",
+        "ROW__E_ROW_UNCHECKED"
+      ],
+      [
+        "ROW_PENDING",
+        "HELD_TO_END"
+      ],
+      [
+        "ROW_PENDING",
+        "ROW"
+      ],
+      [
+        "SECRET",
+        "HELD_TO_END__E_SECRET_RESIDUE"
+      ],
+      [
+        "ALLOCATED__E_USE_FALSE",
+        "HELD_TO_END__E_HELD_TO_END"
+      ],
+      [
+        "ALLOCATED__E_USE_FALSE",
+        "RELEASED"
+      ],
+      [
+        "RELEASED",
+        "RELEASED"
+      ],
+      [
+        "HELD_TO_END",
+        "HELD_TO_END"
+      ],
+      [
+        "HELD_TO_END__E_HELD_TO_END",
+        "HELD_TO_END__E_HELD_TO_END"
+      ],
+      [
+        "ROW__E_ROW_UNCHECKED",
+        "RELEASED"
+      ],
+      [
+        "ROW__E_ROW_UNCHECKED",
+        "HELD_TO_END"
+      ],
+      [
+        "HELD_TO_END__E_SECRET_RESIDUE",
+        "HELD_TO_END__E_SECRET_RESIDUE"
+      ]
+    ]
+  },
+  "safety_properties": [
+    "AG(!violation)",
+    "AG(!E_USE_FALSE)",
+    "AG(!E_ROW_UNCHECKED)",
+    "AG(!E_USE_RELEASED)",
+    "AG(!E_DOUBLE_RELEASE)",
+    "AG(!E_HELD_TO_END)",
+    "AG(!E_SECRET_RESIDUE)",
+    "EF(released)"
+  ]
+}

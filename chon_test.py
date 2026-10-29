@@ -91,6 +91,14 @@ for tid in V1_CHECK:
     VIEW[tid] = VIEW.get(tid, []) + ['bo_sung_v1/check_v1.py', V1E + f'{tid}_v1.json']
 VIEW['kiem_ke'] += ['bo_sung_v1/make_v1.py', 'bo_sung_v1/source_v1/']
 RULE_FILES['phpstan'].append('bo_sung_v1/phpstan_v1.neon')
+# Đặc tả đầu vào theo định dạng SpecVerificationLab.exe (exe_specs/ do models/export_exe_specs.py xuất): tab đầu của mỗi test
+X = 'exe_specs/nhom13_'
+INPUT = {**dict.fromkeys(('kiem_ke', 'sast', 'bao_cao', 'phpstan', 'so_ho_so'), [X + '00_tong_hop.json']),
+         'ma_sinh': [X + '02_ma_sinh_sat_smt.json'], 'sat_smt': [X + '02_ma_sinh_sat_smt.json'],
+         'sql': [X + '03_sql_sat_smt.json'], 'auth': [X + '01_xac_thuc_v0.json', X + '01_xac_thuc_v1.json'],
+         **dict.fromkeys(('bo_nho_unit', 'bo_nho_tinh', 'bo_nho_case'),
+                         [X + '04_bo_nho_source_v0.json', X + '04_bo_nho_v0.json', X + '04_bo_nho_v1.json'])}
+assert all((PKG / f).exists() for files in INPUT.values() for f in files), 'thiếu đặc tả exe_specs/: chạy models/export_exe_specs.py'
 assert all((PKG / part).exists() for t in TESTS for part in t[3] if part.endswith('.py')), 'thiếu script trong gói'
 assert all((PKG / f).exists() for files in RULE_FILES.values() for f in files), 'thiếu file rule trong gói'
 assert all((PKG / f).exists() for files in VIEW.values() for f in files if not f.startswith('bao_cao_')), 'thiếu tệp kết quả'
@@ -152,8 +160,33 @@ def run(ids):
             log(f'\n===== Đã xuất báo cáo: {WORK / "bao_cao.html"}\n')
         except Exception as error:  # báo cáo hỏng không được làm mất kết quả đã chạy
             log(f'\nLỗi khi dựng báo cáo: {error!r}\n')
+        with lock:  # mở lại giao diện thì nạp lại kết quả này, khỏi chạy lại 12 test
+            SAVED.write_text(json.dumps({'pkg_stamp': pkg_stamp(), 'result': state['result'], 'report': state['report'],
+                                         'outputs': outputs, 'log': log_lines}, ensure_ascii=False), encoding='utf-8')
     finally:
         state['running'] = None
+
+
+SAVED = WORK / 'lan_chay.json'
+
+
+def pkg_stamp():
+    """Thời điểm sửa mới nhất trong gói nộp: khác lúc lưu nghĩa là gói đã đổi, kết quả cũ không còn đúng."""
+    return max(p.stat().st_mtime for p in PKG.rglob('*') if p.is_file() and not p.name.startswith(('~$', '.DS_Store')))
+
+
+def restore():
+    """Nạp lại lần chạy đã lưu nếu bản sao còn và gói chưa đổi; trả True khi nạp được."""
+    try:
+        saved = json.loads(SAVED.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return False
+    if saved.get('pkg_stamp') != pkg_stamp():
+        return False
+    state['result'], state['report'] = saved['result'], saved['report']
+    outputs.update(saved['outputs'])
+    log_lines.extend(saved['log'] + [f'\n===== Nạp lại kết quả đã lưu ({len(saved["result"])} test, báo cáo lúc {saved["report"]})\n'])
+    return True
 
 
 # ---------- Báo cáo HTML: đọc JSON mà chính các test vừa ghi trong bản sao ----------
@@ -271,6 +304,52 @@ def memory_kripke(d):
               bool(k[1])) for k in seen]
     assert {t['violation'] for t in d['transition_table']} - {None} <= {k[1] for k in seen}  # mọi vi phạm đều có trạng thái
     return nodes, [(name(a), name(b), l, r) for a, b, l, r in edges], name(start)
+
+
+def dpll_tree(case, p):
+    """Cây tìm kiếm DPLL dựng lại từ vết preorder của models/run_models.py: unit/pure/branch nối tiếp đường đang đi,
+    branch(-v) là quay lui, gắn vào cùng cha với branch(v); conflict là lá đỏ. Tên nút có tiền tố p để ghép nhiều cây."""
+    names, trace = case['variables'], case.get('dpll_trace') or case.get('trace') or []
+    text = lambda s: html.escape(str(s), quote=False).replace('"', "'")
+    lit = lambda l: f"{text(names[str(abs(l))])} = {int(l > 0)}"
+    nodes, edges = [(p, f"{text(case['id'])}<br>{text(case.get('predicate') or case.get('purpose', ''))}", False)], []
+    cur, opened, path = p, {}, {}  # path: phép gán trên đường từ gốc tới mỗi nút
+    path[p] = {}
+    for i, e in enumerate(trace):
+        n = f'{p}_{i}'
+        if e['event'] == 'branch':
+            v = abs(e['literal'])
+            if e['literal'] < 0:
+                cur = opened[v]  # nhánh v = 0 thử sau khi nhánh v = 1 thất bại
+            else:
+                opened[v] = cur
+        bad = e['event'] == 'conflict'
+        nodes.append((n, 'xung đột' if bad else lit(e['literal']), bad))
+        edges.append((cur, n, e['event'], bad))
+        path[n] = path[cur] if bad else {**path[cur], names[str(abs(e['literal']))]: e['literal'] > 0}
+        cur = n
+    parents = {a for a, *_ in edges}
+    leaves = [n for n, *_ in nodes[1:] if n not in parents]
+    if case['dpll'] == 'UNSAT':
+        assert leaves and all(nodes[[x[0] for x in nodes].index(n)][2] for n in leaves), case['id']  # mọi lá là xung đột
+    else:
+        w = case.get('witness') or {}
+        assert all(w.get(k, v) == v for k, v in path[cur].items()), case['id']  # đường cuối khớp nhân chứng đã ghi
+        # ca hỏi "có vi phạm không" mà SAT là phản ví dụ, tô đỏ; ca hợp lệ (valid_control, SQL-…-SAT-C) SAT là đúng ý
+        cex = 'valid' not in case['id'] and not case['id'].endswith('-SAT-C')
+        nodes.append((f'{p}_sat', ('SAT, phản ví dụ' if cex else 'SAT') +
+                      (': ' + ', '.join(f'{text(k)}={int(v)}' for k, v in w.items()) if w else ''), cex))
+        edges.append((cur, f'{p}_sat', '', cex))
+    return nodes, edges
+
+
+def dpll_forest(cases):
+    nodes, edges = [], []
+    for i, c in enumerate(cases):
+        n, e = dpll_tree(c, f'c{i}')
+        nodes += n
+        edges += e
+    return nodes, edges, None
 
 
 DAC_TA = ROOT / 'dac_ta'  # đặc tả JSON cùng định dạng SpecVerificationLab.exe; kết quả mỗi lần nạp ghi vào dac_ta/ket_qua/
@@ -572,13 +651,23 @@ def diagrams(tid):
         out.append({'title': 'Kripke source_v0', 'file': E + 'auth_model.json', 'src': state_graph(*auth_graph(d))})
     if tid == 'auth' and (d := load(V1E + 'auth_v1.json')):
         out.append({'title': 'Kripke source_v1', 'file': V1E + 'auth_v1.json', 'src': state_graph(*auth_graph(d))})
-    # Kripke là mô hình của mã, không của công cụ: chỉ vẽ ở test kiểm mô hình, tránh 3 test hiện cùng một hình
-    if tid == 'bo_nho_case' and (d := load(E + 'memory_case_results.json')):
+    # Cây tìm kiếm DPLL của từng ca, gom theo nhánh mã như tab Kết quả; ca đối chứng của bộ giải đứng riêng
+    if tid == 'sat_smt' and (d := load(E + 'formal_results.json')):
+        for b, title in ((V0, 'Cây DPLL _v0'), (V1, 'Cây DPLL _v1'), (SRC, 'Cây DPLL đối chứng bộ giải')):
+            if cases := [c for c in d['boolean_cases'] if ver(c['source']) == b]:
+                out.append({'title': title, 'file': E + 'formal_results.json', 'src': state_graph(*dpll_forest(cases))})
+    if tid == 'sql' and (d := load(E + 'sql_case_results.json')):
+        for kind, title in (('B', 'Cây DPLL _v0 (B: trước sửa)'), ('A', 'Cây DPLL _v1 (A: sau sửa)'), ('C', 'Cây DPLL _v1 (C: hợp lệ)')):
+            cases = [c for c in d['boolean_cases'] if c['id'].endswith('-SAT-' + kind)]
+            out.append({'title': title, 'file': E + 'sql_case_results.json', 'src': state_graph(*dpll_forest(cases))})
+    # Kripke là mô hình của mã nên cả 3 test bộ nhớ (3 cách kiểm cùng mô hình) hiện cùng các Kripke theo nhánh
+    if tid.startswith('bo_nho') and (d := load(E + 'memory_case_results.json')):
         walks = {b: (E + 'memory_case_results.json', memory_walk(d, [o for o in d['objects'] if ver(o['group']) == b]))
                  for b in (SRC, V0, V1)}
-        if (v1 := load(V1E + 'bo_nho_case_v1.json')) and 'objects' in v1:  # có khi đã chạy lệnh kiểm v1 của test này
+        if (v1 := load(V1E + 'bo_nho_case_v1.json')) and 'objects' in v1:  # có khi đã chạy lệnh kiểm v1 của test trạng thái
             walks[S1] = (V1E + 'bo_nho_case_v1.json', memory_walk(d, v1['objects']))
-        out.append({'title': 'Mô hình đầy đủ', 'file': E + 'memory_case_results.json', 'src': state_graph(*memory_graph(d))})
+        if tid == 'bo_nho_case':
+            out.append({'title': 'Mô hình đầy đủ', 'file': E + 'memory_case_results.json', 'src': state_graph(*memory_graph(d))})
         # Kripke theo từng nhánh mã, như Kripke source_v0/source_v1 của test xác thực; cạnh ghi mệnh đề nên thay luôn tab Trạng thái
         out += [{'title': f'Kripke {b.split(":")[0]}', 'file': f, 'src': state_graph(*memory_kripke(w))}
                 for b, (f, w) in walks.items()]
@@ -954,7 +1043,7 @@ class Handler(SimpleHTTPRequestHandler):
         url = urlparse(self.path)
         if url.path == '/':
             tests = [{'id': t[0], 'group': t[1], 'title': t[2], 'expect': t[4], 'rules': RULE_FILES.get(t[0], []),
-                      'view': [p for p in t[3] if p.endswith('.py')] + VIEW.get(t[0], [])} for t in TESTS]
+                      'view': INPUT.get(t[0], []) + [p for p in t[3] if p.endswith('.py')] + VIEW.get(t[0], [])} for t in TESTS]
             data = json.dumps(tests, ensure_ascii=False).replace('</', '<\\/')
             page = PAGE.replace('__TESTS__', data).replace('__WORK__', str(WORK.relative_to(ROOT)))
             self.send_body(page.encode(), 'text/html; charset=utf-8')
@@ -1121,7 +1210,7 @@ mutual_exclusion và deadlock. Kết quả lưu vào <code>dac_ta/ket_qua/</code
 <button class="btn outline" id="spec-run">Nạp đặc tả đã chọn</button>
 <button class="btn outline" id="spec-file">Nạp từ file JSON khác…</button>
 <input type="file" id="spec-input" accept=".json,application/json" hidden></div>
-<pre id="spec-out" class="desc" aria-live="polite"></pre></section>
+<pre id="spec-out" class="desc" style="white-space:pre-wrap; word-break:break-word" aria-live="polite"></pre></section>
 </aside>
 <div class="sash" id="sash" role="separator" aria-orientation="vertical" tabindex="0"
   aria-label="Thanh chia hai cột: kéo hoặc dùng phím mũi tên trái, phải"></div>
@@ -1297,10 +1386,13 @@ if __name__ == '__main__':
         server = ThreadingHTTPServer(('127.0.0.1', PORT), Handler)  # bind trước khi xóa bản sao của phiên đang chạy
     except OSError as error:
         sys.exit(f'Không mở được cổng {PORT}: {error}. Thử: python3 chon_test.py 8791')
-    shutil.rmtree(WORK, ignore_errors=True)
-    shutil.copytree(PKG, WORK, ignore=shutil.ignore_patterns('~$*', '.DS_Store'))
+    kept = restore()
+    if not kept:  # chưa có lần chạy đã lưu, hoặc gói nộp đã đổi: chép bản sao mới, các test về "Chưa chạy"
+        shutil.rmtree(WORK, ignore_errors=True)
+        shutil.copytree(PKG, WORK, ignore=shutil.ignore_patterns('~$*', '.DS_Store'))
     url = f'http://127.0.0.1:{PORT}'
-    print(f'Bản sao: {WORK}\nGiao diện: {url}  (Ctrl+C để dừng)', flush=True)
+    print(f'Bản sao: {WORK}' + (f' (giữ lại, nạp {len(state["result"])} kết quả đã lưu)' if kept else '') +
+          f'\nGiao diện: {url}  (Ctrl+C để dừng)', flush=True)
     if not os.environ.get('NO_BROWSER'):
         webbrowser.open(url)
     try:

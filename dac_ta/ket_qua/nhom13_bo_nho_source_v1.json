@@ -1,0 +1,63 @@
+{
+  "name": "nhom13_bo_nho_source_v1",
+  "checked_at": "2026-10-30T01:27:08",
+  "states": 9,
+  "transitions": 16,
+  "deadlocks": [],
+  "properties": [
+    {
+      "formula": "AG(!violation)",
+      "holds": false,
+      "path": [
+        "UNDEF",
+        "ALLOCATED",
+        "HELD_TO_END__E_HELD_TO_END"
+      ]
+    },
+    {
+      "formula": "AG(!E_USE_FALSE)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_ROW_UNCHECKED)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_USE_RELEASED)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_DOUBLE_RELEASE)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "AG(!E_HELD_TO_END)",
+      "holds": false,
+      "path": [
+        "UNDEF",
+        "ALLOCATED",
+        "HELD_TO_END__E_HELD_TO_END"
+      ]
+    },
+    {
+      "formula": "AG(!E_SECRET_RESIDUE)",
+      "holds": true,
+      "path": []
+    },
+    {
+      "formula": "EF(released)",
+      "holds": true,
+      "path": [
+        "UNDEF",
+        "ALLOCATED",
+        "RELEASED"
+      ]
+    }
+  ],
+  "mutual_exclusion": null,
+  "not_run": []
+}
