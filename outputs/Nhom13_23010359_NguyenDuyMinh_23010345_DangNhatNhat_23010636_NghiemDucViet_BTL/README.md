@@ -42,12 +42,12 @@ Baseline upstream `082d6fb9bdd7846b57033513791ba5b6d2095c11`, dự án [Library 
 
 - `Nhom_13_Bao_cao_Static_Testing_Thu_vien.pdf`: bản báo cáo để nộp (bản 22/10/2026, 108 trang: mục 5.5 kiểm thử tĩnh bộ nhớ thêm ngày 21/10, bảng phân công điền ngày 22/10; xem ghi chú đầu `KIEM_TRA_HOAN_THIEN.md`).
 - `.docx` cùng tên: bản chỉnh sửa, mục lục có trường Word; số trang cached đã đối chiếu bản PDF.
-- `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 816 hồ sơ: 22 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Không coi 22 mục tổng hợp là phép chạy mới. Thêm 5 sheet bộ nhớ: BoNhoTrangThai, BoNhoViPham, BoNhoBMC, BoNhoNganSach, BoNhoBoDemC, và sheet PhanCong (16 gói công việc, người phụ trách) ngay sau ThongTin.
+- `Nhom_13_Dac_ta_va_TestCase_Thu_vien.xlsx`: 10 sheet theo mẫu +4 sheet chi tiết, có 822 hồ sơ: 28 tổng hợp, 54 source SQL, 178 SAT/CNF và 562 SMT. Mỗi hồ sơ thuộc đúng một nhánh mã: TC-17–22 tổng hợp _v0, TC-23–28 tổng hợp _v1. Không coi 28 mục tổng hợp là phép chạy mới. Thêm 5 sheet bộ nhớ: BoNhoTrangThai, BoNhoViPham, BoNhoBMC, BoNhoNganSach, BoNhoBoDemC, và sheet PhanCong (16 gói công việc, người phụ trách) ngay sau ThongTin.
 - `source_v0/`: bản sao đúng 66 PHP khảo sát, schema và LICENSE; không phải gói triển khai đủ tài sản giao diện/vendor.
 - `generated_cases/_v0/` và `_v1/`: 5 cặp về login, authz, query, token và encoding script. `_v0` có lỗi cố ý, chỉ dùng phân tích tĩnh.
 - `models/run_models.py`: DPLL cùng cross-check Z3/bảng chân trị; 10 bài toán SMT token.
 - `generated_cases/sql/_v0/`, `_v1/` và `guards.php`: 54 cặp SQL độc lập cùng guard dùng chung; không tích hợp vào baseline.
-- `models/run_sql_cases.py`: trích đủ 54 query, truy nguồn 92 field, sinh mã và chạy 162 CNF/552 SMT mới; lint/SAST109 PHP. `models/build_case_register.py` xây sổ 816 hồ sơ từ output đã lưu.
+- `models/run_sql_cases.py`: trích đủ 54 query, truy nguồn 92 field, sinh mã và chạy 162 CNF/552 SMT mới; lint/SAST109 PHP. `models/build_case_register.py` xây sổ 822 hồ sơ từ output đã lưu.
 - `evidence/`: raw JSON, log, snapshot rule, manifest, inventory; `formal/` chứa DIMACS CNF và SMT-LIB.
 - `evidence/sql_formal/`: công thức từng case SQL. Toàn gói có 178 `.cnf` và 785 `.smt2`; 178 SMT-LIB mã hóa SAT, 562 SMT-LIB cho token/field và 45 SMT-LIB bộ nhớ trong `evidence/memory_formal/`.
 - `generated_cases/memory/_v0/`, `_v1/`: 4 cặp PHP cho bộ nhớ; `generated_cases/memory_c/_v0/`, `_v1/`: 5 cặp C viết lại năm chức năng. Chỉ phân tích văn bản, không chạy.
@@ -106,7 +106,7 @@ Phụ lục G ghi từng SQL-01 đến SQL-54; phụ lục H tách 16 SAT và 10
 | SQLDauVao | 92 field: biến, GET/POST hoặc DB, dòng gán, cột schema, kiểu/miền và binding |
 | SATChiTiet | 178 case: mapping biến, CNF, kỳ vọng, DPLL/Z3/vét cạn, witness, trace và file công thức |
 | SMTChiTiet | 562 case: miền, guard, input/predicate, kỳ vọng, Z3, model và SMT-LIB |
-| TestCase | 816 ID để lọc và truy vết yêu cầu, điều kiện, bước, kết quả và bằng chứng |
+| TestCase | 822 ID để lọc và truy vết yêu cầu, điều kiện, bước, kết quả và bằng chứng |
 
 **Phân loại source:** 23 query nhận HTTP trực tiếp; 3 dùng hàng từ SELECT chưa bind; 9 dùng INT từ SELECT hằng; 19 query hằng. Có 79 field GET/POST và 13 field DB. Rule raw API bắt cả query hằng, vì vậy **54 hit không phải 54 SQLi**. Với cột INT từ query hằng, thiếu bind là vấn đề hardening; chưa tự xác nhận khả năng SQLi. Hàng sau SELECT chưa bind không được mặc định tin cậy chỉ vì tên cột ban đầu là INT.
 

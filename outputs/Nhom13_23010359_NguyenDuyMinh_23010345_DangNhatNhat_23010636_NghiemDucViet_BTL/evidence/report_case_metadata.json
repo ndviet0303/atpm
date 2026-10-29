@@ -573,38 +573,74 @@
     [
       "TC-17",
       "REQ-G01",
-      "Login _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "authentication*.cnf; formal_results.json"
+      "Login _v0 SAT",
+      "authentication_v0.cnf; formal_results.json"
     ],
     [
       "TC-18",
       "REQ-G02",
-      "Authz _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "authorization*.cnf; formal_results.json"
+      "Authz _v0 SAT",
+      "authorization_v0.cnf; formal_results.json"
     ],
     [
       "TC-19",
       "REQ-G03",
-      "Query _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "database_query*.cnf; formal_results.json"
+      "Query _v0 SAT",
+      "database_query_v0.cnf; formal_results.json"
     ],
     [
       "TC-20",
       "REQ-G04",
-      "Script _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "script_output*.cnf; formal_results.json"
+      "Script _v0 SAT",
+      "script_output_v0.cnf; formal_results.json"
     ],
     [
       "TC-21",
       "REQ-G05",
-      "Token Bool _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "token_crypto*.cnf; formal_results.json"
+      "Token Bool _v0 SAT",
+      "token_crypto_v0.cnf; formal_results.json"
     ],
     [
       "TC-22",
       "REQ-G06",
-      "SMT 1 SAT trước, 8 UNSAT sau, 1 SAT đối chứng",
-      "token_v*.smt2; formal_results.json"
+      "SMT 1 SAT trước sửa",
+      "token_v0_counterexample.smt2; formal_results.json"
+    ],
+    [
+      "TC-23",
+      "REQ-G01",
+      "Login _v1 UNSAT; đối chứng SAT",
+      "authentication_v1.cnf; authentication_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-24",
+      "REQ-G02",
+      "Authz _v1 UNSAT; đối chứng SAT",
+      "authorization_v1.cnf; authorization_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-25",
+      "REQ-G03",
+      "Query _v1 UNSAT; đối chứng SAT",
+      "database_query_v1.cnf; database_query_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-26",
+      "REQ-G04",
+      "Script _v1 UNSAT; đối chứng SAT",
+      "script_output_v1.cnf; script_output_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-27",
+      "REQ-G05",
+      "Token Bool _v1 UNSAT; đối chứng SAT",
+      "token_crypto_v1.cnf; token_crypto_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-28",
+      "REQ-G06",
+      "SMT 8 UNSAT sau sửa, 1 SAT đối chứng",
+      "token_v1_*.smt2; formal_results.json"
     ]
   ],
   "requirements": [

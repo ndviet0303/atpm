@@ -1,10 +1,10 @@
 {
   "summary": {
-    "overview_cases": 22,
+    "overview_cases": 28,
     "sql_source_cases": 54,
     "sat_cases": 178,
     "smt_cases": 562,
-    "total_cases": 816,
+    "total_cases": 822,
     "sql_field_occurrences": 92
   },
   "master_rows": [
@@ -187,662 +187,728 @@
     [
       "TC-17",
       "REQ-G01",
-      "Tổng hợp Login",
-      "Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.",
-      "Đối chiếu từng case trong SATChiTiet và SMTChiTiet.",
+      "Tổng hợp Login _v0",
+      "Mã sinh _v0 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v0 trong SATChiTiet.",
       "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
       "HIGH",
-      "Login _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "authentication*.cnf; formal_results.json"
+      "Login _v0 SAT",
+      "authentication_v0.cnf; formal_results.json"
     ],
     [
       "TC-18",
       "REQ-G02",
-      "Tổng hợp Authz",
-      "Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.",
-      "Đối chiếu từng case trong SATChiTiet và SMTChiTiet.",
+      "Tổng hợp Authz _v0",
+      "Mã sinh _v0 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v0 trong SATChiTiet.",
       "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
       "HIGH",
-      "Authz _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "authorization*.cnf; formal_results.json"
+      "Authz _v0 SAT",
+      "authorization_v0.cnf; formal_results.json"
     ],
     [
       "TC-19",
       "REQ-G03",
-      "Tổng hợp Query",
-      "Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.",
-      "Đối chiếu từng case trong SATChiTiet và SMTChiTiet.",
+      "Tổng hợp Query _v0",
+      "Mã sinh _v0 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v0 trong SATChiTiet.",
       "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
       "HIGH",
-      "Query _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "database_query*.cnf; formal_results.json"
+      "Query _v0 SAT",
+      "database_query_v0.cnf; formal_results.json"
     ],
     [
       "TC-20",
       "REQ-G04",
-      "Tổng hợp Script",
-      "Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.",
-      "Đối chiếu từng case trong SATChiTiet và SMTChiTiet.",
+      "Tổng hợp Script _v0",
+      "Mã sinh _v0 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v0 trong SATChiTiet.",
       "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
       "HIGH",
-      "Script _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "script_output*.cnf; formal_results.json"
+      "Script _v0 SAT",
+      "script_output_v0.cnf; formal_results.json"
     ],
     [
       "TC-21",
       "REQ-G05",
-      "Tổng hợp Token Bool",
-      "Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.",
-      "Đối chiếu từng case trong SATChiTiet và SMTChiTiet.",
+      "Tổng hợp Token Bool _v0",
+      "Mã sinh _v0 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v0 trong SATChiTiet.",
       "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
       "HIGH",
-      "Token Bool _v0 SAT, _v1 UNSAT; đối chứng SAT",
-      "token_crypto*.cnf; formal_results.json"
+      "Token Bool _v0 SAT",
+      "token_crypto_v0.cnf; formal_results.json"
     ],
     [
       "TC-22",
       "REQ-G06",
-      "Tổng hợp Token SMT",
-      "Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.",
-      "Đối chiếu từng case trong SATChiTiet và SMTChiTiet.",
+      "Tổng hợp Token SMT _v0",
+      "Mã sinh _v0 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v0 trong SMTChiTiet.",
       "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
       "HIGH",
-      "SMT 1 SAT trước, 8 UNSAT sau, 1 SAT đối chứng",
-      "token_v*.smt2; formal_results.json"
+      "SMT 1 SAT trước sửa",
+      "token_v0_counterexample.smt2; formal_results.json"
+    ],
+    [
+      "TC-23",
+      "REQ-G01",
+      "Tổng hợp Login _v1",
+      "Mã sinh _v1 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v1 trong SATChiTiet.",
+      "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
+      "HIGH",
+      "Login _v1 UNSAT; đối chứng SAT",
+      "authentication_v1.cnf; authentication_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-24",
+      "REQ-G02",
+      "Tổng hợp Authz _v1",
+      "Mã sinh _v1 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v1 trong SATChiTiet.",
+      "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
+      "HIGH",
+      "Authz _v1 UNSAT; đối chứng SAT",
+      "authorization_v1.cnf; authorization_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-25",
+      "REQ-G03",
+      "Tổng hợp Query _v1",
+      "Mã sinh _v1 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v1 trong SATChiTiet.",
+      "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
+      "HIGH",
+      "Query _v1 UNSAT; đối chứng SAT",
+      "database_query_v1.cnf; database_query_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-26",
+      "REQ-G04",
+      "Tổng hợp Script _v1",
+      "Mã sinh _v1 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v1 trong SATChiTiet.",
+      "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
+      "HIGH",
+      "Script _v1 UNSAT; đối chứng SAT",
+      "script_output_v1.cnf; script_output_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-27",
+      "REQ-G05",
+      "Tổng hợp Token Bool _v1",
+      "Mã sinh _v1 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v1 trong SATChiTiet.",
+      "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
+      "HIGH",
+      "Token Bool _v1 UNSAT; đối chứng SAT",
+      "token_crypto_v1.cnf; token_crypto_valid_control.cnf; formal_results.json"
+    ],
+    [
+      "TC-28",
+      "REQ-G06",
+      "Tổng hợp Token SMT _v1",
+      "Mã sinh _v1 và mô hình thủ công; xem các case con riêng.",
+      "Đối chiếu từng case _v1 trong SMTChiTiet.",
+      "Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.",
+      "HIGH",
+      "SMT 8 UNSAT sau sửa, 1 SAT đối chứng",
+      "token_v1_*.smt2; formal_results.json"
     ],
     [
       "SQL-01",
       "REQ-L03",
       "SELECT tại add_books.php:31-31",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-01-SAT-* và SQL-01-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-01; add_books.php:31-31; generated_cases/sql/_v0/sql_01.php; generated_cases/sql/_v1/sql_01.php"
+      "sql_inventory.json#SQL-01; add_books.php:31-31"
     ],
     [
       "SQL-02",
       "REQ-L03",
       "SELECT tại advance_search.php:58-59",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-02-SAT-* và SQL-02-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-02; advance_search.php:58-59; generated_cases/sql/_v0/sql_02.php; generated_cases/sql/_v1/sql_02.php"
+      "sql_inventory.json#SQL-02; advance_search.php:58-59"
     ],
     [
       "SQL-03",
       "REQ-L03",
       "SELECT tại advance_search.php:65-65",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-03-SAT-* và SQL-03-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Nguy cơ nối tiếp: SELECT trước chưa bind; không mặc định tin cột INT khi result-set có thể bị thay thế.",
-      "sql_inventory.json#SQL-03; advance_search.php:65-65; generated_cases/sql/_v0/sql_03.php; generated_cases/sql/_v1/sql_03.php"
+      "sql_inventory.json#SQL-03; advance_search.php:65-65"
     ],
     [
       "SQL-04",
       "REQ-L03",
       "SELECT tại advance_search.php:73-73",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-04-SAT-* và SQL-04-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Nguy cơ nối tiếp: SELECT trước chưa bind; không mặc định tin cột INT khi result-set có thể bị thay thế.",
-      "sql_inventory.json#SQL-04; advance_search.php:73-73; generated_cases/sql/_v0/sql_04.php; generated_cases/sql/_v1/sql_04.php"
+      "sql_inventory.json#SQL-04; advance_search.php:73-73"
     ],
     [
       "SQL-05",
       "REQ-L03",
       "SELECT tại archive.php:37-37",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-05-SAT-* và SQL-05-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-05; archive.php:37-37; generated_cases/sql/_v0/sql_05.php; generated_cases/sql/_v1/sql_05.php"
+      "sql_inventory.json#SQL-05; archive.php:37-37"
     ],
     [
       "SQL-06",
       "REQ-L03",
       "SELECT tại archive.php:42-42",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-06-SAT-* và SQL-06-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-06; archive.php:42-42; generated_cases/sql/_v0/sql_06.php; generated_cases/sql/_v1/sql_06.php"
+      "sql_inventory.json#SQL-06; archive.php:42-42"
     ],
     [
       "SQL-07",
       "REQ-L03",
       "SELECT tại books.php:55-55",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-07-SAT-* và SQL-07-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-07; books.php:55-55; generated_cases/sql/_v0/sql_07.php; generated_cases/sql/_v1/sql_07.php"
+      "sql_inventory.json#SQL-07; books.php:55-55"
     ],
     [
       "SQL-08",
       "REQ-L03",
       "SELECT tại books.php:61-61",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-08-SAT-* và SQL-08-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-08; books.php:61-61; generated_cases/sql/_v0/sql_08.php; generated_cases/sql/_v1/sql_08.php"
+      "sql_inventory.json#SQL-08; books.php:61-61"
     ],
     [
       "SQL-09",
       "REQ-L03",
       "SELECT tại books.php:69-69",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-09-SAT-* và SQL-09-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-09; books.php:69-69; generated_cases/sql/_v0/sql_09.php; generated_cases/sql/_v1/sql_09.php"
+      "sql_inventory.json#SQL-09; books.php:69-69"
     ],
     [
       "SQL-10",
       "REQ-L03",
       "INSERT tại books_save.php:20-21",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-10-SAT-* và SQL-10-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-10; books_save.php:20-21; generated_cases/sql/_v0/sql_10.php; generated_cases/sql/_v1/sql_10.php"
+      "sql_inventory.json#SQL-10; books_save.php:20-21"
     ],
     [
       "SQL-11",
       "REQ-L03",
       "SELECT tại borrow.php:22-22",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-11-SAT-* và SQL-11-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-11; borrow.php:22-22; generated_cases/sql/_v0/sql_11.php; generated_cases/sql/_v1/sql_11.php"
+      "sql_inventory.json#SQL-11; borrow.php:22-22"
     ],
     [
       "SQL-12",
       "REQ-L03",
       "SELECT tại borrow.php:61-61",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-12-SAT-* và SQL-12-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-12; borrow.php:61-61; generated_cases/sql/_v0/sql_12.php; generated_cases/sql/_v1/sql_12.php"
+      "sql_inventory.json#SQL-12; borrow.php:61-61"
     ],
     [
       "SQL-13",
       "REQ-L03",
       "SELECT tại borrow.php:66-66",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-13-SAT-* và SQL-13-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-13; borrow.php:66-66; generated_cases/sql/_v0/sql_13.php; generated_cases/sql/_v1/sql_13.php"
+      "sql_inventory.json#SQL-13; borrow.php:66-66"
     ],
     [
       "SQL-14",
       "REQ-L03",
       "INSERT tại borrow_save.php:17-17",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-14-SAT-* và SQL-14-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-14; borrow_save.php:17-17; generated_cases/sql/_v0/sql_14.php; generated_cases/sql/_v1/sql_14.php"
+      "sql_inventory.json#SQL-14; borrow_save.php:17-17"
     ],
     [
       "SQL-15",
       "REQ-L03",
       "SELECT tại borrow_save.php:18-18",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-15-SAT-* và SQL-15-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-15; borrow_save.php:18-18; generated_cases/sql/_v0/sql_15.php; generated_cases/sql/_v1/sql_15.php"
+      "sql_inventory.json#SQL-15; borrow_save.php:18-18"
     ],
     [
       "SQL-16",
       "REQ-L03",
       "INSERT tại borrow_save.php:26-26",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-16-SAT-* và SQL-16-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-16; borrow_save.php:26-26; generated_cases/sql/_v0/sql_16.php; generated_cases/sql/_v1/sql_16.php"
+      "sql_inventory.json#SQL-16; borrow_save.php:26-26"
     ],
     [
       "SQL-17",
       "REQ-L03",
       "SELECT tại borrowname.php:8-8",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-17-SAT-* và SQL-17-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-17; borrowname.php:8-8; generated_cases/sql/_v0/sql_17.php; generated_cases/sql/_v1/sql_17.php"
+      "sql_inventory.json#SQL-17; borrowname.php:8-8"
     ],
     [
       "SQL-18",
       "REQ-L03",
       "SELECT tại damage.php:48-48",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-18-SAT-* và SQL-18-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-18; damage.php:48-48; generated_cases/sql/_v0/sql_18.php; generated_cases/sql/_v1/sql_18.php"
+      "sql_inventory.json#SQL-18; damage.php:48-48"
     ],
     [
       "SQL-19",
       "REQ-L03",
       "SELECT tại damage.php:53-53",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-19-SAT-* và SQL-19-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-19; damage.php:53-53; generated_cases/sql/_v0/sql_19.php; generated_cases/sql/_v1/sql_19.php"
+      "sql_inventory.json#SQL-19; damage.php:53-53"
     ],
     [
       "SQL-20",
       "REQ-L03",
       "UPDATE tại delete_books.php:4-4",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-20-SAT-* và SQL-20-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-20; delete_books.php:4-4; generated_cases/sql/_v0/sql_20.php; generated_cases/sql/_v1/sql_20.php"
+      "sql_inventory.json#SQL-20; delete_books.php:4-4"
     ],
     [
       "SQL-21",
       "REQ-L03",
       "DELETE tại delete_member.php:4-4",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-21-SAT-* và SQL-21-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-21; delete_member.php:4-4; generated_cases/sql/_v0/sql_21.php; generated_cases/sql/_v1/sql_21.php"
+      "sql_inventory.json#SQL-21; delete_member.php:4-4"
     ],
     [
       "SQL-22",
       "REQ-L03",
       "DELETE tại delete_student.php:4-4",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-22-SAT-* và SQL-22-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-22; delete_student.php:4-4; generated_cases/sql/_v0/sql_22.php; generated_cases/sql/_v1/sql_22.php"
+      "sql_inventory.json#SQL-22; delete_student.php:4-4"
     ],
     [
       "SQL-23",
       "REQ-L03",
       "DELETE tại delete_user.php:6-6",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-23-SAT-* và SQL-23-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-23; delete_user.php:6-6; generated_cases/sql/_v0/sql_23.php; generated_cases/sql/_v1/sql_23.php"
+      "sql_inventory.json#SQL-23; delete_user.php:6-6"
     ],
     [
       "SQL-24",
       "REQ-L03",
       "SELECT tại edit_book.php:10-10",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-24-SAT-* và SQL-24-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-24; edit_book.php:10-10; generated_cases/sql/_v0/sql_24.php; generated_cases/sql/_v1/sql_24.php"
+      "sql_inventory.json#SQL-24; edit_book.php:10-10"
     ],
     [
       "SQL-25",
       "REQ-L03",
       "SELECT tại edit_book.php:32-32",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-25-SAT-* và SQL-25-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Nguy cơ nối tiếp: SELECT trước chưa bind; không mặc định tin cột INT khi result-set có thể bị thay thế.",
-      "sql_inventory.json#SQL-25; edit_book.php:32-32; generated_cases/sql/_v0/sql_25.php; generated_cases/sql/_v1/sql_25.php"
+      "sql_inventory.json#SQL-25; edit_book.php:32-32"
     ],
     [
       "SQL-26",
       "REQ-L03",
       "SELECT tại edit_member.php:10-10",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-26-SAT-* và SQL-26-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-26; edit_member.php:10-10; generated_cases/sql/_v0/sql_26.php; generated_cases/sql/_v1/sql_26.php"
+      "sql_inventory.json#SQL-26; edit_member.php:10-10"
     ],
     [
       "SQL-27",
       "REQ-L03",
       "SELECT tại edit_student.php:10-10",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-27-SAT-* và SQL-27-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-27; edit_student.php:10-10; generated_cases/sql/_v0/sql_27.php; generated_cases/sql/_v1/sql_27.php"
+      "sql_inventory.json#SQL-27; edit_student.php:10-10"
     ],
     [
       "SQL-28",
       "REQ-L03",
       "SELECT tại edit_student.php:58-58",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-28-SAT-* và SQL-28-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-28; edit_student.php:58-58; generated_cases/sql/_v0/sql_28.php; generated_cases/sql/_v1/sql_28.php"
+      "sql_inventory.json#SQL-28; edit_student.php:58-58"
     ],
     [
       "SQL-29",
       "REQ-L03",
       "SELECT tại edit_student.php:77-77",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-29-SAT-* và SQL-29-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-29; edit_student.php:77-77; generated_cases/sql/_v0/sql_29.php; generated_cases/sql/_v1/sql_29.php"
+      "sql_inventory.json#SQL-29; edit_student.php:77-77"
     ],
     [
       "SQL-30",
       "REQ-L01",
       "SELECT tại index.php:39-39",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-30-SAT-* và SQL-30-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-30; index.php:39-39; generated_cases/sql/_v0/sql_30.php; generated_cases/sql/_v1/sql_30.php"
+      "sql_inventory.json#SQL-30; index.php:39-39"
     ],
     [
       "SQL-31",
       "REQ-L01",
       "SELECT tại login.php:7-7",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-31-SAT-* và SQL-31-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-31; login.php:7-7; generated_cases/sql/_v0/sql_31.php; generated_cases/sql/_v1/sql_31.php"
+      "sql_inventory.json#SQL-31; login.php:7-7"
     ],
     [
       "SQL-32",
       "REQ-L03",
       "SELECT tại lost.php:48-48",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-32-SAT-* và SQL-32-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-32; lost.php:48-48; generated_cases/sql/_v0/sql_32.php; generated_cases/sql/_v1/sql_32.php"
+      "sql_inventory.json#SQL-32; lost.php:48-48"
     ],
     [
       "SQL-33",
       "REQ-L03",
       "SELECT tại lost.php:53-53",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-33-SAT-* và SQL-33-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-33; lost.php:53-53; generated_cases/sql/_v0/sql_33.php; generated_cases/sql/_v1/sql_33.php"
+      "sql_inventory.json#SQL-33; lost.php:53-53"
     ],
     [
       "SQL-34",
       "REQ-L03",
       "SELECT tại member.php:31-31",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-34-SAT-* và SQL-34-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-34; member.php:31-31; generated_cases/sql/_v0/sql_34.php; generated_cases/sql/_v1/sql_34.php"
+      "sql_inventory.json#SQL-34; member.php:31-31"
     ],
     [
       "SQL-35",
       "REQ-L03",
       "INSERT tại member_save.php:15-15",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-35-SAT-* và SQL-35-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-35; member_save.php:15-15; generated_cases/sql/_v0/sql_35.php; generated_cases/sql/_v1/sql_35.php"
+      "sql_inventory.json#SQL-35; member_save.php:15-15"
     ],
     [
       "SQL-36",
       "REQ-L03",
       "INSERT tại modal_add_user.php:48-48",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-36-SAT-* và SQL-36-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-36; modal_add_user.php:48-48; generated_cases/sql/_v0/sql_36.php; generated_cases/sql/_v1/sql_36.php"
+      "sql_inventory.json#SQL-36; modal_add_user.php:48-48"
     ],
     [
       "SQL-37",
       "REQ-L03",
       "UPDATE tại modal_edit_user.php:53-53",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-37-SAT-* và SQL-37-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-37; modal_edit_user.php:53-53; generated_cases/sql/_v0/sql_37.php; generated_cases/sql/_v1/sql_37.php"
+      "sql_inventory.json#SQL-37; modal_edit_user.php:53-53"
     ],
     [
       "SQL-38",
       "REQ-L03",
       "SELECT tại new_books.php:48-48",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-38-SAT-* và SQL-38-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-38; new_books.php:48-48; generated_cases/sql/_v0/sql_38.php; generated_cases/sql/_v1/sql_38.php"
+      "sql_inventory.json#SQL-38; new_books.php:48-48"
     ],
     [
       "SQL-39",
       "REQ-L03",
       "SELECT tại new_books.php:53-53",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-39-SAT-* và SQL-39-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-39; new_books.php:53-53; generated_cases/sql/_v0/sql_39.php; generated_cases/sql/_v1/sql_39.php"
+      "sql_inventory.json#SQL-39; new_books.php:53-53"
     ],
     [
       "SQL-40",
       "REQ-L03",
       "SELECT tại old_books.php:48-48",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-40-SAT-* và SQL-40-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-40; old_books.php:48-48; generated_cases/sql/_v0/sql_40.php; generated_cases/sql/_v1/sql_40.php"
+      "sql_inventory.json#SQL-40; old_books.php:48-48"
     ],
     [
       "SQL-41",
       "REQ-L03",
       "SELECT tại old_books.php:53-53",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-41-SAT-* và SQL-41-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-41; old_books.php:53-53; generated_cases/sql/_v0/sql_41.php; generated_cases/sql/_v1/sql_41.php"
+      "sql_inventory.json#SQL-41; old_books.php:53-53"
     ],
     [
       "SQL-42",
       "REQ-L03",
       "SELECT tại return.php:26-31",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-42-SAT-* và SQL-42-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-42; return.php:26-31; generated_cases/sql/_v0/sql_42.php; generated_cases/sql/_v1/sql_42.php"
+      "sql_inventory.json#SQL-42; return.php:26-31"
     ],
     [
       "SQL-43",
       "REQ-L03",
       "UPDATE tại return_save.php:7-7",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-43-SAT-* và SQL-43-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-43; return_save.php:7-7; generated_cases/sql/_v0/sql_43.php; generated_cases/sql/_v1/sql_43.php"
+      "sql_inventory.json#SQL-43; return_save.php:7-7"
     ],
     [
       "SQL-44",
       "REQ-L03",
       "SELECT tại returnname.php:7-7",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-44-SAT-* và SQL-44-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-44; returnname.php:7-7; generated_cases/sql/_v0/sql_44.php; generated_cases/sql/_v1/sql_44.php"
+      "sql_inventory.json#SQL-44; returnname.php:7-7"
     ],
     [
       "SQL-45",
       "REQ-L03",
       "INSERT tại student_save.php:15-15",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-45-SAT-* và SQL-45-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-45; student_save.php:15-15; generated_cases/sql/_v0/sql_45.php; generated_cases/sql/_v1/sql_45.php"
+      "sql_inventory.json#SQL-45; student_save.php:15-15"
     ],
     [
       "SQL-46",
       "REQ-L03",
       "SELECT tại sub_rep.php:48-48",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-46-SAT-* và SQL-46-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-46; sub_rep.php:48-48; generated_cases/sql/_v0/sql_46.php; generated_cases/sql/_v1/sql_46.php"
+      "sql_inventory.json#SQL-46; sub_rep.php:48-48"
     ],
     [
       "SQL-47",
       "REQ-L03",
       "SELECT tại sub_rep.php:53-53",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-47-SAT-* và SQL-47-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Chưa xác nhận SQLi: biến từ cột INT của query hằng; thiếu bind vi phạm hardening, chưa tự chứng minh SQLi.",
-      "sql_inventory.json#SQL-47; sub_rep.php:53-53; generated_cases/sql/_v0/sql_47.php; generated_cases/sql/_v1/sql_47.php"
+      "sql_inventory.json#SQL-47; sub_rep.php:53-53"
     ],
     [
       "SQL-48",
       "REQ-L03",
       "SELECT tại unstudents.php:29-29",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-48-SAT-* và SQL-48-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-48; unstudents.php:29-29; generated_cases/sql/_v0/sql_48.php; generated_cases/sql/_v1/sql_48.php"
+      "sql_inventory.json#SQL-48; unstudents.php:29-29"
     ],
     [
       "SQL-49",
       "REQ-L03",
       "UPDATE tại update_books.php:20-21",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-49-SAT-* và SQL-49-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-49; update_books.php:20-21; generated_cases/sql/_v0/sql_49.php; generated_cases/sql/_v1/sql_49.php"
+      "sql_inventory.json#SQL-49; update_books.php:20-21"
     ],
     [
       "SQL-50",
       "REQ-L03",
       "UPDATE tại update_member.php:14-14",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-50-SAT-* và SQL-50-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-50; update_member.php:14-14; generated_cases/sql/_v0/sql_50.php; generated_cases/sql/_v1/sql_50.php"
+      "sql_inventory.json#SQL-50; update_member.php:14-14"
     ],
     [
       "SQL-51",
       "REQ-L03",
       "UPDATE tại update_students.php:15-15",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-51-SAT-* và SQL-51-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "HIGH",
       "Không đạt SQLi: GET/POST nội suy trực tiếp; đối chiếu được đường nguồn tới query.",
-      "sql_inventory.json#SQL-51; update_students.php:15-15; generated_cases/sql/_v0/sql_51.php; generated_cases/sql/_v1/sql_51.php"
+      "sql_inventory.json#SQL-51; update_students.php:15-15"
     ],
     [
       "SQL-52",
       "REQ-L03",
       "SELECT tại users.php:39-39",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-52-SAT-* và SQL-52-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-52; users.php:39-39; generated_cases/sql/_v0/sql_52.php; generated_cases/sql/_v1/sql_52.php"
+      "sql_inventory.json#SQL-52; users.php:39-39"
     ],
     [
       "SQL-53",
       "REQ-L03",
       "SELECT tại view_borrow.php:24-29",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-53-SAT-* và SQL-53-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-53; view_borrow.php:24-29; generated_cases/sql/_v0/sql_53.php; generated_cases/sql/_v1/sql_53.php"
+      "sql_inventory.json#SQL-53; view_borrow.php:24-29"
     ],
     [
       "SQL-54",
       "REQ-L03",
       "SELECT tại view_return.php:24-29",
       "Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.",
-      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.",
+      "1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n4 Case con SQL-54-SAT-* và SQL-54-P*-SMT-* ghi riêng theo nhánh mã.",
       "Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.",
       "MEDIUM",
       "Đạt đối chứng SQLi ở sink này: SQL hằng. Các lỗi API/error/schema xét riêng.",
-      "sql_inventory.json#SQL-54; view_return.php:24-29; generated_cases/sql/_v0/sql_54.php; generated_cases/sql/_v1/sql_54.php"
+      "sql_inventory.json#SQL-54; view_return.php:24-29"
     ],
     [
       "SAT-CORE-01",

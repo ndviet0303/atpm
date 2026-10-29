@@ -27,13 +27,13 @@
   },
   "original_source_modified": false,
   "generated_cases_patched_into_baseline": false,
-  "revision": "Individual SQL and SAT/SMT cases added on 2026-10-05",
+  "revision": "Individual SQL and SAT/SMT cases added on 2026-10-05; summary cases split per code branch (_v0, _v1) on 2026-10-29",
   "case_counts": {
-    "overview_cases": 22,
+    "overview_cases": 28,
     "sql_source_cases": 54,
     "sat_cases": 178,
     "smt_cases": 562,
-    "total_cases": 816,
+    "total_cases": 822,
     "sql_field_occurrences": 92
   },
   "application_database_http_executed": false

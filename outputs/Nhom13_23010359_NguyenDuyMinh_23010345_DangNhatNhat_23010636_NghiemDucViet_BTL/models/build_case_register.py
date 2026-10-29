@@ -17,9 +17,10 @@ def main():
         master.append([c[0],c[1],c[2],c[3],c[4],c[5],
                        'HIGH' if c[0] in ('TC-01','TC-02') else 'MEDIUM',c[6],c[7]])
     for i,c in enumerate(data['additional']):
-        master.append([c[0],c[1],'Tổng hợp '+['Login','Authz','Query','Script','Token Bool','Token SMT'][i],
-                       'Mã sinh và mô hình thủ công; xem các case con SAT/SMT riêng.',
-                       'Đối chiếu từng case trong SATChiTiet và SMTChiTiet.',
+        branch=('_v0','_v1')[i//6]  # TC-17..22 là _v0, TC-23..28 là _v1, cùng thứ tự chức năng
+        master.append([c[0],c[1],'Tổng hợp '+['Login','Authz','Query','Script','Token Bool','Token SMT'][i%6]+' '+branch,
+                       f'Mã sinh {branch} và mô hình thủ công; xem các case con riêng.',
+                       f"Đối chiếu từng case {branch} trong {'SMTChiTiet' if i%6==5 else 'SATChiTiet'}.",
                        'Kết quả khớp các case con; không suy kết quả mô hình thành bảo mật runtime.',
                        'HIGH',c[2],c[3]])
     qmap={q['id']:q for q in sql['queries']}
@@ -29,10 +30,11 @@ def main():
                        f"{q['operation']} tại {loc}",
                        'Đọc source_v0 và schema; SQL bên dưới chỉ là văn bản.',
                        '1 Đọc SQL và từng phép gán tại vị trí đã lưu.\n2 Truy nguồn GET/POST hoặc kết quả CSDL.\n'
-                       '3 So placeholder với từng bind và guard _v1.\n4 Đối chiếu ba case SAT cùng sáu SMT cho mỗi field.',
+                       '3 Phân loại sink: SQL hằng, dữ liệu HTTP hay kết quả CSDL.\n'
+                       f"4 Case con {q['id']}-SAT-* và {q['id']}-P*-SMT-* ghi riêng theo nhánh mã.",
                        'Dữ liệu không đổi cú pháp query; query hằng là đối chứng; phân loại theo nguồn.',
                        'HIGH' if q['classification']=='HTTP_INTERPOLATION' else 'MEDIUM',
-                       q['baseline_result'],f"sql_inventory.json#{q['id']}; {loc}; {q['generated_v0']}; {q['generated_v1']}"])
+                       q['baseline_result'],f"sql_inventory.json#{q['id']}; {loc}"])
     sat=[]
     for n,c in enumerate(core['boolean_cases'],1):
         row={'id':f'SAT-CORE-{n:02}','model_id':c['id'],'query_id':'CORE',
@@ -92,10 +94,13 @@ def main():
                        '.\n3 Chạy Z3 và lưu SMT-LIB; nếu SAT đọc model.',
                        c['expected']+' trong mô hình; UNSAT không chứng minh primitive/runtime.',
                        'MEDIUM',c['status']+'; '+compact(c['witness']),c['smt2']])
-    assert len(master)==816 and len(sat)==178 and len(smt)==562
-    assert len({c[0] for c in master})==816
-    result={'summary':{'overview_cases':22,'sql_source_cases':54,'sat_cases':178,
-                       'smt_cases':562,'total_cases':816,'sql_field_occurrences':92},
+    assert len(master)==822 and len(sat)==178 and len(smt)==562
+    assert len({c[0] for c in master})==822
+    # mỗi hồ sơ thuộc đúng một nhánh mã: không dòng nào nhắc cả _v0 lẫn _v1
+    mixed=[c[0] for c in master if all(b in ' '.join(c).replace('source_v0','') for b in ('_v0','_v1'))]
+    assert not mixed,mixed
+    result={'summary':{'overview_cases':28,'sql_source_cases':54,'sat_cases':178,
+                       'smt_cases':562,'total_cases':822,'sql_field_occurrences':92},
             'master_rows':master,'sat_rows':sat,'smt_rows':smt}
     (E/'case_register.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
     print(json.dumps(result['summary'],ensure_ascii=False,indent=2))
