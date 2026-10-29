@@ -1,0 +1,27 @@
+{
+  "file_errors": 17,
+  "by_identifier": {
+    "include.fileNotFound": 3,
+    "whitespace.fileEnd": 14
+  },
+  "files": {
+    "archive.php": 1,
+    "books_save.php": 1,
+    "borrow_save.php": 1,
+    "member_save.php": 1,
+    "navbar_books.php": 1,
+    "navbar_borrow.php": 1,
+    "navbar_dashboard.php": 1,
+    "navbar_member.php": 1,
+    "navbar_user.php": 1,
+    "return.php": 1,
+    "return_save.php": 1,
+    "student_save.php": 1,
+    "unstudents.php": 2,
+    "update_books.php": 1,
+    "update_member.php": 1,
+    "update_students.php": 1
+  },
+  "stub_used": false,
+  "function_not_found": 0
+}

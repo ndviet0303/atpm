@@ -1,0 +1,506 @@
+{
+  "v1_db_query_calls": 43,
+  "literal_sql": "43/43",
+  "parameterized_calls": 25,
+  "placeholders_bound": 83,
+  "v0_queries": 54,
+  "v0_to_v1": {
+    "db_query chuỗi hằng": 18,
+    "db_query có tham số": 24,
+    "gộp vào truy vấn con đếm bản đang mượn": 2,
+    "gộp vào JOIN của truy vấn danh sách": 9,
+    "thay bằng mysqli_insert_id trong giao dịch": 1
+  },
+  "v0_with_fields_now_bound": "24/24",
+  "extra_v1_calls": {
+    "modal_edit_user.php": 1
+  },
+  "rows": [
+    {
+      "id": "SQL-01",
+      "file": "add_books.php",
+      "line": 31,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from category",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-02",
+      "file": "advance_search.php",
+      "line": 58,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 2,
+      "v1_sql": "select book.*, category.classname, (select count(*) from borrowdetails where borrowdetails.book_id = book.book_id and borrow_status = 'pending') as pending from book left join category on category.category_id = book.category_id where status != 'Archive' and book_title LIKE ? OR status != 'Archive' and author LIKE ?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-03",
+      "file": "advance_search.php",
+      "line": 65,
+      "v0_class": "DB_AFTER_UNSAFE_SELECT",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào truy vấn con đếm bản đang mượn"
+    },
+    {
+      "id": "SQL-04",
+      "file": "advance_search.php",
+      "line": 73,
+      "v0_class": "DB_AFTER_UNSAFE_SELECT",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-05",
+      "file": "archive.php",
+      "line": 37,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'Archive'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-06",
+      "file": "archive.php",
+      "line": 42,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-07",
+      "file": "books.php",
+      "line": 55,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname, (select count(*) from borrowdetails where borrowdetails.book_id = book.book_id and borrow_status = 'pending') as pending from book left join category on category.category_id = book.category_id where status != 'Archive'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-08",
+      "file": "books.php",
+      "line": 61,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào truy vấn con đếm bản đang mượn"
+    },
+    {
+      "id": "SQL-09",
+      "file": "books.php",
+      "line": 69,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-10",
+      "file": "books_save.php",
+      "line": 20,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 9,
+      "v1_sql": "insert into book (book_title,category_id,author,book_copies,book_pub,publisher_name,isbn,copyright_year,date_added,status) values(?,?,?,?,?,?,?,?,NOW(),?)",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-11",
+      "file": "borrow.php",
+      "line": 22,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from member",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-12",
+      "file": "borrow.php",
+      "line": 61,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status != 'Archive'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-13",
+      "file": "borrow.php",
+      "line": 66,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-14",
+      "file": "borrow_save.php",
+      "line": 17,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 2,
+      "v1_sql": "insert into borrow (member_id,date_borrow,due_date) values (?,NOW(),?)",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-15",
+      "file": "borrow_save.php",
+      "line": 18,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": null,
+      "v1": "thay bằng mysqli_insert_id trong giao dịch"
+    },
+    {
+      "id": "SQL-16",
+      "file": "borrow_save.php",
+      "line": 26,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 2,
+      "v1_sql": "insert into borrowdetails (book_id,borrow_id,borrow_status) values(?,?,'pending')",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-17",
+      "file": "borrowname.php",
+      "line": 8,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from member",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-18",
+      "file": "damage.php",
+      "line": 48,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'Damage'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-19",
+      "file": "damage.php",
+      "line": 53,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-20",
+      "file": "delete_books.php",
+      "line": 4,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "update book set status = 'Archive' where book_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-21",
+      "file": "delete_member.php",
+      "line": 4,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "delete from member where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-22",
+      "file": "delete_student.php",
+      "line": 4,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "delete from member where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-23",
+      "file": "delete_user.php",
+      "line": 6,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "delete from users where user_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-24",
+      "file": "edit_book.php",
+      "line": 10,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "select * from book LEFT JOIN category on category.category_id = book.category_id where book_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-25",
+      "file": "edit_book.php",
+      "line": 32,
+      "v0_class": "DB_AFTER_UNSAFE_SELECT",
+      "v0_fields": 1,
+      "v1_sql": "select * from category where category_id != ?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-26",
+      "file": "edit_member.php",
+      "line": 10,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "select * from member where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-27",
+      "file": "edit_student.php",
+      "line": 10,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "select * from member where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-28",
+      "file": "edit_student.php",
+      "line": 58,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "select * from member where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-29",
+      "file": "edit_student.php",
+      "line": 77,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": "select * from member where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-30",
+      "file": "index.php",
+      "line": 39,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 2,
+      "v1_sql": "SELECT user_id, password FROM users WHERE username = ?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-31",
+      "file": "login.php",
+      "line": 7,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 2,
+      "v1_sql": "SELECT user_id, password FROM users WHERE username = ?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-32",
+      "file": "lost.php",
+      "line": 48,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'lost'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-33",
+      "file": "lost.php",
+      "line": 53,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-34",
+      "file": "member.php",
+      "line": 31,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from member",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-35",
+      "file": "member_save.php",
+      "line": 15,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 7,
+      "v1_sql": "insert into member(firstname,lastname,gender,address,contact,type,year_level) values(?,?,?,?,?,?,?)",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-36",
+      "file": "modal_add_user.php",
+      "line": 48,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 4,
+      "v1_sql": "insert into users (username,password,firstname,lastname) values(?,?,?,?)",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-37",
+      "file": "modal_edit_user.php",
+      "line": 53,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 5,
+      "v1_sql": "update users set username = ?, firstname = ?, lastname = ? where user_id = ?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-38",
+      "file": "new_books.php",
+      "line": 48,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'new'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-39",
+      "file": "new_books.php",
+      "line": 53,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-40",
+      "file": "old_books.php",
+      "line": 48,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'old'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-41",
+      "file": "old_books.php",
+      "line": 53,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-42",
+      "file": "return.php",
+      "line": 26,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from borrow LEFT JOIN member ON borrow.member_id = member.member_id LEFT JOIN borrowdetails ON borrow.borrow_id = borrowdetails.borrow_id LEFT JOIN book on borrowdetails.book_id = book.book_id where borrowdetails.borrow_status = 'returned'ORDER BY borrow.borrow_id DESC",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-43",
+      "file": "return_save.php",
+      "line": 7,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 2,
+      "v1_sql": "update borrow LEFT JOIN borrowdetails on borrow.borrow_id = borrowdetails.borrow_id set borrow_status='returned',date_return= NOW() where borrow.borrow_id=? and borrowdetails.book_id = ?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-44",
+      "file": "returnname.php",
+      "line": 7,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from member",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-45",
+      "file": "student_save.php",
+      "line": 15,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 7,
+      "v1_sql": "insert into member(firstname,lastname,gender,address,contact,type,year_level) values(?,?,?,?,?,?,?)",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-46",
+      "file": "sub_rep.php",
+      "line": 48,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'Subject for Replacement'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-47",
+      "file": "sub_rep.php",
+      "line": 53,
+      "v0_class": "DB_INTEGER_INTERPOLATION",
+      "v0_fields": 1,
+      "v1_sql": null,
+      "v1": "gộp vào JOIN của truy vấn danh sách"
+    },
+    {
+      "id": "SQL-48",
+      "file": "unstudents.php",
+      "line": 29,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from students where status = 'unactive'",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-49",
+      "file": "update_books.php",
+      "line": 20,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 10,
+      "v1_sql": "update book set book_title=?,category_id=?,author=? ,book_copies = ?,book_pub = ?,publisher_name = ?,isbn = ?,copyright_year=?,status=? where book_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-50",
+      "file": "update_member.php",
+      "line": 14,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 9,
+      "v1_sql": "update member set firstname=?,lastname=?,gender=?,address = ?,contact = ?,type = ?,year_level = ?,status = ? where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-51",
+      "file": "update_students.php",
+      "line": 15,
+      "v0_class": "HTTP_INTERPOLATION",
+      "v0_fields": 8,
+      "v1_sql": "update member set firstname=?,lastname=?,gender=?,address = ?,contact = ?,type = ?,year_level = ? where member_id=?",
+      "v1": "db_query có tham số"
+    },
+    {
+      "id": "SQL-52",
+      "file": "users.php",
+      "line": 39,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from users",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-53",
+      "file": "view_borrow.php",
+      "line": 24,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from borrow LEFT JOIN member ON borrow.member_id = member.member_id LEFT JOIN borrowdetails ON borrow.borrow_id = borrowdetails.borrow_id LEFT JOIN book on borrowdetails.book_id = book.book_id ORDER BY borrow.borrow_id DESC",
+      "v1": "db_query chuỗi hằng"
+    },
+    {
+      "id": "SQL-54",
+      "file": "view_return.php",
+      "line": 24,
+      "v0_class": "CONSTANT_QUERY",
+      "v0_fields": 0,
+      "v1_sql": "select * from borrow LEFT JOIN member ON borrow.member_id = member.member_id LEFT JOIN borrowdetails ON borrow.borrow_id = borrowdetails.borrow_id LEFT JOIN book on borrowdetails.book_id = book.book_id ORDER BY borrow.borrow_id DESC",
+      "v1": "db_query chuỗi hằng"
+    }
+  ]
+}

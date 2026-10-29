@@ -1,0 +1,1446 @@
+{
+  "violations": 47,
+  "files_with_violation": "23/68",
+  "by_code": {
+    "E_UNBOUNDED_ALLOC": 22,
+    "E_HELD_TO_END": 25
+  },
+  "v0_violations": 96,
+  "v0_files_with_violation": "27/66",
+  "v0_by_code": {
+    "E_UNBOUNDED_ALLOC": 25,
+    "E_USE_FALSE": 3,
+    "E_HELD_TO_END": 38,
+    "E_ALLOC_IN_LOOP": 11,
+    "E_ROW_UNCHECKED": 13,
+    "E_SECRET_RESIDUE": 6
+  },
+  "findings": [
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "add_books.php",
+      "line": 31,
+      "var": "$cat_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "add_books.php",
+      "line": 108,
+      "var": "$cat_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "advance_search.php",
+      "line": 58,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "advance_search.php",
+      "line": 103,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "archive.php",
+      "line": 37,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "archive.php",
+      "line": 66,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "books.php",
+      "line": 55,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "books.php",
+      "line": 101,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "borrow.php",
+      "line": 22,
+      "var": "$result"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "borrow.php",
+      "line": 61,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "borrow.php",
+      "line": 108,
+      "var": "$result"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "borrow.php",
+      "line": 108,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "borrowname.php",
+      "line": 8,
+      "var": "$result"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "borrowname.php",
+      "line": 10,
+      "var": "$result"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "damage.php",
+      "line": 48,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "damage.php",
+      "line": 88,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "edit_book.php",
+      "line": 33,
+      "var": "$query1"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "edit_book.php",
+      "line": 105,
+      "var": "$query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "edit_book.php",
+      "line": 105,
+      "var": "$query1"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "edit_member.php",
+      "line": 109,
+      "var": "$query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "edit_student.php",
+      "line": 108,
+      "var": "$query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "index.php",
+      "line": 40,
+      "var": "$result"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "index.php",
+      "line": 65,
+      "var": "$result"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "login.php",
+      "line": 8,
+      "var": "$result"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "login.php",
+      "line": 19,
+      "var": "$result"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "lost.php",
+      "line": 48,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "lost.php",
+      "line": 88,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "member.php",
+      "line": 31,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "member.php",
+      "line": 65,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "new_books.php",
+      "line": 48,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "new_books.php",
+      "line": 88,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "old_books.php",
+      "line": 48,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "old_books.php",
+      "line": 88,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "return.php",
+      "line": 26,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "return.php",
+      "line": 75,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "returnname.php",
+      "line": 7,
+      "var": "$result"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "returnname.php",
+      "line": 9,
+      "var": "$result"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "sub_rep.php",
+      "line": 48,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "sub_rep.php",
+      "line": 88,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "unstudents.php",
+      "line": 29,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "unstudents.php",
+      "line": 58,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "users.php",
+      "line": 39,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "users.php",
+      "line": 91,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "view_borrow.php",
+      "line": 24,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "view_borrow.php",
+      "line": 76,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_UNBOUNDED_ALLOC",
+      "file": "view_return.php",
+      "line": 24,
+      "var": "$user_query"
+    },
+    {
+      "id": "E_HELD_TO_END",
+      "file": "view_return.php",
+      "line": 76,
+      "var": "$user_query"
+    }
+  ],
+  "objects": [
+    {
+      "group": "source_v1",
+      "obj": "source_v1/add_books.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/add_books.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/add_books.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/advance_search.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/advance_search.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/advance_search.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/archive.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/archive.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/archive.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/books.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/books.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/books.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrow.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrow.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrow.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrow.php#4",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrow.php#5",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrow.php#6",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrowname.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrowname.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/borrowname.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/damage.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/damage.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/damage.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_book.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_book.php#2",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "check",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_book.php#3",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_book.php#4",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_book.php#5",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_member.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_member.php#2",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "check",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_student.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_student.php#2",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "check",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_student.php#3",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_student.php#4",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_student.php#5",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/edit_student.php#6",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/index.php#1",
+      "kind": "secret",
+      "events": [
+        "secret",
+        "share",
+        "check",
+        "wipe",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/index.php#2",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/index.php#3",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "check",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/login.php#1",
+      "kind": "secret",
+      "events": [
+        "secret",
+        "share",
+        "check",
+        "wipe",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/login.php#2",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/login.php#3",
+      "kind": "row",
+      "events": [
+        "fetch",
+        "check",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/lost.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/lost.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/lost.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/member.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/member.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/member.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/modal_add_user.php#1",
+      "kind": "secret",
+      "events": [
+        "secret",
+        "share",
+        "use",
+        "wipe",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/modal_edit_user.php#1",
+      "kind": "secret",
+      "events": [
+        "secret",
+        "share",
+        "check",
+        "use",
+        "wipe",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/new_books.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/new_books.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/new_books.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/old_books.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/old_books.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/old_books.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/return.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/return.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/return.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/returnname.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/returnname.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/returnname.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/sub_rep.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/sub_rep.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/sub_rep.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/unstudents.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/unstudents.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/unstudents.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/users.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/users.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/users.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/view_borrow.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/view_borrow.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/view_borrow.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/view_return.php#1",
+      "kind": "result",
+      "events": [
+        "alloc_checked",
+        "use",
+        "use",
+        "end"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/view_return.php#2",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "drop"
+      ]
+    },
+    {
+      "group": "source_v1",
+      "obj": "source_v1/view_return.php#3",
+      "kind": "row",
+      "events": [
+        "fetch_checked",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "read",
+        "end"
+      ]
+    }
+  ]
+}

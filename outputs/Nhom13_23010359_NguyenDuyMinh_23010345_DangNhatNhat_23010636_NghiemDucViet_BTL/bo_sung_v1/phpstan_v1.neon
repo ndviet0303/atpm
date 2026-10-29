@@ -1,0 +1,6 @@
+# PHPStan cho source_v1: cùng level 0 với tools/phpstan.neon, không cần stub mysql_* vì v1 chỉ dùng mysqli
+parameters:
+    level: 0
+    paths:
+        - source_v1/librarian
+    treatPhpDocTypesAsCertain: false

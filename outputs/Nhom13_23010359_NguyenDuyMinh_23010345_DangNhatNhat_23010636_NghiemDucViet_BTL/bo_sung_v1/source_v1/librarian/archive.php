@@ -1,0 +1,66 @@
+<?php include('header.php'); ?>
+<?php include('session.php'); ?>
+<?php include('navbar_archive.php'); ?>
+    <div class="container">
+		<div class="margin-top">
+			<div class="row">	
+			<div class="span12">	
+						<!--  -->
+								    <ul class="nav nav-pills">
+										<li   class="active"><a href="archive.php">Archive</a></li>
+									
+									</ul>
+						<!--  -->
+						<center class="title">
+						<h1>Books List</h1>
+						</center>
+                            <table cellpadding="0" cellspacing="0" border="0" class="table  table-bordered" id="example">
+								<div class="pull-right">
+								<a href="" onclick="window.print()" class="btn btn-info"><i class="icon-print icon-large"></i> Print</a>
+								</div>
+							
+                                <thead>
+                                    <tr>
+									    <th>Acc No.</th>                                 
+                                        <th>Book Title</th>                                 
+                                        <th>Category</th>
+										<th>Author</th>
+										<th class="action">copies</th>
+										<th>Book Pub</th>
+										<th>Publisher Name</th>
+										<th>ISBN</th>
+										<th>Copyright Year</th>	
+                                    </tr>
+                                </thead>
+                                <tbody>
+								 
+                                  <?php  $user_query=db_query("select book.*, category.classname from book left join category on category.category_id = book.category_id where status = 'Archive'");
+									while($row=mysqli_fetch_array($user_query)){
+									$id=$row['book_id'];  
+									$cat_id=$row['category_id'];
+
+									?>
+									<tr class="del<?php echo e((int) $id); ?>">
+                                    <td><?php echo e($row['book_id']); ?></td>
+                                    <td><?php echo e($row['book_title']); ?></td>
+									<td><?php echo e($row['classname']); ?> </td>
+                                    <td><?php echo e($row['author']); ?> </td> 
+                                    <td class="action"><?php echo e($row['book_copies']); ?> </td>
+                                     <td><?php echo e($row['book_pub']); ?></td>
+									 <td><?php echo e($row['publisher_name']); ?></td>
+									 <td><?php echo e($row['isbn']); ?></td>
+									 <td><?php echo e($row['copyright_year']); ?></td>		
+							
+									
+                                    </tr>
+									<?php  }  ?>
+                           
+                                </tbody>
+                            </table>
+							
+			
+			</div>		
+			</div>
+		</div>
+    </div>
+<?php include('footer.php') ?>

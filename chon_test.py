@@ -35,33 +35,33 @@ RULES = ['--config', REGISTRY, '--config', CUSTOM]  # như run_sast.py
 # (id, nhóm, tên, lệnh chạy trong bản sao, kết quả kỳ vọng theo README của gói, mã thoát coi là đạt)
 TESTS = [
     ('kiem_ke', 'Static testing', 'Kiểm kê nguồn: số tệp, số dòng, lint PHP', [PY, E + 'collect_static.py'],
-     '66 tệp, 2978 dòng; lint 66/66', {0}),
+     '66 tệp, 2978 dòng; lint 66/66 | v1: 68 tệp, lint 68/68', {0}),
     ('sast', 'Static testing', 'Semgrep SAST, quét 2 lần', [PY, E + 'run_sast.py'],
-     '322 hit mỗi lần, trùng 322/322 chữ ký; nguồn không đổi', {0}),
+     '322 hit mỗi lần, trùng 322/322 chữ ký; nguồn không đổi | v1: 0 hit', {0}),
     ('bao_cao', 'Static testing', 'Semgrep xuất .txt, .sarif, .json',
      [SEMGREP, 'scan', '--metrics', 'off', '--no-git-ignore', *RULES, '--text-output=bao_cao_semgrep.txt',
       '--sarif-output=bao_cao_semgrep.sarif', '--json-output=bao_cao_semgrep.json', 'source_v0/librarian'],
-     '322 kết quả', {0}),
+     '322 kết quả | v1: 0 kết quả', {0}),
     ('phpstan', 'Static testing', 'PHPStan level 0',
      ['php', '-d', 'memory_limit=1G', str(ROOT / 'study/phpstan.phar'), 'analyse', '-c', 'tools/phpstan.neon',
       '--error-format=json', '--no-progress'],
-     '17 thông báo trên 16 tệp; mã 1 nghĩa là có thông báo', {0, 1}),
+     '17 thông báo trên 16 tệp; mã 1 nghĩa là có thông báo | v1: 17 (3 include, 14 khoảng trắng)', {0, 1}),
     ('ma_sinh', 'Mã sinh và hình thức', 'Mã sinh _v0/_v1: lint và Semgrep', [PY, E + 'run_generated_static.py'],
      '8 hit ở _v0, 0 hit ở _v1; lint 10/10', {0}),
     ('sat_smt', 'Mã sinh và hình thức', 'DPLL/SAT và SMT token', [PY, 'models/run_models.py'],
      '16/16 CNF trùng DPLL, Z3, bảng chân trị; 10/10 SMT đúng kỳ vọng', {0}),
     ('sql', 'Mã sinh và hình thức', '54 truy vấn SQL: CNF, SMT, mã sinh', [PY, 'models/run_sql_cases.py'],
-     '162/162 CNF, 552/552 SMT; lint 109/109; 54 hit _v0, 0 hit _v1', {0}),
+     '162/162 CNF, 552/552 SMT; lint 109/109; 54 hit _v0, 0 hit _v1 | v1: SQL hằng 43/43', {0}),
     ('auth', 'Mã sinh và hình thức', 'Mô hình xác thực', [PY, E + 'auth_model.py'],
-     'AG(write -> authenticated) sai, có phản ví dụ', {0}),
+     'AG(write -> authenticated) sai, có phản ví dụ | v1: đúng', {0}),
     ('so_ho_so', 'Mã sinh và hình thức', 'Sổ hồ sơ test case', [PY, 'models/build_case_register.py'],
-     '816 hồ sơ: 22 tổng hợp, 54 SQL, 178 SAT, 562 SMT', {0}),
+     '822 hồ sơ: 28 tổng hợp, 54 SQL, 178 SAT, 562 SMT', {0}),
     ('bo_nho_unit', 'Bộ nhớ', 'Unit test bộ phân tích trạng thái', [PY, 'models/test_memory_typestate.py', '-v'],
      '19/19 unit test đạt', {0}),
     ('bo_nho_tinh', 'Bộ nhớ', 'Semgrep bộ nhớ, Clang, GCC (Docker)', [PY, E + 'run_memory_static.py'],
-     '167 hit; GCC lỗi ở 5/5 tệp C _v0, Clang 4/5, _v1 sạch', {0}),
+     '167 hit; GCC lỗi ở 5/5 tệp C _v0, Clang 4/5, _v1 sạch | v1: 0 hit (không có ý nghĩa)', {0}),
     ('bo_nho_case', 'Bộ nhớ', 'Trạng thái, BMC, ngân sách, bộ đệm C', [PY, 'models/run_memory_cases.py'],
-     '96 vi phạm trên 27/66 tệp; BMC 250/250, 92 SAT', {0}),
+     '96 vi phạm trên 27/66 tệp; BMC 250/250, 92 SAT | v1: 47 vi phạm trên 23/68 tệp', {0}),
 ]
 # File rule/cấu hình mà mỗi test nạp; giao diện hiện thành link để mở khi bị hỏi
 RULE_FILES = {'sast': [CUSTOM, REGISTRY], 'bao_cao': [CUSTOM, REGISTRY], 'phpstan': ['tools/phpstan.neon'],
@@ -83,6 +83,14 @@ VIEW = {'kiem_ke': [E + 'static_summary.json', E + 'source_inventory.json', E + 
 FINDS = {'php-direct-mysql-query-taint': 'FIND-01/03', 'tainted-sql-string': 'FIND-01/03', 'echoed-request': 'FIND-04',
          'php-hardcoded-db-credentials': 'FIND-08', 'php-legacy-mysql-extension': 'FIND-09',
          'php-mysql-error-information-disclosure': 'FIND-10'}
+# Lệnh kiểm cùng nội dung trên source_v1 (bo_sung_v1/, bản vá mã gốc theo Chương 7); ghi bo_sung_v1/evidence_v1/<test>_v1.json
+V1E = 'bo_sung_v1/evidence_v1/'
+V1_CHECK = {tid: [PY, 'bo_sung_v1/check_v1.py', tid]
+            for tid in ('kiem_ke', 'sast', 'bao_cao', 'phpstan', 'sql', 'auth', 'bo_nho_tinh', 'bo_nho_case')}
+for tid in V1_CHECK:
+    VIEW[tid] = VIEW.get(tid, []) + ['bo_sung_v1/check_v1.py', V1E + f'{tid}_v1.json']
+VIEW['kiem_ke'] += ['bo_sung_v1/make_v1.py', 'bo_sung_v1/source_v1/']
+RULE_FILES['phpstan'].append('bo_sung_v1/phpstan_v1.neon')
 assert all((PKG / part).exists() for t in TESTS for part in t[3] if part.endswith('.py')), 'thiếu script trong gói'
 assert all((PKG / f).exists() for files in RULE_FILES.values() for f in files), 'thiếu file rule trong gói'
 assert all((PKG / f).exists() for files in VIEW.values() for f in files if not f.startswith('bao_cao_')), 'thiếu tệp kết quả'
@@ -108,27 +116,36 @@ def set_result(tid, result):
 
 
 def run(ids):
-    env = dict(os.environ, SEMGREP_BIN=SEMGREP, PYTHONUNBUFFERED='1')
+    # PYTHON_COLORS=0: Python 3.14+ tô màu unittest khi có FORCE_COLOR (app Claude đặt), làm hỏng regex của unit_tests()
+    env = dict(os.environ, SEMGREP_BIN=SEMGREP, PYTHONUNBUFFERED='1', PYTHON_COLORS='0')
     try:
         for tid, _, title, cmd, _, ok in [t for t in TESTS if t[0] in ids]:
             state['running'] = tid
             set_result(tid, {'status': 'running'})
-            log(f'\n===== {title}\n$ {" ".join(Path(c).name if c in (PY, SEMGREP) else c for c in cmd)}\n')
-            start, code, lines = time.time(), None, []
-            try:
-                proc = subprocess.Popen(cmd, cwd=WORK, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                        text=True, encoding='utf-8', errors='replace')
-                for line in proc.stdout:
-                    lines.append(line)
-                    log(line)
-                code = proc.wait()
-            except OSError as error:  # thiếu php, semgrep hoặc phar
-                lines.append(f'{error}\n')
-                log(f'{error}\n')
-            outputs[tid] = ''.join(lines)
+            log(f'\n===== {title}\n')
+            start, codes = time.time(), []
+            # lệnh của test trên source_v0, rồi lệnh kiểm cùng nội dung trên source_v1 nếu test có
+            for key, c in [(tid, cmd)] + ([(tid + '_v1', V1_CHECK[tid])] if tid in V1_CHECK else []):
+                log(f'$ {" ".join(Path(x).name if x in (PY, SEMGREP) else x for x in c)}\n')
+                code, lines = None, []
+                try:
+                    proc = subprocess.Popen(c, cwd=WORK, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                            text=True, encoding='utf-8', errors='replace')
+                    for line in proc.stdout:
+                        lines.append(line)
+                        log(line)
+                    code = proc.wait()
+                except OSError as error:  # thiếu php, semgrep hoặc phar
+                    lines.append(f'{error}\n')
+                    log(f'{error}\n')
+                outputs[key] = ''.join(lines)
+                codes.append(code)
+            code = codes[0]
             secs = round(time.time() - start, 1)
-            set_result(tid, {'status': 'ok' if code in ok else 'fail', 'code': code, 'secs': secs})
-            log(f'----- mã thoát {code}, {secs} giây\n')
+            good = code in ok and all(c == 0 for c in codes[1:])
+            set_result(tid, {'status': 'ok' if good else 'fail', 'code': code, 'secs': secs,
+                             **({'code_v1': codes[1]} if len(codes) > 1 else {})})
+            log(f'----- mã thoát {code}' + (f', v1 {codes[1]}' if len(codes) > 1 else '') + f', {secs} giây\n')
         try:
             (WORK / 'bao_cao.html').write_text(build_report(), encoding='utf-8')
             state['report'] = datetime.now().strftime('%H:%M:%S')
@@ -233,7 +250,144 @@ def memory_graph(d):
     return nodes, edges, next(iter(d['states']))  # trạng thái đầu là P0, mục đầu của states
 
 
+def memory_kripke(d):
+    """Cấu trúc Kripke từ bảng chuyển bộ nhớ: trạng thái là (typestate, vi phạm vừa sinh), nhãn là mệnh đề nguyên tử,
+    như auth_graph; cạnh ghi mệnh đề PHP gây chuyển. Chỉ giữ trạng thái đạt được từ trạng thái đầu,
+    trạng thái cuối có vòng tự thân cho quan hệ toàn phần."""
+    succ = defaultdict(lambda: defaultdict(list))
+    for t in d['transition_table']:
+        succ[t['from']][t['to'], t['violation']].append(t['event'])
+    start = (next(iter(d['states'])), None)
+    seen, todo, edges = [start], [start], []
+    while todo:
+        a = todo.pop(0)
+        for b, events in (succ[a[0]] or {a: []}).items():
+            edges.append((a, b, '<br>'.join(events), bool(b[1])))
+            if b not in seen:
+                seen.append(b)
+                todo.append(b)
+    name = lambda k: k[0] + (f'|{k[1]}' if k[1] else '')
+    nodes = [(name(k), f'{d["states"][k[0]]["id"]} {k[0]}<br>{{' + ', '.join([k[0].lower()] + [k[1]] * bool(k[1])) + '}',
+              bool(k[1])) for k in seen]
+    assert {t['violation'] for t in d['transition_table']} - {None} <= {k[1] for k in seen}  # mọi vi phạm đều có trạng thái
+    return nodes, [(name(a), name(b), l, r) for a, b, l, r in edges], name(start)
+
+
+DAC_TA = ROOT / 'dac_ta'  # đặc tả JSON cùng định dạng SpecVerificationLab.exe; kết quả mỗi lần nạp ghi vào dac_ta/ket_qua/
+CTL = re.compile(r'^(AG|EF|AF|EG|AX|EX)\((!?)(\w+)\)$')  # như parser của exe: chỉ OP(p) hoặc OP(!p)
+
+
+def spec_machine(sm, where):
+    """Kiểm state_machine của đặc tả (dữ liệu người dùng nạp vào) trước khi dùng; sai thì ValueError có thông báo."""
+    if not isinstance(sm, dict):
+        raise ValueError(f'{where}: phải là object có states, initial, labeling, transitions')
+    states, initial = sm.get('states'), sm.get('initial')
+    labeling, trans = sm.get('labeling') or {}, sm.get('transitions') or []
+    if not (isinstance(states, list) and states and all(isinstance(s, str) for s in states)) or len(states) > 300:
+        raise ValueError(f'{where}.states: cần danh sách 1–300 tên trạng thái')
+    known = set(states)
+    if not (isinstance(initial, list) and initial and set(initial) <= known):
+        raise ValueError(f'{where}.initial: cần danh sách trạng thái đầu nằm trong states')
+    if not isinstance(labeling, dict) or not all(isinstance(v, list) and all(isinstance(a, str) for a in v)
+                                                 for v in labeling.values()):
+        raise ValueError(f'{where}.labeling: cần {{trạng thái: [mệnh đề]}}')
+    if not isinstance(trans, list) or len(trans) > 5000 or not all(
+            isinstance(t, list) and len(t) == 2 and set(t) <= known for t in trans):
+        raise ValueError(f'{where}.transitions: cần tối đa 5000 cặp [từ, đến] với tên trong states')
+    succ = {s: [] for s in states}
+    for a, b in trans:
+        succ[a].append(b)
+    return states, initial, {s: set(labeling.get(s, [])) for s in states}, succ
+
+
+def check_ctl(machine, formula):
+    """Tập trạng thái thỏa công thức theo điểm bất động CTL; trả (đúng ở mọi trạng thái đầu, đường phản ví dụ/nhân chứng).
+    Trạng thái deadlock không có đường vô hạn nên không thỏa EG; AX ở đó đúng rỗng, như ngữ nghĩa thường dùng."""
+    states, initial, labels, succ = machine
+    m = CTL.match(formula.replace(' ', ''))
+    if not m:
+        return None, []
+    op, neg, atom = m.groups()
+    p = {s for s in states if (atom in labels[s]) != bool(neg)}
+    ex = lambda z: {s for s in states if any(t in z for t in succ[s])}
+
+    def ef(z):
+        while (n := z | ex(z)) != z:
+            z = n
+        return z
+
+    def eg(z):
+        while (n := z & ex(z)) != z:
+            z = n
+        return z
+    every = set(states)
+    sat = {'EX': lambda: ex(p), 'AX': lambda: {s for s in states if all(t in p for t in succ[s])}, 'EF': lambda: ef(p),
+           'AG': lambda: every - ef(every - p), 'EG': lambda: eg(p), 'AF': lambda: every - eg(every - p)}[op]()
+    holds = all(s in sat for s in initial)
+    goal = every - p if op == 'AG' and not holds else p if op == 'EF' and holds else None
+    return holds, spec_path(initial, succ, goal) if goal else []
+
+
+def spec_path(initial, succ, goal):
+    """Đường ngắn nhất (BFS) từ trạng thái đầu tới một trạng thái trong goal."""
+    prev, todo = {s: None for s in initial}, list(initial)
+    while todo:
+        s = todo.pop(0)
+        if s in goal:
+            path = []
+            while s is not None:
+                path.append(s)
+                s = prev[s]
+            return path[::-1]
+        for t in succ[s]:
+            if t not in prev:
+                prev[t] = s
+                todo.append(t)
+    return []
+
+
+def spec_graph(machine, path):
+    """Kripke của đặc tả: trạng thái mang nhãn violation tô đỏ như GUI của exe, đường phản ví dụ tô đỏ."""
+    states, initial, labels, succ = machine
+    text = lambda s: html.escape(s, quote=False).replace('"', "'")  # tên trạng thái do người dùng nạp, không để chen cú pháp Mermaid
+    red = set(zip(path, path[1:]))
+    nodes = [(s, text(s) + ' (đầu)' * (s in initial[1:]) + '<br>{' + ', '.join(map(text, sorted(labels[s]))) + '}',
+              'violation' in labels[s]) for s in states]
+    # ponytail: state_graph chỉ vẽ một mũi tên vào; trạng thái đầu thứ hai trở đi ghi chữ "(đầu)"
+    return nodes, [(a, b, '', (a, b) in red) for a in states for b in succ[a]], initial[0]
+
+
+def run_spec(name, spec):
+    """Nạp một đặc tả theo định dạng exe: vẽ Kripke chính và additional_flows, kiểm safety_properties, mutual_exclusion,
+    deadlock; ghi kết quả vào dac_ta/ket_qua/<tên>.json. Trả kết quả và các sơ đồ."""
+    if not isinstance(spec, dict) or not spec.get('state_machine'):
+        raise ValueError('Đặc tả cần object có state_machine (xem định dạng dataset/specs/FORMAT.md của exe)')
+    machine = spec_machine(spec['state_machine'], 'state_machine')
+    states, initial, labels, succ = machine
+    props, cex = [], []
+    for f in spec.get('safety_properties') or []:
+        holds, path = check_ctl(machine, str(f))
+        props.append({'formula': f, 'holds': holds, 'path': path})
+        cex = cex or (path if holds is False else [])
+    mx = spec.get('mutual_exclusion') or None
+    if mx:
+        both = [s for s in states if {mx.get('atom1'), mx.get('atom2')} <= labels[s]]
+        mx = {**mx, 'holds': not both, 'states': both}
+    result = {'name': str(spec.get('name') or name), 'checked_at': datetime.now().isoformat(timespec='seconds'),
+              'states': len(states), 'transitions': sum(map(len, succ.values())),
+              'deadlocks': [s for s in states if not succ[s]], 'properties': props, 'mutual_exclusion': mx,
+              'not_run': [k for k in ('functions', 'arithmetic_checks') if spec.get(k)]}
+    graphs = [{'title': 'Kripke', 'src': state_graph(*spec_graph(machine, cex))}]
+    for title, flow in (spec.get('additional_flows') or {}).items():
+        graphs.append({'title': str(title)[:60], 'src': state_graph(*spec_graph(spec_machine(flow, f'additional_flows[{title}]'), []))})
+    out = DAC_TA / 'ket_qua' / (re.sub(r'[^\w.-]', '_', Path(name).stem)[:80] + '.json')
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
+    return {**result, 'saved': str(out.relative_to(ROOT)), 'graphs': graphs}
+
+
 SRC, V0, V1 = 'source_v0: mã gốc', '_v0: mã lỗi cố ý', '_v1: mã đã sửa'
+S1 = 'source_v1: mã gốc đã vá'
 
 
 def ver(path):
@@ -242,13 +396,12 @@ def ver(path):
     return V0 if '/_v0/' in p else V1 if '/_v1/' in p else SRC
 
 
-def memory_walk(d, branch):
-    """Phép chuyển mà đối tượng của một nhánh mã thực sự đi qua: phát lại chuỗi sự kiện từng đối tượng trên bảng chuyển."""
+def memory_walk(d, objs):
+    """Phép chuyển mà các đối tượng của một nhánh mã thực sự đi qua: phát lại chuỗi sự kiện từng đối tượng trên bảng chuyển.
+    Trả về mô hình con (states, transition_table) để vẽ thành sơ đồ trạng thái hoặc Kripke."""
     step = {(t['from'], t['event']): t for t in d['transition_table']}
     start, used = next(iter(d['states'])), Counter()
-    for o in d['objects']:
-        if ver(o['group']) != branch:
-            continue
+    for o in objs:
         s, found = start, set()
         for event in o['events']:
             t = step.get((s, event))
@@ -258,10 +411,11 @@ def memory_walk(d, branch):
             used[s, event, t['to'], v] += 1
             found.add(v)
             s = t['to']
-        assert found - {None} == set(o['violations']), o['obj']  # phát lại phải ra đúng vi phạm run_memory_cases.py đã ghi
+        # phát lại phải ra đúng vi phạm run_memory_cases.py đã ghi; đối tượng source_v1 không ghi vi phạm từng đối tượng
+        assert 'violations' not in o or found - {None} == set(o['violations']), o['obj']
     table = [{'from': a, 'event': f'{event} ×{n}', 'to': b, 'violation': v} for (a, event, b, v), n in used.items()]
     seen = {start} | {t[k] for t in table for k in ('from', 'to')}
-    return memory_graph({'states': {s: v for s, v in d['states'].items() if s in seen}, 'transition_table': table})
+    return {'states': {s: v for s, v in d['states'].items() if s in seen}, 'transition_table': table}
 
 
 def rule_hits(data):
@@ -318,14 +472,19 @@ def branches(tid):
         return E + 'auth_model.json', {SRC: [(f"{r['formula']}: {'đúng' if r['initial_satisfies'] else 'sai'}",
                                               not r['initial_satisfies']) for r in d['results']]}
     if tid == 'so_ho_so':
-        d = load(E + 'case_register.json')
-        rows = defaultdict(list)
+        d, out, ok = load(E + 'case_register.json'), defaultdict(list), defaultdict(list)
+        n = d['summary']['overview_cases'] + d['summary']['sql_source_cases']
+        # TC tổng hợp mã sinh ghi nhánh ở cuối tên (TC-17..22 _v0, TC-23..28 _v1); TC còn lại và SQL-xx là mã gốc
+        for (b, kind), k in Counter((V0 if r[2].endswith(' _v0') else V1 if r[2].endswith(' _v1') else SRC,
+                                     'TC tổng hợp' if r[0].startswith('TC-') else 'hồ sơ nguồn SQL')
+                                    for r in d['master_rows'][:n]).items():
+            out[b].append((f'{k} {kind}', False))
         for r in d['sat_rows'] + d['smt_rows']:
-            rows[ver(r['source'])].append(r.get('status', r.get('dpll')) == r['expected'])
-        return E + 'case_register.json', {
-            SRC: [(f"{d['summary']['overview_cases']} hồ sơ tổng hợp, {d['summary']['sql_source_cases']} truy vấn SQL", False)],
-            **{b: [(f'{len(ok)} hồ sơ SAT/SMT', False), (f'khớp kỳ vọng {sum(ok)}/{len(ok)}', not all(ok))]
-               for b, ok in sorted(rows.items()) if b != SRC}}
+            b = ver(r['source'])  # ca đối chứng của chính DPLL (models/run_models.py) không thuộc nhánh mã nào
+            ok[b if b != SRC else f"{r['source']}: đối chứng bộ giải"].append(r.get('status', r.get('dpll')) == r['expected'])
+        for b, v in ok.items():
+            out[b] += [(f'{len(v)} hồ sơ SAT/SMT', False), (f'khớp kỳ vọng {sum(v)}/{len(v)}', not all(v))]
+        return E + 'case_register.json', dict(out)
     if tid == 'bo_nho_unit':
         by_class = defaultdict(list)
         for _, cls, status in unit_tests():
@@ -355,6 +514,43 @@ def branches(tid):
         return E + 'memory_case_results.json', out
 
 
+def source_v1(tid):
+    """Kết quả của test trên source_v1 từ bo_sung_v1/evidence_v1/; None khi lệnh kiểm v1 chưa chạy."""
+    d = load(V1E + f"{'sql' if tid == 'so_ho_so' else tid}_v1.json")
+    if d is None:
+        return None
+    if tid == 'kiem_ke':
+        n = d['php_file_count']
+        return [(f"{n} tệp PHP, {d['physical_lines']} dòng", False), (f"lint {d['lint_ok']}/{n}", d['lint_ok'] < n),
+                (f"{d['files_changed_from_v0']} tệp sửa, thêm {', '.join(d['files_added'])}", False),
+                (f"make_v1 tái tạo {d['make_v1_reproduced']}", False),
+                (f"mysql_* còn {d['mysql_ext_calls']} lời gọi", d['mysql_ext_calls'] > 0),
+                (f"{len(d['missing_includes'])} include gãy (giữ như mã gốc)", bool(d['missing_includes']))]
+    if tid in ('sast', 'bao_cao'):
+        return rule_hits(load(V1E + 'semgrep_v1.json')) or [(f"0 hit / {d.get('scanned', 68)} tệp (v0: 322)", False)]
+    if tid == 'phpstan':
+        return [(f'{k}: {n}', True) for k, n in d['by_identifier'].items()] + \
+            [(f"function.notFound {d['function_not_found']}, không cần stub", d['function_not_found'] > 0)]
+    if tid == 'sql':
+        return [(f"SQL chuỗi hằng {d['literal_sql']}", False),
+                (f"trường v0 nay bind {d['v0_with_fields_now_bound']}", False)] + \
+            [(f'{k}: {n}', False) for k, n in d['v0_to_v1'].items()]
+    if tid == 'so_ho_so':
+        return [(f'{n} hồ sơ SQL nguồn → {k}', False) for k, n in d['v0_to_v1'].items()]
+    if tid == 'auth':
+        return [(f"{r['formula']}: {'đúng' if r['initial_satisfies'] else 'sai'}", not r['initial_satisfies'])
+                for r in d['results']] + \
+            [(f"handler thiếu guard {d['v1']['handlers_without_guard']}", not d['v1']['handlers_without_guard'].startswith('0/')),
+             (f"form thiếu CSRF {d['v1']['forms_to_handlers_without_token']}",
+              not d['v1']['forms_to_handlers_without_token'].startswith('0/'))]
+    if tid == 'bo_nho_tinh':
+        # rule bộ nhớ chỉ khớp mysql_*; source_v1 dùng mysqli nên 0 hit không chứng minh gì
+        return [(f"Semgrep bộ nhớ: {d['findings']} hit<br>(rule chỉ khớp mysql_*, không có ý nghĩa)", False)]
+    if tid == 'bo_nho_case':
+        return [(f"{d['violations']} vi phạm trên {d['files_with_violation']} tệp", d['violations'] > 0)] + \
+            [(f'{c} ×{n}', True) for c, n in d['by_code'].items()]
+
+
 def diagrams(tid):
     """Sơ đồ của một test cho giao diện: kết quả theo nhánh mã, thêm mô hình trạng thái nếu test có."""
     out = []
@@ -363,16 +559,29 @@ def diagrams(tid):
     except TypeError:
         rel, b = None, None
     if b:
-        if SRC in b:  # bản vá của mã gốc (source_v1) chưa có trong gói
-            b['source_v1: mã gốc đã vá'] = [('chưa có trong gói, chờ bo_sung_v1/', False)]
         title = next(t[2] for t in TESTS if t[0] == tid)
-        out.append({'title': 'Kết quả theo nhánh mã', 'file': rel, 'src': state_graph(*tree_graph(title, b))})
+        # tab v0: mã gốc và mã lỗi cố ý; tab v1: mã đã sửa; nút không thuộc nhánh nào (unit test, đối chứng bộ giải) ở cả hai
+        common = {k: v for k, v in b.items() if k not in (SRC, V0, V1)}
+        v1 = {k: b[k] for k in (V1,) if k in b}
+        if SRC in b:
+            v1[S1] = source_v1(tid) or [('lệnh kiểm v1 chưa chạy', False)]
+        for tab, part in (('v0', {k: b[k] for k in (SRC, V0) if k in b}), ('v1', v1)):
+            if part or common:
+                out.append({'title': f'Kết quả {tab}', 'file': rel, 'src': state_graph(*tree_graph(title, {**part, **common}))})
     if tid == 'auth' and (d := load(E + 'auth_model.json')):
         out.append({'title': 'Kripke source_v0', 'file': E + 'auth_model.json', 'src': state_graph(*auth_graph(d))})
+    if tid == 'auth' and (d := load(V1E + 'auth_v1.json')):
+        out.append({'title': 'Kripke source_v1', 'file': V1E + 'auth_v1.json', 'src': state_graph(*auth_graph(d))})
+    # Kripke là mô hình của mã, không của công cụ: chỉ vẽ ở test kiểm mô hình, tránh 3 test hiện cùng một hình
     if tid == 'bo_nho_case' and (d := load(E + 'memory_case_results.json')):
-        out += [{'title': f'Trạng thái {b.split(":")[0]}', 'file': E + 'memory_case_results.json',
-                 'src': state_graph(*memory_walk(d, b))} for b in (SRC, V0, V1)]
+        walks = {b: (E + 'memory_case_results.json', memory_walk(d, [o for o in d['objects'] if ver(o['group']) == b]))
+                 for b in (SRC, V0, V1)}
+        if (v1 := load(V1E + 'bo_nho_case_v1.json')) and 'objects' in v1:  # có khi đã chạy lệnh kiểm v1 của test này
+            walks[S1] = (V1E + 'bo_nho_case_v1.json', memory_walk(d, v1['objects']))
         out.append({'title': 'Mô hình đầy đủ', 'file': E + 'memory_case_results.json', 'src': state_graph(*memory_graph(d))})
+        # Kripke theo từng nhánh mã, như Kripke source_v0/source_v1 của test xác thực; cạnh ghi mệnh đề nên thay luôn tab Trạng thái
+        out += [{'title': f'Kripke {b.split(":")[0]}', 'file': f, 'src': state_graph(*memory_kripke(w))}
+                for b, (f, w) in walks.items()]
     return out
 
 
@@ -389,7 +598,12 @@ def tree_graph(title, branches):
 
 
 def actual(tid):
-    """Một dòng số liệu thực tế của test, để đặt cạnh cột kỳ vọng."""
+    """Một dòng số liệu thực tế của test, để đặt cạnh cột kỳ vọng; test có kiểm source_v1 nối thêm số v1."""
+    line, v1 = actual_v0(tid), source_v1(tid) if tid in V1_CHECK else None
+    return line + (' | v1: ' + '; '.join(re.sub('<br>.*', '', t) for t, _ in v1[:3]) if v1 else '')
+
+
+def actual_v0(tid):
     if tid == 'kiem_ke':
         d = load(E + 'static_summary.json')
         return f"{d['php_file_count']} tệp, {d['physical_lines']} dòng; lint {d['lint_ok']}/{d['php_file_count']}"
@@ -705,8 +919,8 @@ td:first-child code { white-space:nowrap; word-break:normal; }
 <div><div class="big">__SUMMARY__</div>
 <button onclick="document.querySelectorAll('details').forEach(d => d.open = true)">Mở hết</button>
 <button onclick="document.querySelectorAll('details').forEach(d => d.open = true); print()">In / lưu PDF</button></div></div>
-<h2>Tổng hợp</h2><p class="muted">Cột thực tế đọc từ JSON mà chính lần chạy này ghi ra; cột kỳ vọng lấy theo README của gói. Bấm tên test để tới mục chi tiết. Mỗi mục có các sơ đồ như giao diện chọn test: kết quả theo nhánh mã
-(source_v0 mã gốc, _v0 mã lỗi cố ý, _v1 mã đã sửa), thêm Kripke và sơ đồ trạng thái bộ nhớ ở mục tương ứng; màu đỏ là lỗi hoặc vi phạm.</p>
+<h2>Tổng hợp</h2><p class="muted">Cột thực tế đọc từ JSON mà chính lần chạy này ghi ra; cột kỳ vọng lấy theo README của gói. Bấm tên test để tới mục chi tiết. Mỗi mục có các sơ đồ như giao diện chọn test: kết quả v0
+(source_v0 mã gốc, _v0 mã lỗi cố ý) và kết quả v1 (_v1 mã đã sửa), thêm Kripke và sơ đồ trạng thái bộ nhớ ở mục tương ứng; màu đỏ là lỗi hoặc vi phạm.</p>
 <div class="scroll"><table><tr><th>Test</th><th>Kết quả</th><th>Kỳ vọng</th><th>Thực tế</th><th>Mã</th><th>Giây</th></tr>__ROWS__</table></div>
 __DETAILS__
 </main>
@@ -755,15 +969,35 @@ class Handler(SimpleHTTPRequestHandler):
             tid = parse_qs(url.query).get('test', [''])[0]
             data = diagrams(tid) if any(t[0] == tid for t in TESTS) else []
             self.send_body(json.dumps(data, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
+        elif url.path == '/api/specs':
+            self.send_body(json.dumps(sorted(p.name for p in DAC_TA.glob('*.json'))).encode(), 'application/json')
         else:
             super().do_GET()
 
+    def send_spec(self, name, text):
+        try:
+            data = run_spec(name, json.loads(text))
+        except (ValueError, KeyError, TypeError) as error:  # json.JSONDecodeError là ValueError
+            data = {'error': f'Không nạp được {name}: {error}'}
+        self.send_body(json.dumps(data, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
+
     def do_POST(self):
         # Chỉ nhận JSON từ chính trang này: trang khác không gửi được lệnh chạy (preflight, kiểm Host chống DNS rebinding)
-        if (self.path != '/api/run' or self.headers.get('Content-Type') != 'application/json'
+        if (self.path not in ('/api/run', '/api/spec') or self.headers.get('Content-Type') != 'application/json'
                 or self.headers.get('Host') not in HOSTS):
             return self.send_error(400)
-        wanted = json.loads(self.rfile.read(int(self.headers.get('Content-Length', 0))) or b'{}').get('ids', [])
+        size = int(self.headers.get('Content-Length', 0))
+        if size > 2_000_000:  # đặc tả mẫu của exe chỉ vài KB
+            return self.send_error(413)
+        body = json.loads(self.rfile.read(size) or b'{}')
+        if self.path == '/api/spec':  # file người dùng chọn: {name, text}; hoặc tên một đặc tả mẫu trong dac_ta/
+            name = str(body.get('name', 'dac_ta.json'))
+            if 'text' in body:
+                return self.send_spec(name, str(body['text']))
+            if name not in {p.name for p in DAC_TA.glob('*.json')}:
+                return self.send_error(404)
+            return self.send_spec(name, (DAC_TA / name).read_text(encoding='utf-8'))
+        wanted = body.get('ids', [])
         ids = [t[0] for t in TESTS if t[0] in wanted]
         with lock:
             started = bool(ids) and state['running'] is None
@@ -880,6 +1114,14 @@ pre { margin:0; background:var(--muted); border-radius:calc(var(--radius) * 0.8)
 <div class="stack" id="steps"></div>
 <button class="btn outline" id="report" style="margin-top:8px" disabled>Mở báo cáo HTML</button>
 <p class="desc">Báo cáo đầy đủ nhất khi đã chạy cả 3 bước; trong báo cáo có nút In / lưu PDF.</p></section>
+<section class="card"><h2>Đầu vào đặc tả (JSON)</h2>
+<p class="desc">Cùng định dạng file .json của SpecVerificationLab.exe: vẽ Kripke, kiểm CTL trong safety_properties,
+mutual_exclusion và deadlock. Kết quả lưu vào <code>dac_ta/ket_qua/</code>.</p>
+<div class="stack"><select class="btn outline" id="spec-list" aria-label="Đặc tả mẫu trong dac_ta/"></select>
+<button class="btn outline" id="spec-run">Nạp đặc tả đã chọn</button>
+<button class="btn outline" id="spec-file">Nạp từ file JSON khác…</button>
+<input type="file" id="spec-input" accept=".json,application/json" hidden></div>
+<pre id="spec-out" class="desc" aria-live="polite"></pre></section>
 </aside>
 <div class="sash" id="sash" role="separator" aria-orientation="vertical" tabindex="0"
   aria-label="Thanh chia hai cột: kéo hoặc dùng phím mũi tên trái, phải"></div>
@@ -995,7 +1237,7 @@ async function showGraph(i) {
   $('graphs').querySelectorAll('.tab').forEach((b, j) => b.setAttribute('aria-selected', j === i));
   box.innerHTML = '<pre class="mermaid"></pre>';
   box.firstChild.textContent = g.src;  // offline thì giữ văn bản này, vẫn đọc được từng phép chuyển
-  $('graph-note').innerHTML = `Vẽ từ ${g.file ? link(g.file, g.file) : 'nhật ký của lần chạy'}, cập nhật sau mỗi lần chạy
+  $('graph-note').innerHTML = g.note ? esc(g.note) : `Vẽ từ ${g.file ? link(g.file, g.file) : 'nhật ký của lần chạy'}, cập nhật sau mỗi lần chạy
     “${TESTS.find(t => t.id === selected).title}”. Màu đỏ: lỗi hoặc vi phạm (hit, ca có phản ví dụ, trạng thái violation, phép chuyển ⚠ E_…).`;
   try { pele = pele || await import('https://cdn.jsdelivr.net/npm/pele@1.3.0/dist/pele.js'); pele.mount(box.firstChild, g.src); }
   catch (e) {}
@@ -1013,6 +1255,37 @@ async function poll() {
   render();
   setTimeout(poll, 1000);
 }
+async function loadSpec(body) {
+  const out = $('spec-out');
+  out.textContent = 'Đang kiểm…';
+  let r;
+  try { r = await (await fetch('/api/spec', {method: 'POST', headers: {'Content-Type': 'application/json'},
+                                             body: JSON.stringify(body)})).json(); }
+  catch (e) { out.textContent = 'Không gửi được đặc tả: ' + e; return; }
+  if (r.error) { out.textContent = r.error; return; }
+  const yes = h => h === null ? '? không đọc được công thức' : h ? '✔ đúng' : '✘ sai';
+  out.textContent = [`${r.name}: ${r.states} trạng thái, ${r.transitions} phép chuyển`,
+    ...r.properties.map(p => `${p.formula}: ${yes(p.holds)}${p.path.length ? (p.holds ? ', nhân chứng ' : ', phản ví dụ ') + p.path.join(' → ') : ''}`),
+    ...(r.mutual_exclusion ? [`Loại trừ ${r.mutual_exclusion.atom1}/${r.mutual_exclusion.atom2}: ${yes(r.mutual_exclusion.holds)}${
+      r.mutual_exclusion.states.length ? ' ở ' + r.mutual_exclusion.states.join(', ') : ''}`] : []),
+    `Deadlock: ${r.deadlocks.length ? r.deadlocks.join(', ') : 'không'}`,
+    ...(r.not_run.length ? [`Chưa chạy phần ${r.not_run.join(', ')} (sinh mã, Z3 của exe)`] : []),
+    `Đã lưu ${r.saved}`].join('\\n');
+  const note = `Đặc tả ${r.name}. Màu đỏ: trạng thái có nhãn violation và đường phản ví dụ của công thức sai đầu tiên.`;
+  graphs = r.graphs.map(g => ({...g, note})); graph = 0;
+  $('graphs').innerHTML = graphs.map((g, i) => `<button class="tab" role="tab" data-graph="${i}">${esc(g.title)}</button>`).join('');
+  showGraph(0);
+}
+fetch('/api/specs').then(r => r.json()).then(names => {
+  $('spec-list').innerHTML = names.map(n => `<option>${esc(n)}</option>`).join('') || '<option value="">(chưa có đặc tả mẫu)</option>';
+});
+$('spec-run').onclick = () => $('spec-list').value && loadSpec({name: $('spec-list').value});
+$('spec-file').onclick = () => $('spec-input').click();
+$('spec-input').onchange = async e => {
+  const f = e.target.files[0];
+  if (f) loadSpec({name: f.name, text: await f.text()});
+  e.target.value = '';
+};
 render();
 loadGraphs();
 poll();

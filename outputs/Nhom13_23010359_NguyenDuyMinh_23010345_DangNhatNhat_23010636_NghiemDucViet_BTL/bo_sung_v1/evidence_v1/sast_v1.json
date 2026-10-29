@@ -1,0 +1,15 @@
+{
+  "findings": 0,
+  "errors": 0,
+  "scanned": 68,
+  "by_rule": {},
+  "v0_findings": 322,
+  "v0_by_rule": {
+    "php-direct-mysql-query-taint": 54,
+    "php-legacy-mysql-extension": 147,
+    "tainted-sql-string": 26,
+    "php-mysql-error-information-disclosure": 52,
+    "echoed-request": 42,
+    "php-hardcoded-db-credentials": 1
+  }
+}

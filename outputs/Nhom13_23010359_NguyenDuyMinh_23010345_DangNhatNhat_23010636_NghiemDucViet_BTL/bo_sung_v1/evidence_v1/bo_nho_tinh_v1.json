@@ -1,0 +1,13 @@
+{
+  "findings": 0,
+  "by_rule": {},
+  "v0_findings": 130,
+  "v0_by_rule": {
+    "mem-php-result-not-freed": 39,
+    "mem-php-query-result-unchecked": 5,
+    "mem-php-select-without-limit": 37,
+    "mem-php-query-in-loop": 12,
+    "mem-php-row-unchecked": 33,
+    "mem-php-password-not-wiped": 4
+  }
+}

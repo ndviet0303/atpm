@@ -1,0 +1,9 @@
+{
+  "findings": 0,
+  "errors": 0,
+  "files": [
+    "bao_cao_semgrep_v1.txt",
+    "bao_cao_semgrep_v1.sarif",
+    "bao_cao_semgrep_v1.json"
+  ]
+}

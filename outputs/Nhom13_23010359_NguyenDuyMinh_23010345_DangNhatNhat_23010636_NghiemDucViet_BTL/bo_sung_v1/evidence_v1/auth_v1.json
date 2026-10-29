@@ -1,0 +1,87 @@
+{
+  "v0": {
+    "handlers_without_guard": "12/12",
+    "handlers_reading_get": [
+      "delete_books.php",
+      "delete_member.php",
+      "delete_student.php",
+      "delete_user.php",
+      "return_save.php"
+    ],
+    "get_links_to_write_handlers": 5,
+    "forms_to_handlers_without_token": "8/8",
+    "self_post_modals_with_csrf_verify": "0/2",
+    "borrow_id_by_order_by_desc": true,
+    "borrow_insert_id": false,
+    "borrow_transaction": false,
+    "password_hash_calls": 0,
+    "password_verify_calls": 0
+  },
+  "v1": {
+    "handlers_without_guard": "0/12",
+    "handlers_reading_get": [],
+    "get_links_to_write_handlers": 0,
+    "forms_to_handlers_without_token": "0/13",
+    "self_post_modals_with_csrf_verify": "2/2",
+    "borrow_id_by_order_by_desc": false,
+    "borrow_insert_id": true,
+    "borrow_transaction": true,
+    "password_hash_calls": 2,
+    "password_verify_calls": 2
+  },
+  "AG(write -> authenticated)": {
+    "v0": false,
+    "v1": true
+  },
+  "scope": "Cạnh của mô hình suy từ harness trên mã v1 (guard trước CSDL ở 12 handler); không chạy ứng dụng",
+  "initial_state": "unauthenticated",
+  "states": {
+    "unauthenticated": [
+      "denied",
+      "authenticated"
+    ],
+    "denied": [
+      "denied"
+    ],
+    "authenticated": [
+      "authorized_write"
+    ],
+    "authorized_write": [
+      "authorized_write"
+    ]
+  },
+  "labels": {
+    "unauthenticated": [],
+    "denied": [
+      "denied"
+    ],
+    "authenticated": [
+      "authenticated"
+    ],
+    "authorized_write": [
+      "authenticated",
+      "write"
+    ]
+  },
+  "reachable": [
+    "authenticated",
+    "authorized_write",
+    "denied",
+    "unauthenticated"
+  ],
+  "results": [
+    {
+      "formula": "AG(write -> authenticated)",
+      "initial_satisfies": true,
+      "counterexample": null
+    },
+    {
+      "formula": "EF(denied)",
+      "initial_satisfies": true
+    },
+    {
+      "formula": "EF(authenticated)",
+      "initial_satisfies": true
+    }
+  ]
+}
